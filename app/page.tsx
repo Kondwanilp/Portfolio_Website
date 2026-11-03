@@ -38,7 +38,7 @@ export default function Home() {
           <div className="polaroid">
             <div className="polaroid-photo">
               <img
-                src="/portrait.jpg"
+                src="/Portrait.jpg"
                 alt="Portrait of Kondwani Phiri"
               />
             </div>

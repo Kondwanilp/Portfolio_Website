@@ -1,0 +1,364 @@
+
+/* =========================================
+   LISTENING ROOM
+========================================= */
+
+.listeningRoom {
+  width: 100%;
+  margin-top: 55px;
+  padding: 30px 0 32px;
+  border-top: 1px solid var(--border, #dcd4c6);
+  border-bottom: 1px solid var(--border, #dcd4c6);
+  color: var(--foreground, #292720);
+  box-sizing: border-box;
+}
+
+.listeningRoom * {
+  box-sizing: border-box;
+}
+
+.musicGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.95fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.songsSection,
+.weekSection {
+  min-width: 0;
+}
+
+/* =========================================
+   SECTION HEADINGS
+========================================= */
+
+.sectionHeader {
+  margin-bottom: 14px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--border, #dcd4c6);
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--foreground, #292720);
+}
+
+/* =========================================
+   SONG LIST
+========================================= */
+
+.trackList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0;
+}
+
+.trackRow {
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid !important;
+  grid-template-columns: 36px minmax(0, 1fr) 16px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 50px;
+  margin: 0;
+  padding: 6px 5px;
+  border: none;
+  border-bottom: 1px solid rgba(130, 119, 98, 0.13);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--foreground, #292720);
+  font-family: "Instrument Sans", sans-serif;
+  font-size: inherit;
+  line-height: normal;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.trackRow:last-child {
+  border-bottom: none;
+}
+
+.trackRow:hover,
+.activeTrack {
+  background: rgba(130, 119, 98, 0.055);
+}
+
+.trackRow:focus-visible {
+  outline: 1px solid var(--muted, #858074);
+  outline-offset: -1px;
+}
+
+.trackArtwork,
+.artworkPlaceholder {
+  display: block;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px;
+  max-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
+  flex: 0 0 36px;
+  object-fit: cover;
+  background: #e7dfd1;
+}
+
+.artworkPlaceholder,
+.featuredArtworkPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted, #858074);
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 19px;
+}
+
+.trackDetails {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.trackName {
+  overflow: hidden;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--foreground, #292720);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackArtist {
+  overflow: hidden;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--muted, #858074);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trackAction {
+  font-size: 10px;
+  text-align: right;
+  color: var(--muted, #858074);
+  transition: color 0.2s ease;
+}
+
+.activeTrack .trackAction {
+  color: #68745f;
+}
+
+/* =========================================
+   SONG OF THE WEEK
+========================================= */
+
+.featuredTrack {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 2px 0;
+}
+
+.featuredArtwork,
+.featuredArtworkPlaceholder {
+  display: block;
+  width: 76px !important;
+  height: 76px !important;
+  min-width: 76px;
+  max-width: 76px;
+  min-height: 76px;
+  max-height: 76px;
+  flex: 0 0 76px;
+  object-fit: cover;
+  background: #e7dfd1;
+}
+
+.featuredDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding-top: 1px;
+}
+
+.featuredName {
+  margin: 0;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--foreground, #292720);
+}
+
+.featuredArtist {
+  margin: 4px 0 0;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #625e54;
+}
+
+.featuredAlbum {
+  margin: 3px 0 0;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--muted, #858074);
+}
+
+.albumLink {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 10px;
+  color: var(--foreground, #292720);
+  text-decoration: underline;
+  text-decoration-color: #b5aa97;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.albumLink:hover {
+  color: #68745f;
+}
+
+/* =========================================
+   SPOTIFY PLAYER
+========================================= */
+
+.playerSection {
+  width: 100%;
+  margin-top: 25px;
+  padding-top: 17px;
+  border-top: 1px solid var(--border, #dcd4c6);
+}
+
+.playerSection iframe {
+  display: block;
+  width: 100%;
+  height: 80px;
+  border: 1px solid rgba(130, 119, 98, 0.16);
+  border-radius: 8px;
+  background: var(--paper, #fffdf9);
+}
+
+/* =========================================
+   STATUS AND ERRORS
+========================================= */
+
+.statusText {
+  margin: 0;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted, #858074);
+}
+
+.connectLink {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  color: var(--foreground, #292720);
+  text-decoration: underline;
+  text-decoration-color: #b5aa97;
+  text-underline-offset: 3px;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+  .musicGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+
+  .weekSection {
+    padding-top: 24px;
+    border-top: 1px solid var(--border, #dcd4c6);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .listeningRoom {
+    margin-top: 40px;
+    padding: 25px 0 29px;
+  }
+
+  .musicGrid {
+    gap: 25px;
+  }
+
+  .sectionHeader h2 {
+    font-size: 22px;
+  }
+
+  .trackRow {
+    grid-template-columns: 34px minmax(0, 1fr) 14px;
+    gap: 10px;
+    min-height: 47px;
+  }
+
+  .trackArtwork,
+  .artworkPlaceholder {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px;
+    max-width: 34px;
+    min-height: 34px;
+    max-height: 34px;
+    flex-basis: 34px;
+  }
+
+  .trackName {
+    font-size: 11px;
+  }
+
+  .trackArtist {
+    font-size: 9px;
+  }
+
+  .featuredTrack {
+    gap: 12px;
+  }
+
+  .featuredArtwork,
+  .featuredArtworkPlaceholder {
+    width: 68px !important;
+    height: 68px !important;
+    min-width: 68px;
+    max-width: 68px;
+    min-height: 68px;
+    max-height: 68px;
+    flex-basis: 68px;
+  }
+
+  .featuredName {
+    font-size: 20px;
+  }
+
+  .playerSection {
+    margin-top: 20px;
+    padding-top: 14px;
+  }
+}

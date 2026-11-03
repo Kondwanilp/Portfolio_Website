@@ -1,0 +1,196 @@
+
+/* =========================================
+   CHESS HUB
+========================================= */
+
+.extras-chess-hub {
+  width: 100%;
+  margin-top: 36px;
+}
+
+.extras-chess-hub-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 19px;
+}
+
+.extras-chess-hub-header > div > p {
+  margin: 0 0 5px;
+  color: #78949e;
+  font-family: "Courier Prime", monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.extras-chess-hub-header h2 {
+  margin: 0;
+  color: #304b56;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.extras-chess-hub-header > span {
+  color: #8a9da3;
+  font-family: "Courier Prime", monospace;
+  font-size: 8px;
+  letter-spacing: 0.7px;
+}
+
+/* =========================================
+   MODE TABS
+========================================= */
+
+.extras-chess-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d5e3e6;
+}
+
+.extras-chess-tab {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+  min-height: 64px;
+  margin: 0;
+  padding: 10px 14px;
+
+  border: 1px solid #d5e3e6;
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.57);
+  color: #587581;
+
+  font-family: "Instrument Sans", sans-serif;
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.extras-chess-tab:hover {
+  transform: translateY(-2px);
+  border-color: #b3ccd2;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.extras-chess-tab.is-active {
+  border-color: #a9c8cf;
+  background: #e7f0f2;
+  color: #3f6573;
+}
+
+.extras-chess-tab:focus-visible {
+  outline: 2px solid #719aa8;
+  outline-offset: 3px;
+}
+
+.extras-chess-tab-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border: 1px solid rgba(115, 153, 164, 0.15);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.74);
+  color: #638a97;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 23px;
+}
+
+.extras-chess-tab-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+
+.extras-chess-tab-text strong {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.extras-chess-tab-text small {
+  color: #8a9da3;
+  font-family: "Courier Prime", monospace;
+  font-size: 7px;
+  letter-spacing: 0.7px;
+}
+
+.extras-chess-tab-indicator {
+  color: #7099a5;
+  font-size: 8px;
+}
+
+.extras-chess-mode-content {
+  min-width: 0;
+}
+
+.extras-chess-hub-note {
+  margin: 22px 0 0;
+  color: #87999e;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  text-align: center;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 540px) {
+  .extras-chess-hub {
+    margin-top: 28px;
+  }
+
+  .extras-chess-hub-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .extras-chess-hub-header h2 {
+    font-size: 28px;
+  }
+
+  .extras-chess-tab {
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 67px;
+    padding: 9px;
+  }
+
+  .extras-chess-tab-icon {
+    width: 31px;
+    height: 31px;
+    flex-basis: 31px;
+    font-size: 19px;
+  }
+
+  .extras-chess-tab-text strong {
+    font-size: 15px;
+  }
+
+  .extras-chess-tab-text small {
+    font-size: 6px;
+    letter-spacing: 0.3px;
+  }
+}

@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SpotifyListeningRoom.module.css";
 
 type SpotifyTrack = {
@@ -12,20 +11,20 @@ type SpotifyTrack = {
   albumArtwork: string | null;
   spotifyUrl: string | null;
   albumUrl: string | null;
-  playedAt?: string;
+  playCount: number;
 };
 
 type SpotifyResponse = {
-  total?: number;
+  totalPlays?: number;
   tracks?: SpotifyTrack[];
   error?: string;
 };
 
 export default function SpotifyListeningRoom() {
   const [tracks, setTracks] = useState<SpotifyTrack[]>([]);
+  const [totalPlays, setTotalPlays] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedTrackId, setSelectedTrackId] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -52,11 +51,14 @@ export default function SpotifyListeningRoom() {
           : [];
 
         if (!controller.signal.aborted) {
-          setTracks(validTracks);
+          setTracks(validTracks.slice(0, 5));
+          setTotalPlays(data.totalPlays ?? 0);
           setError(null);
         }
       } catch (err) {
         if (controller.signal.aborted) return;
+
+        console.error("Spotify Listening Room:", err);
 
         setError(
           err instanceof Error
@@ -75,195 +77,284 @@ export default function SpotifyListeningRoom() {
     return () => controller.abort();
   }, []);
 
-  const uniqueTracks = useMemo(() => {
-    const seen = new Set<string>();
-
-    return tracks.filter((track) => {
-      if (seen.has(track.id)) return false;
-
-      seen.add(track.id);
-      return true;
-    });
-  }, [tracks]);
-
-  const songOfTheWeek = useMemo(() => {
-    if (uniqueTracks.length === 0) return null;
-
-    const weekNumber = Math.floor(
-      Date.now() / (7 * 24 * 60 * 60 * 1000)
-    );
-
-    return uniqueTracks[weekNumber % uniqueTracks.length];
-  }, [uniqueTracks]);
-
-  const activeTrack =
-    uniqueTracks.find((track) => track.id === selectedTrackId) ??
-    songOfTheWeek;
-
-  const needsConnection =
-    error && /not connected|reconnect|unauthorized/i.test(error);
+  // The API returns tracks ranked from most played to least played.
+  // The first track is therefore the Song of the Week.
+  const songOfTheWeek = tracks.length > 0 ? tracks[0] : null;
 
   return (
     <section className={styles.listeningRoom}>
-      <div className={styles.musicGrid}>
-        {/* SONGS I'M LISTENING TO */}
+      {/* TOP HEADER */}
 
-        <div className={styles.songsSection}>
-          <div className={styles.sectionHeader}>
-            <h2>Songs I'm Listening to</h2>
-          </div>
+      <div className={styles.roomHeader}>
+        <div>
+          <p className={styles.eyebrow}>THE LISTENING ROOM</p>
 
-          {loading && (
-            <p className={styles.statusText}>Loading your music...</p>
-          )}
+          <h2 className={styles.roomTitle}>
+            Currently on rotation.
+          </h2>
 
-          {!loading && error && (
-            <div className={styles.statusText}>
-              <p>
-                {needsConnection
-                  ? "Spotify isn't connected right now."
-                  : error}
-              </p>
-
-              {needsConnection && (
-                <a
-                  href="/api/spotify/login"
-                  className={styles.connectLink}
-                >
-                  Reconnect Spotify ↗
-                </a>
-              )}
-            </div>
-          )}
-
-          {!loading && !error && uniqueTracks.length === 0 && (
-            <p className={styles.statusText}>
-              No recent tracks to show yet.
-            </p>
-          )}
-
-          {!loading && !error && uniqueTracks.length > 0 && (
-            <div className={styles.trackList}>
-              {uniqueTracks.slice(0, 10).map((track) => {
-                const isActive = activeTrack?.id === track.id;
-
-                return (
-                  <button
-                    type="button"
-                    key={track.id}
-                    onClick={() => setSelectedTrackId(track.id)}
-                    className={`${styles.trackRow} ${
-                      isActive ? styles.activeTrack : ""
-                    }`}
-                    aria-pressed={isActive}
-                    aria-label={`Select ${track.name} by ${track.artists.join(", ")}`}
-                  >
-                    {track.albumArtwork ? (
-                      <img
-                        src={track.albumArtwork}
-                        alt=""
-                        className={styles.trackArtwork}
-                        width={36}
-                        height={36}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <span className={styles.artworkPlaceholder}>♪</span>
-                    )}
-
-                    <span className={styles.trackDetails}>
-                      <span className={styles.trackName}>
-                        {track.name}
-                      </span>
-
-                      <span className={styles.trackArtist}>
-                        {track.artists.join(", ")}
-                      </span>
-                    </span>
-
-                    <span className={styles.trackAction}>
-                      {isActive ? "▶" : "↗"}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+          <p className={styles.roomDescription}>
+            A little glimpse into what has been making its way into my
+            headphones.
+          </p>
         </div>
 
-        {/* SONG OF THE WEEK */}
+        <div className={styles.spotifyStatus}>
+          <span className={styles.statusDot} />
 
-        <div className={styles.weekSection}>
-          <div className={styles.sectionHeader}>
-            <h2>Song of the week</h2>
+          <span>
+            {loading
+              ? "UPDATING"
+              : error
+                ? "UNAVAILABLE"
+                : "CONNECTED"}
+          </span>
+        </div>
+      </div>
+
+      {/* WEEKLY LISTENING SUMMARY */}
+
+      <div className={styles.weekSummary}>
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>THIS WEEK</span>
+
+          <span className={styles.summaryValue}>
+            {loading ? "—" : totalPlays.toLocaleString()}
+          </span>
+
+          <span className={styles.summaryDescription}>
+            Total plays
+          </span>
+        </div>
+
+        <div className={styles.summaryDivider} />
+
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>ON ROTATION</span>
+
+          <span className={styles.summaryValue}>
+            {loading ? "—" : String(tracks.length).padStart(2, "0")}
+          </span>
+
+          <span className={styles.summaryDescription}>
+            Top tracks
+          </span>
+        </div>
+
+        <div className={styles.summaryDivider} />
+
+        <div className={styles.summaryItem}>
+          <span className={styles.summaryLabel}>MOST PLAYED</span>
+
+          <span className={styles.summaryValue}>
+            {loading
+              ? "—"
+              : songOfTheWeek
+                ? songOfTheWeek.playCount.toLocaleString()
+                : "—"}
+          </span>
+
+          <span className={styles.summaryDescription}>
+            Plays this week
+          </span>
+        </div>
+      </div>
+
+      {/* LOADING STATE */}
+
+      {loading && (
+        <div className={styles.messageState}>
+          <span className={styles.loadingDot} />
+          <p>Finding the soundtrack...</p>
+        </div>
+      )}
+
+      {/* ERROR STATE */}
+
+      {!loading && error && (
+        <div className={styles.messageState}>
+          <h3>Your listening room is taking a break.</h3>
+
+          <p>{error}</p>
+        </div>
+      )}
+
+      {/* EMPTY STATE */}
+
+      {!loading && !error && tracks.length === 0 && (
+        <div className={styles.messageState}>
+          <h3>No tracks to display just yet.</h3>
+
+          <p>
+            Your weekly listening history will appear here once
+            Spotify has some plays to share.
+          </p>
+        </div>
+      )}
+
+      {/* MUSIC CONTENT */}
+
+      {!loading && !error && tracks.length > 0 && (
+        <div className={styles.musicGrid}>
+          {/* TOP FIVE */}
+
+          <div className={styles.songsSection}>
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className={styles.sectionEyebrow}>
+                  YOUR WEEKLY CHART
+                </p>
+
+                <h3>Songs I'm Listening to</h3>
+              </div>
+
+              <span className={styles.trackCount}>
+                01 — {String(tracks.length).padStart(2, "0")}
+              </span>
+            </div>
+
+            <div className={styles.trackList}>
+              {tracks.map((track, index) => (
+                <a
+                  key={track.id}
+                  href={
+                    track.spotifyUrl ??
+                    `https://open.spotify.com/track/${track.id}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.trackRow}
+                >
+                  <span className={styles.trackNumber}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  {track.albumArtwork ? (
+                    <img
+                      src={track.albumArtwork}
+                      alt={`${track.album} artwork`}
+                      className={styles.trackArtwork}
+                      width={46}
+                      height={46}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span className={styles.artworkPlaceholder}>
+                      ♪
+                    </span>
+                  )}
+
+                  <span className={styles.trackDetails}>
+                    <span className={styles.trackName}>
+                      {track.name}
+                    </span>
+
+                    <span className={styles.trackArtist}>
+                      {track.artists.join(", ")}
+                    </span>
+                  </span>
+
+                  <span className={styles.playCount}>
+                    <strong>{track.playCount}</strong>
+                    <span>plays</span>
+                  </span>
+
+                  <span className={styles.trackArrow}>
+                    ↗
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <p className={styles.listNote}>
+              Ranked by number of plays this week.
+            </p>
           </div>
 
-          {loading && (
-            <p className={styles.statusText}>
-              Finding this week's song...
-            </p>
-          )}
+          {/* SONG OF THE WEEK */}
 
-          {!loading && songOfTheWeek && (
-            <div className={styles.featuredTrack}>
-              {songOfTheWeek.albumArtwork ? (
-                <img
-                  src={songOfTheWeek.albumArtwork}
-                  alt={`${songOfTheWeek.album} album artwork`}
-                  className={styles.featuredArtwork}
-                  width={76}
-                  height={76}
-                />
-              ) : (
-                <span className={styles.featuredArtworkPlaceholder}>
-                  ♪
-                </span>
-              )}
+          {songOfTheWeek && (
+            <div className={styles.weekSection}>
+              <div className={styles.sectionHeader}>
+                <div>
+                  <p className={styles.sectionEyebrow}>
+                    THE WEEK'S FAVORITE
+                  </p>
 
-              <div className={styles.featuredDetails}>
-                <h3 className={styles.featuredName}>
-                  {songOfTheWeek.name}
-                </h3>
+                  <h3>Song of the Week</h3>
+                </div>
+              </div>
 
-                <p className={styles.featuredArtist}>
-                  {songOfTheWeek.artists.join(", ")}
-                </p>
-
-                <p className={styles.featuredAlbum}>
-                  {songOfTheWeek.album}
-                </p>
-
-                {songOfTheWeek.albumUrl && (
-                  <a
-                    href={songOfTheWeek.albumUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.albumLink}
-                  >
-                    View album ↗
-                  </a>
+              <div className={styles.featuredCard}>
+                {songOfTheWeek.albumArtwork ? (
+                  <img
+                    src={songOfTheWeek.albumArtwork}
+                    alt={`${songOfTheWeek.album} album artwork`}
+                    className={styles.featuredArtwork}
+                    width={220}
+                    height={220}
+                  />
+                ) : (
+                  <div className={styles.featuredArtworkPlaceholder}>
+                    ♪
+                  </div>
                 )}
+
+                <div className={styles.featuredDetails}>
+                  <span className={styles.featuredLabel}>
+                    <span className={styles.featuredDot} />
+                    MOST PLAYED THIS WEEK
+                  </span>
+
+                  <h4 className={styles.featuredName}>
+                    {songOfTheWeek.name}
+                  </h4>
+
+                  <p className={styles.featuredArtist}>
+                    {songOfTheWeek.artists.join(", ")}
+                  </p>
+
+                  <p className={styles.featuredAlbum}>
+                    {songOfTheWeek.album}
+                  </p>
+
+                  <div className={styles.featuredPlayCount}>
+                    <span className={styles.featuredPlayNumber}>
+                      {songOfTheWeek.playCount}
+                    </span>
+
+                    <span>
+                      {songOfTheWeek.playCount === 1
+                        ? "play this week"
+                        : "plays this week"}
+                    </span>
+                  </div>
+
+                  <a
+                    href={
+                      songOfTheWeek.spotifyUrl ??
+                      `https://open.spotify.com/track/${songOfTheWeek.id}`
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.spotifyLink}
+                  >
+                    Listen on Spotify <span>↗</span>
+                  </a>
+                </div>
               </div>
             </div>
           )}
         </div>
-      </div>
-
-      {/* COMPACT SPOTIFY PLAYER */}
-
-      {!loading && activeTrack && (
-        <div className={styles.playerSection}>
-          <iframe
-            key={activeTrack.id}
-            title={`Spotify player for ${activeTrack.name}`}
-            src={`https://open.spotify.com/embed/track/${activeTrack.id}?utm_source=generator&theme=1`}
-            width="100%"
-            height="80"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"
-          />
-        </div>
       )}
+
+      {/* FOOTER */}
+
+      <div className={styles.roomFooter}>
+        <span>UPDATED FROM MY SPOTIFY LISTENING HISTORY</span>
+
+        <span>MADE OF MUSIC &amp; MEMORIES ♫</span>
+      </div>
     </section>
   );
 }

@@ -1,8 +1,21 @@
 
 import { randomBytes, createHash } from "node:crypto";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Spotify owner authorization is only allowed locally.
+  const hostname = request.nextUrl.hostname;
+
+  if (
+    process.env.NODE_ENV === "production" ||
+    !["localhost", "127.0.0.1"].includes(hostname)
+  ) {
+    return NextResponse.json(
+      { error: "Spotify authorization is only available locally." },
+      { status: 404 }
+    );
+  }
+
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 
@@ -20,6 +33,16 @@ export async function GET() {
   } catch {
     return NextResponse.json(
       { error: "Spotify redirect URI is invalid." },
+      { status: 500 }
+    );
+  }
+
+  // Ensure the callback matches the local authorization session.
+  if (
+    !["localhost", "127.0.0.1"].includes(callbackUrl.hostname)
+  ) {
+    return NextResponse.json(
+      { error: "Spotify redirect URI must be local for setup." },
       { status: 500 }
     );
   }

@@ -1,5 +1,6 @@
 
 import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 type SpotifyTokenResponse = {
   access_token?: string;
@@ -17,7 +18,7 @@ export async function GET(request: NextRequest) {
     try {
       appOrigin = new URL(redirectUri).origin;
     } catch {
-      // The configuration error is handled below.
+      // Configuration error is handled below.
     }
   }
 
@@ -70,6 +71,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Exchange the authorization code for Spotify tokens.
     const tokenResponse = await fetch(
       "https://accounts.spotify.com/api/token",
       {
@@ -89,6 +91,11 @@ export async function GET(request: NextRequest) {
     );
 
     if (!tokenResponse.ok) {
+      console.error(
+        "Spotify token exchange failed:",
+        tokenResponse.status
+      );
+
       return failureRedirect("token_exchange_failed");
     }
 
@@ -99,44 +106,71 @@ export async function GET(request: NextRequest) {
       return failureRedirect("missing_access_token");
     }
 
+    // Use the new refresh token if Spotify provides one.
+    let refreshToken = tokenData.refresh_token;
+
+    // If Spotify does not return a new refresh token,
+    // preserve the refresh token already stored in Supabase.
+    if (!refreshToken) {
+      const { data: existingToken, error: lookupError } =
+        await supabaseAdmin
+          .from("spotify_tokens")
+          .select("refresh_token")
+          .eq("id", "owner")
+          .maybeSingle();
+
+      if (lookupError) {
+        console.error(
+          "Could not retrieve existing Spotify token:",
+          lookupError
+        );
+
+        return failureRedirect("token_storage_failed");
+      }
+
+      refreshToken = existingToken?.refresh_token;
+    }
+
+    if (!refreshToken) {
+      return failureRedirect("missing_refresh_token");
+    }
+
+    // Save the owner's refresh token securely in Supabase.
+    const { error: saveError } = await supabaseAdmin
+      .from("spotify_tokens")
+      .upsert(
+        {
+          id: "owner",
+          refresh_token: refreshToken,
+          updated_at: new Date().toISOString(),
+        },
+        {
+          onConflict: "id",
+        }
+      );
+
+    if (saveError) {
+      console.error(
+        "Could not save Spotify refresh token:",
+        saveError
+      );
+
+      return failureRedirect("token_storage_failed");
+    }
+
+    // Authorization succeeded.
     const response = NextResponse.redirect(
       new URL("/?spotify=connected", appOrigin)
     );
-
-    const secure = appOrigin.startsWith("https://");
-
-    response.cookies.set(
-      "spotify_access_token",
-      tokenData.access_token,
-      {
-        httpOnly: true,
-        secure,
-        sameSite: "lax",
-        path: "/",
-        maxAge: tokenData.expires_in ?? 3600,
-      }
-    );
-
-    if (tokenData.refresh_token) {
-      response.cookies.set(
-        "spotify_refresh_token",
-        tokenData.refresh_token,
-        {
-          httpOnly: true,
-          secure,
-          sameSite: "lax",
-          path: "/",
-          maxAge: 60 * 60 * 24 * 30,
-        }
-      );
-    }
 
     response.cookies.delete("spotify_auth_state");
     response.cookies.delete("spotify_code_verifier");
     response.cookies.delete("spotify_status");
 
+    // No Spotify access or refresh tokens are stored in visitor cookies.
     return response;
-  } catch {
+  } catch (error) {
+    console.error("Spotify callback error:", error);
     return failureRedirect("connection_error");
   }
 }

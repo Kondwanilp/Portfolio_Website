@@ -1,13 +1,19 @@
 
+/* ==========================================
+   COURT VISION
+========================================== */
+
 .court-vision {
   width: 100%;
   color: #292720;
 }
 
+/* INTRODUCTION */
+
 .cv-heading {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 24px;
   margin-bottom: 65px;
 }
@@ -38,24 +44,17 @@
   color: #777267;
   font-size: 14px;
   line-height: 1.8;
+  margin: 0;
 }
 
-.cv-admin-button {
-  border: 1px solid #dcd4c6;
-  background: transparent;
-  color: #625e54;
-  padding: 9px 14px;
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-  transition: background 0.2s ease;
+.cv-heading-basketball {
+  font-size: 42px;
+  flex-shrink: 0;
 }
 
-.cv-admin-button:hover {
-  background: #fffdf9;
-}
+/* GENERAL SECTIONS */
 
-.cv-sessions {
+.cv-section {
   margin-bottom: 65px;
 }
 
@@ -75,20 +74,83 @@
   margin: 0 0 7px;
 }
 
+.cv-section-heading > div > p:not(.cv-section-label) {
+  color: #777267;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.cv-basketball-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
 .cv-muted {
   color: #858074;
   font-size: 12px;
   line-height: 1.7;
 }
 
-.cv-admin-status {
+.cv-error {
+  color: #a44f43;
+  font-size: 12px;
+  margin: 12px 0;
+}
+
+/* VIDEO GALLERY */
+
+.cv-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.cv-video-card {
+  min-width: 0;
+  background: #fffdf9;
+  border: 1px solid #dcd4c6;
+  overflow: hidden;
+}
+
+.cv-video-player {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #292720;
+}
+
+.cv-video-details {
+  padding: 18px;
+}
+
+.cv-video-date {
   font-family: "Courier Prime", monospace;
   font-size: 9px;
-  letter-spacing: 1px;
-  color: #538a80;
-  border: 1px solid #b8d0c5;
-  padding: 7px 9px;
-  white-space: nowrap;
+  letter-spacing: 0.7px;
+  color: #858074;
+  margin: 0 0 9px;
+}
+
+.cv-video-details h4 {
+  font-family: "EB Garamond", serif;
+  font-size: 23px;
+  font-weight: 500;
+  margin: 0 0 7px;
+}
+
+.cv-video-description {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #777267;
+  margin: 0;
+}
+
+/* PICKUP SESSIONS */
+
+.cv-sessions {
+  margin-bottom: 65px;
 }
 
 .cv-session-list {
@@ -154,122 +216,163 @@
   font-size: 12px;
 }
 
-.cv-login,
-.cv-add-session {
-  background: #fffdf9;
-  border: 1px solid #dcd4c6;
-  padding: 22px;
-  margin-bottom: 30px;
+/* WARRIORS */
+
+.cv-warriors-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 35px;
+  background: #292720;
+  color: #fffdf9;
+  margin-top: 20px;
 }
 
-.cv-login {
-  max-width: 380px;
-  margin-left: auto;
+.cv-warriors-overline,
+.cv-story-label {
+  display: block;
+  font-family: "Courier Prime", monospace;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: #b9b1a3;
+  margin-bottom: 13px;
 }
 
-.cv-login h3 {
+.cv-warriors-content h3 {
   font-family: "EB Garamond", serif;
-  font-size: 25px;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.cv-warriors-tagline {
+  font-size: 12px;
+  color: #d0c9bc;
+  margin: 0 0 20px;
+}
+
+.cv-warriors-link {
+  display: inline-block;
+  color: #9cc9c7;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.cv-warriors-link:hover {
+  text-decoration: underline;
+}
+
+.cv-warriors-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 115px;
+  height: 115px;
+  border: 1px solid #777267;
+  border-radius: 50%;
+  color: #9cc9c7;
+}
+
+.cv-warriors-mark span {
+  font-family: "EB Garamond", serif;
+  font-size: 35px;
+}
+
+.cv-warriors-mark small {
+  font-family: "Courier Prime", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.cv-warriors-story {
+  max-width: 700px;
+  padding: 35px 5px 0;
+}
+
+.cv-story-label {
+  color: #858074;
+}
+
+.cv-warriors-story h3 {
+  font-family: "EB Garamond", serif;
+  font-size: 30px;
   font-weight: 500;
   margin: 0 0 18px;
 }
 
-.cv-login input,
-.cv-add-session input {
-  width: 100%;
-  min-width: 0;
-  padding: 11px 12px;
-  border: 1px solid #dcd4c6;
-  background: #f8f5ef;
-  color: #292720;
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 12px;
-  outline: none;
-}
-
-.cv-login input {
-  margin-bottom: 10px;
-}
-
-.cv-login input:focus,
-.cv-add-session input:focus {
-  border-color: #77aeb0;
-}
-
-.cv-login button,
-.cv-add-session button {
-  border: none;
-  background: #292720;
-  color: #fffdf9;
-  padding: 11px 17px;
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.cv-login button {
-  width: 100%;
-  margin-top: 5px;
-}
-
-.cv-add-session {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  align-items: end;
-  gap: 13px;
-}
-
-.cv-add-session .cv-section-label {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
-}
-
-.cv-add-session label {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  font-family: "Instrument Sans", sans-serif;
-  font-size: 11px;
-  color: #777267;
-}
-
-.cv-add-session button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
-
-.cv-error {
-  color: #a44f43;
-  font-size: 12px;
-  margin: 12px 0;
-}
-
-.cv-coming-soon {
-  padding: 30px 0;
-  border-top: 1px solid #dcd4c6;
-  margin-bottom: 20px;
-}
-
-.cv-coming-soon p:not(.cv-section-label) {
-  max-width: 480px;
+.cv-warriors-story > p:not(.cv-story-label) {
   color: #777267;
   font-size: 13px;
-  line-height: 1.8;
+  line-height: 1.9;
+  margin: 0 0 15px;
 }
 
-.cv-coming-soon > span {
-  display: inline-block;
-  margin-top: 12px;
+/* CURRENT THOUGHTS */
+
+.cv-thoughts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.cv-thought-note {
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+  padding: 20px;
+  background: #fffdf9;
+  border: 1px solid #dcd4c6;
+}
+
+.cv-thought-note > span {
+  font-family: "Courier Prime", monospace;
+  font-size: 10px;
+  color: #a39b8d;
+}
+
+.cv-thought-note p {
+  flex: 1;
+  font-family: "EB Garamond", serif;
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 18px 0;
+}
+
+.cv-thought-note small {
+  font-family: "Courier Prime", monospace;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #858074;
+}
+
+/* FOOTER */
+
+.cv-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 20px;
+  border-top: 1px solid #dcd4c6;
   font-family: "Courier Prime", monospace;
   font-size: 9px;
   letter-spacing: 1px;
   color: #858074;
 }
 
-@media (max-width: 600px) {
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
   .cv-heading {
     flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 45px;
+  }
+
+  .cv-heading-basketball {
+    display: none;
   }
 
   .cv-section-heading {
@@ -277,12 +380,33 @@
     flex-direction: column;
   }
 
-  .cv-add-session {
+  .cv-video-grid {
     grid-template-columns: 1fr;
   }
 
-  .cv-add-session .cv-section-label {
-    grid-column: auto;
+  .cv-warriors-card {
+    padding: 25px 20px;
+  }
+
+  .cv-warriors-mark {
+    width: 85px;
+    height: 85px;
+  }
+
+  .cv-warriors-mark span {
+    font-size: 27px;
+  }
+
+  .cv-thoughts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-thought-note {
+    min-height: 150px;
+  }
+
+  .cv-footer {
+    flex-direction: column;
   }
 
   .cv-session {

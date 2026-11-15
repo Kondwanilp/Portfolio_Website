@@ -1,0 +1,439 @@
+
+.cv-admin-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 35px 0 70px;
+  color: #292720;
+}
+
+.cv-admin-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dcd4c6;
+  font-family: "Courier Prime", monospace;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: #858074;
+}
+
+.cv-admin-topline a {
+  color: #777267;
+  text-decoration: none;
+}
+
+.cv-admin-topline a:hover {
+  color: #77aeb0;
+}
+
+.cv-admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 25px;
+  margin: 55px 0 65px;
+}
+
+.cv-admin-eyebrow {
+  font-family: "Courier Prime", monospace;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  color: #858074;
+  margin: 0 0 12px;
+}
+
+.cv-admin-header h1,
+.cv-admin-login h1 {
+  font-family: "EB Garamond", serif;
+  font-size: clamp(42px, 6vw, 62px);
+  font-weight: 500;
+  line-height: 1;
+  margin: 0 0 15px;
+}
+
+.cv-admin-header h1 span {
+  color: #77aeb0;
+}
+
+.cv-admin-muted {
+  color: #777267;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.cv-admin-logout {
+  border: 1px solid #dcd4c6;
+  background: transparent;
+  color: #625e54;
+  padding: 10px 16px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.cv-admin-section {
+  margin-bottom: 65px;
+}
+
+.cv-admin-section-heading {
+  margin-bottom: 25px;
+}
+
+.cv-admin-section-heading h2 {
+  font-family: "EB Garamond", serif;
+  font-size: 32px;
+  font-weight: 500;
+  margin: 0 0 7px;
+}
+
+.cv-admin-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 25px;
+  background: #fffdf9;
+  border: 1px solid #dcd4c6;
+}
+
+.cv-admin-form label,
+.cv-admin-login form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #777267;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+}
+
+.cv-admin-form label span {
+  color: #a39b8d;
+}
+
+.cv-admin-form input,
+.cv-admin-form textarea,
+.cv-admin-login input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #dcd4c6;
+  background: #f8f5ef;
+  color: #292720;
+  padding: 12px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 12px;
+  outline: none;
+}
+
+.cv-admin-form input:focus,
+.cv-admin-form textarea:focus,
+.cv-admin-login input:focus {
+  border-color: #77aeb0;
+}
+
+.cv-admin-form textarea {
+  resize: vertical;
+}
+
+.cv-admin-full {
+  grid-column: 1 / -1;
+}
+
+.cv-admin-file-info {
+  grid-column: 1 / -1;
+  margin: -8px 0 0;
+  color: #538a80;
+  font-size: 11px;
+}
+
+.cv-admin-primary {
+  border: none;
+  background: #292720;
+  color: #fffdf9;
+  padding: 13px 18px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cv-admin-primary:hover {
+  background: #555044;
+}
+
+.cv-admin-primary:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.cv-admin-progress {
+  margin-top: 2px;
+}
+
+.cv-admin-progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #777267;
+  font-size: 11px;
+}
+
+.cv-admin-progress-track {
+  height: 6px;
+  background: #e8e1d5;
+  overflow: hidden;
+}
+
+.cv-admin-progress-fill {
+  height: 100%;
+  background: #77aeb0;
+  transition: width 0.2s ease;
+}
+
+.cv-admin-video-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.cv-admin-video {
+  min-width: 0;
+  border: 1px solid #dcd4c6;
+  background: #fffdf9;
+}
+
+.cv-admin-video video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #292720;
+  object-fit: contain;
+}
+
+.cv-admin-video-info {
+  padding: 17px;
+}
+
+.cv-admin-video-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cv-admin-video-heading h3 {
+  font-family: "EB Garamond", serif;
+  font-size: 21px;
+  font-weight: 500;
+  margin: 0 0 5px;
+}
+
+.cv-admin-video-heading p,
+.cv-admin-video-description {
+  color: #858074;
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.cv-admin-video-description {
+  margin-top: 12px;
+}
+
+.cv-admin-status {
+  flex-shrink: 0;
+  font-family: "Courier Prime", monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+  padding: 6px 8px;
+}
+
+.cv-admin-status.is-published {
+  color: #538a80;
+  border: 1px solid #b8d0c5;
+}
+
+.cv-admin-status.is-draft {
+  color: #9a7950;
+  border: 1px solid #dfc9a8;
+}
+
+.cv-admin-video-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cv-admin-video-actions button {
+  border: 1px solid #dcd4c6;
+  background: transparent;
+  color: #625e54;
+  padding: 8px 12px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.cv-admin-video-actions button:hover {
+  background: #f8f5ef;
+}
+
+.cv-admin-video-actions button.is-delete {
+  color: #a44f43;
+}
+
+.cv-admin-session-form {
+  grid-template-columns: 1fr 1fr auto;
+  align-items: end;
+  margin-bottom: 25px;
+}
+
+.cv-admin-session-list {
+  border-top: 1px solid #dcd4c6;
+}
+
+.cv-admin-session {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  padding: 17px 5px;
+  border-bottom: 1px solid #dcd4c6;
+  font-size: 12px;
+}
+
+.cv-admin-session span {
+  min-width: 110px;
+  color: #858074;
+}
+
+.cv-admin-session strong {
+  font-weight: 500;
+}
+
+.cv-admin-empty {
+  padding: 35px 20px;
+  border: 1px dashed #dcd4c6;
+  text-align: center;
+  color: #858074;
+  font-size: 12px;
+}
+
+.cv-admin-empty span {
+  font-size: 25px;
+}
+
+.cv-admin-empty h3 {
+  font-family: "EB Garamond", serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #292720;
+  margin: 10px 0 5px;
+}
+
+.cv-admin-empty p {
+  margin: 0;
+}
+
+.cv-admin-error,
+.cv-admin-success {
+  margin: 15px 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cv-admin-error {
+  color: #a44f43;
+}
+
+.cv-admin-success {
+  color: #538a80;
+}
+
+.cv-admin-login {
+  width: 100%;
+  max-width: 420px;
+  margin: 90px auto;
+  padding: 30px;
+  border: 1px solid #dcd4c6;
+  background: #fffdf9;
+}
+
+.cv-admin-login .cv-admin-muted {
+  margin-bottom: 25px;
+}
+
+.cv-admin-login form {
+  display: grid;
+  gap: 16px;
+}
+
+.cv-admin-login form button {
+  border: none;
+  background: #292720;
+  color: #fffdf9;
+  padding: 13px;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.cv-admin-login form button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.cv-admin-footer {
+  padding-top: 20px;
+  border-top: 1px solid #dcd4c6;
+  font-family: "Courier Prime", monospace;
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  color: #858074;
+}
+
+@media (max-width: 650px) {
+  .cv-admin-page {
+    padding-top: 20px;
+  }
+
+  .cv-admin-topline {
+    align-items: flex-start;
+    font-size: 8px;
+  }
+
+  .cv-admin-header {
+    flex-direction: column;
+    margin: 40px 0 45px;
+  }
+
+  .cv-admin-form,
+  .cv-admin-session-form {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .cv-admin-full {
+    grid-column: auto;
+  }
+
+  .cv-admin-video-list {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-admin-video-heading {
+    flex-direction: column;
+  }
+
+  .cv-admin-session {
+    gap: 12px;
+  }
+
+  .cv-admin-session span {
+    min-width: 95px;
+  }
+
+  .cv-admin-login {
+    margin: 55px auto;
+    padding: 22px;
+  }
+}

@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "public/stockfish/**",
+    // Unmodified, versioned PDF.js vendor worker; application viewer code remains linted.
+    "public/pdfjs/**",
   ]),
 ]);
 

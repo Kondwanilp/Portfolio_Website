@@ -1,55 +1,37 @@
 
 "use client";
 
+import Feedback from "../components/Feedback";
+import Icon from "../components/Icon";
+
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase/client";
 import "./court-vision.css";
 
-const BUCKET_NAME = "hoops_bucket";
-
-type HoopSession = {
-  id: string;
-  played_on: string;
-  location: string;
-};
-
-type CourtVideo = {
-  id: string;
-  title: string;
-  description: string | null;
-  played_on: string;
-  location: string;
-  storage_path: string;
-};
-
-function formatDate(date: string) {
-  const [year, month, day] = date.split("-").map(Number);
-
-  return new Date(year, month - 1, day).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-}
+import { COURT_VIDEO_BUCKET as BUCKET_NAME, formatCourtDate as formatDate, type HoopSession, type PublishedCourtVideo as CourtVideo } from "../../lib/court-vision";
 
 export default function CourtVision() {
   const [sessions, setSessions] = useState<HoopSession[]>([]);
   const [videos, setVideos] = useState<CourtVideo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [sessionError, setSessionError] = useState("");
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let mounted = true;
+    const controller = new AbortController();
 
     async function loadCourtVision() {
       setLoading(true);
       setError("");
+      setSessionError("");
 
       const [sessionResult, videoResult] = await Promise.all([
         supabase
           .from("hoop_sessions")
           .select("id, played_on, location")
-          .order("played_on", { ascending: false }),
+          .order("played_on", { ascending: false }).abortSignal(controller.signal),
 
         supabase
           .from("court_videos")
@@ -61,7 +43,7 @@ export default function CourtVision() {
       if (!mounted) return;
 
       if (sessionResult.error) {
-        console.error("Court Vision session error:", sessionResult.error);
+        setSessionError("Could not load hoop sessions right now.");
       } else {
         setSessions(sessionResult.data ?? []);
       }
@@ -76,12 +58,18 @@ export default function CourtVision() {
       setLoading(false);
     }
 
-    loadCourtVision();
+    void loadCourtVision().catch(() => {
+      if (!mounted) return;
+      setError("Could not load basketball videos right now.");
+      setSessionError("Could not load hoop sessions right now.");
+      setLoading(false);
+    });
 
     return () => {
       mounted = false;
+      controller.abort();
     };
-  }, []);
+  }, [reload]);
 
   return (
     <div className="court-vision">
@@ -102,7 +90,7 @@ export default function CourtVision() {
           </p>
         </div>
 
-        <span className="cv-heading-basketball">🏀</span>
+        <svg className="cv-court-study" viewBox="0 0 260 190" aria-hidden="true"><path d="M20 170V20H240V170ZM90 20V90H170V20M90 90A40 40 0 0 0 170 90M35 20V55A95 95 0 0 0 225 55V20M110 30H150M130 30V43" /><circle cx="130" cy="49" r="6" /><path d="M20 170A43 43 0 0 1 106 170M106 170H240" /></svg>
       </section>
 
       {/* PICKUP HIGHLIGHTS */}
@@ -115,16 +103,16 @@ export default function CourtVision() {
             <p>Little moments, good runs, and memories worth keeping.</p>
           </div>
 
-          <span className="cv-basketball-icon">🎥</span>
+          <span className="cv-basketball-icon"><Icon name="video" /></span>
         </div>
 
         {loading ? (
-          <p className="cv-muted">Loading the highlights...</p>
+          <Feedback kind="loading">Loading the highlights...</Feedback>
         ) : error ? (
-          <div className="cv-error">{error}</div>
+          <Feedback kind="error" action={<button type="button" onClick={() => setReload((value) => value + 1)}>Try again</button>}>{error}</Feedback>
         ) : videos.length === 0 ? (
           <div className="cv-empty">
-            <span>🏀</span>
+            <span><Icon name="basketball" /></span>
             <h4>The highlights are coming.</h4>
             <p>Check back after the next run.</p>
           </div>
@@ -138,6 +126,7 @@ export default function CourtVision() {
               return (
                 <article className="cv-video-card" key={video.id}>
                   <video
+                    aria-label={video.title}
                     className="cv-video-player"
                     src={videoUrl}
                     controls
@@ -175,14 +164,16 @@ export default function CourtVision() {
             <p>Just me, a basketball, and whoever shows up.</p>
           </div>
 
-          <span className="cv-basketball-icon">🏀</span>
+          <span className="cv-basketball-icon"><Icon name="basketball" /></span>
         </div>
 
         {loading ? (
-          <p className="cv-muted">Loading hoop sessions...</p>
+          <Feedback kind="loading">Loading hoop sessions...</Feedback>
+        ) : sessionError ? (
+          <Feedback kind="error" action={<button type="button" onClick={() => setReload((value) => value + 1)}>Try again</button>}>{sessionError}</Feedback>
         ) : sessions.length === 0 ? (
           <div className="cv-empty">
-            <span>🏀</span>
+            <span><Icon name="basketball" /></span>
             <h4>No sessions logged yet.</h4>
             <p>The first game is waiting to be documented.</p>
           </div>
@@ -199,7 +190,7 @@ export default function CourtVision() {
                   <p>{formatDate(session.played_on)}</p>
                 </div>
 
-                <span className="cv-basketball">🏀</span>
+                <span className="cv-basketball"><Icon name="basketball" /></span>
               </article>
             ))}
           </div>
@@ -245,7 +236,7 @@ export default function CourtVision() {
           <h3>A game that found me.</h3>
 
           <p>
-            Growing up, I wasn't particularly good at <em>Kampombwa</em>,
+            Growing up, I wasn&apos;t particularly good at <em>Kampombwa</em>,
             what we call soccer. The boys in my community played every
             Sunday, and I often felt left out. Having slightly curved
             tibias made controlling the ball a little harder for me.
@@ -266,9 +257,9 @@ export default function CourtVision() {
           </p>
 
           <p>
-            Basketball gave me something I hadn't quite found before:
+            Basketball gave me something I hadn&apos;t quite found before:
             confidence, belonging, and a new way to enjoy sports.
-            That's how the Warriors became my team.
+            That&apos;s how the Warriors became my team.
           </p>
         </div>
       </section>
@@ -318,7 +309,7 @@ export default function CourtVision() {
 
       <div className="cv-footer">
         <span>END OF THE RUN.</span>
-        <span>SEE YOU ON THE COURT. 🏀</span>
+        <span>SEE YOU ON THE COURT. <Icon name="basketball" /></span>
       </div>
 
     </div>

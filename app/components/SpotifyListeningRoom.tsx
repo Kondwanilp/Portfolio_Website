@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
+import Feedback from "./Feedback";
 import { useEffect, useState } from "react";
+import Icon from "./Icon";
 import styles from "./SpotifyListeningRoom.module.css";
 
 type SpotifyTrack = {
@@ -18,9 +21,12 @@ type SpotifyResponse = {
   totalPlays?: number;
   tracks?: SpotifyTrack[];
   error?: string;
+  stale?: boolean;
 };
 
 export default function SpotifyListeningRoom() {
+  const [reload, setReload] = useState(0);
+  const [stale, setStale] = useState(false);
   const [tracks, setTracks] = useState<SpotifyTrack[]>([]);
   const [totalPlays, setTotalPlays] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -30,10 +36,11 @@ export default function SpotifyListeningRoom() {
     const controller = new AbortController();
 
     async function loadTracks() {
+      setLoading(true);
       try {
         const response = await fetch("/api/spotify/recently-played", {
           cache: "no-store",
-          signal: controller.signal,
+          signal: AbortSignal.any([controller.signal, AbortSignal.timeout(25000)]),
         });
 
         const data: SpotifyResponse = await response.json();
@@ -51,6 +58,7 @@ export default function SpotifyListeningRoom() {
           : [];
 
         if (!controller.signal.aborted) {
+          setStale(Boolean(data.stale));
           setTracks(validTracks.slice(0, 5));
           setTotalPlays(data.totalPlays ?? 0);
           setError(null);
@@ -75,7 +83,7 @@ export default function SpotifyListeningRoom() {
     loadTracks();
 
     return () => controller.abort();
-  }, []);
+  }, [reload]);
 
   // The API returns tracks ranked from most played to least played.
   // The first track is therefore the Song of the Week.
@@ -112,6 +120,7 @@ export default function SpotifyListeningRoom() {
         </div>
       </div>
 
+      {stale && <Feedback kind="empty">Showing the most recent listening history while Spotify reconnects.</Feedback>}
       {/* WEEKLY LISTENING SUMMARY */}
 
       <div className={styles.weekSummary}>
@@ -119,7 +128,7 @@ export default function SpotifyListeningRoom() {
           <span className={styles.summaryLabel}>THIS WEEK</span>
 
           <span className={styles.summaryValue}>
-            {loading ? "—" : totalPlays.toLocaleString()}
+            {loading || error ? "—" : totalPlays.toLocaleString()}
           </span>
 
           <span className={styles.summaryDescription}>
@@ -133,7 +142,7 @@ export default function SpotifyListeningRoom() {
           <span className={styles.summaryLabel}>ON ROTATION</span>
 
           <span className={styles.summaryValue}>
-            {loading ? "—" : String(tracks.length).padStart(2, "0")}
+            {loading || error ? "—" : String(tracks.length).padStart(2, "0")}
           </span>
 
           <span className={styles.summaryDescription}>
@@ -147,7 +156,7 @@ export default function SpotifyListeningRoom() {
           <span className={styles.summaryLabel}>MOST PLAYED</span>
 
           <span className={styles.summaryValue}>
-            {loading
+            {loading || error
               ? "—"
               : songOfTheWeek
                 ? songOfTheWeek.playCount.toLocaleString()
@@ -172,11 +181,7 @@ export default function SpotifyListeningRoom() {
       {/* ERROR STATE */}
 
       {!loading && error && (
-        <div className={styles.messageState}>
-          <h3>Your listening room is taking a break.</h3>
-
-          <p>{error}</p>
-        </div>
+        <Feedback kind="error" title="Your listening room is taking a break." action={<button type="button" onClick={() => setReload((value) => value + 1)}>Try again</button>}>{error}</Feedback>
       )}
 
       {/* EMPTY STATE */}
@@ -205,7 +210,7 @@ export default function SpotifyListeningRoom() {
                   YOUR WEEKLY CHART
                 </p>
 
-                <h3>Songs I'm Listening to</h3>
+                <h3>Songs I&apos;m Listening to</h3>
               </div>
 
               <span className={styles.trackCount}>
@@ -230,7 +235,7 @@ export default function SpotifyListeningRoom() {
                   </span>
 
                   {track.albumArtwork ? (
-                    <img
+                    <Image unoptimized
                       src={track.albumArtwork}
                       alt={`${track.album} artwork`}
                       className={styles.trackArtwork}
@@ -240,7 +245,7 @@ export default function SpotifyListeningRoom() {
                     />
                   ) : (
                     <span className={styles.artworkPlaceholder}>
-                      ♪
+                      <Icon name="music" />
                     </span>
                   )}
 
@@ -278,7 +283,7 @@ export default function SpotifyListeningRoom() {
               <div className={styles.sectionHeader}>
                 <div>
                   <p className={styles.sectionEyebrow}>
-                    THE WEEK'S FAVORITE
+                    THE WEEK&apos;S FAVORITE
                   </p>
 
                   <h3>Song of the Week</h3>
@@ -287,7 +292,7 @@ export default function SpotifyListeningRoom() {
 
               <div className={styles.featuredCard}>
                 {songOfTheWeek.albumArtwork ? (
-                  <img
+                  <Image unoptimized
                     src={songOfTheWeek.albumArtwork}
                     alt={`${songOfTheWeek.album} album artwork`}
                     className={styles.featuredArtwork}
@@ -296,7 +301,7 @@ export default function SpotifyListeningRoom() {
                   />
                 ) : (
                   <div className={styles.featuredArtworkPlaceholder}>
-                    ♪
+                    <Icon name="music" />
                   </div>
                 )}
 
@@ -353,7 +358,7 @@ export default function SpotifyListeningRoom() {
       <div className={styles.roomFooter}>
         <span>UPDATED FROM MY SPOTIFY LISTENING HISTORY</span>
 
-        <span>MADE OF MUSIC &amp; MEMORIES ♫</span>
+        <span>MADE OF MUSIC &amp; MEMORIES <Icon name="music" /></span>
       </div>
     </section>
   );

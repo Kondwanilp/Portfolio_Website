@@ -1,6 +1,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { isLocalSpotifySetup } from "@/lib/spotify-authorization";
 
 type SpotifyTokenResponse = {
   access_token?: string;
@@ -9,6 +10,13 @@ type SpotifyTokenResponse = {
 };
 
 export async function GET(request: NextRequest) {
+  if (!isLocalSpotifySetup(request.nextUrl.hostname, process.env.NODE_ENV)) {
+    return NextResponse.json(
+      { error: "Spotify authorization is only available locally." },
+      { status: 404 }
+    );
+  }
+
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const redirectUri = process.env.SPOTIFY_REDIRECT_URI;
 

@@ -1,9 +1,12 @@
 
 "use client";
 
+import ChessMoveEntry from "./ChessMoveEntry";
+import Icon from "../components/Icon";
+
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { Chess, type Square } from "chess.js";
+import { Chess } from "chess.js";
 import type {
   ChessboardOptions,
   PieceDropHandlerArgs,
@@ -15,57 +18,13 @@ const Chessboard = dynamic(
     ssr: false,
     loading: () => (
       <div className="extras-daily-loading">
-        Preparing today's puzzle...
+        Preparing today&apos;s puzzle...
       </div>
     ),
   }
 );
 
-type PuzzleData = {
-  id: string;
-  rating: number;
-  plays: number;
-  solution: string[];
-  themes: string[];
-  fen: string;
-};
-
-type DailyPuzzleResponse = {
-  puzzle: PuzzleData;
-  game?: {
-    id?: string;
-    pgn?: string;
-    perf?: {
-      name?: string;
-    };
-  };
-};
-
-function playUci(game: Chess, uci: string) {
-  if (!/^[a-h][1-8][a-h][1-8][qrbn]?$/.test(uci)) {
-    throw new Error("Invalid puzzle move.");
-  }
-
-  const promotion = uci[4] as "q" | "r" | "b" | "n" | undefined;
-
-  return game.move({
-    from: uci.slice(0, 2) as Square,
-    to: uci.slice(2, 4) as Square,
-    ...(promotion ? { promotion } : {}),
-  });
-}
-
-function validateSolution(fen: string, solution: string[]) {
-  const verificationGame = new Chess(fen);
-
-  if (!solution.length) {
-    throw new Error("This puzzle has no solution moves.");
-  }
-
-  for (const uci of solution) {
-    playUci(verificationGame, uci);
-  }
-}
+import { normalizeDailyPuzzle, playUci, type PuzzleData } from "../../lib/chess-puzzle";
 
 export default function DailyPuzzle() {
   const [puzzle, setPuzzle] = useState<PuzzleData | null>(null);
@@ -102,7 +61,7 @@ export default function DailyPuzzle() {
               Accept: "application/json",
             },
             cache: "no-store",
-            signal: controller.signal,
+            signal: AbortSignal.any([controller.signal, AbortSignal.timeout(15000)]),
           }
         );
 
@@ -112,25 +71,14 @@ export default function DailyPuzzle() {
           );
         }
 
-        const data = (await response.json()) as DailyPuzzleResponse;
-
-        if (
-          !data.puzzle?.fen ||
-          !Array.isArray(data.puzzle.solution)
-        ) {
-          throw new Error("The daily puzzle data was incomplete.");
-        }
-
-        // Validate the full solution before showing the puzzle.
-        validateSolution(data.puzzle.fen, data.puzzle.solution);
-
-        const newGame = new Chess(data.puzzle.fen);
+        const puzzle = normalizeDailyPuzzle(await response.json());
+        const newGame = new Chess(puzzle.fen);
 
         if (controller.signal.aborted) return;
 
         gameRef.current = newGame;
 
-        setPuzzle(data.puzzle);
+        setPuzzle(puzzle);
         setFen(newGame.fen());
 
         // The solver plays the side whose turn it is in the FEN.
@@ -172,7 +120,7 @@ export default function DailyPuzzle() {
 
       if (width) {
         setBoardWidth(
-          Math.max(240, Math.min(500, Math.floor(width)))
+          Math.max(1, Math.min(500, Math.floor(width)))
         );
       }
     });
@@ -180,12 +128,9 @@ export default function DailyPuzzle() {
     observer.observe(container);
 
     return () => observer.disconnect();
-  }, []);
+  }, [loading, puzzle]);
 
-  function handlePieceDrop({
-    sourceSquare,
-    targetSquare,
-  }: PieceDropHandlerArgs): boolean {
+  function attemptMove(sourceSquare: string, targetSquare: string | null, promotion?: string): boolean {
     const game = gameRef.current;
 
     if (!game || !puzzle || !targetSquare || solved) {
@@ -199,7 +144,7 @@ export default function DailyPuzzle() {
     const attemptedMove = sourceSquare + targetSquare;
     const expectedSquares = expectedMove.slice(0, 4);
 
-    if (attemptedMove !== expectedSquares) {
+    if (attemptedMove !== expectedSquares || (promotion && expectedMove[4] !== promotion)) {
       setFeedback("Not quite. Take another look at the position.");
       return false;
     }
@@ -228,7 +173,7 @@ export default function DailyPuzzle() {
 
       if (nextIndex >= puzzle.solution.length) {
         setSolved(true);
-        setFeedback("Puzzle solved! Nicely played. ♟");
+        setFeedback("Puzzle solved! Nicely played.");
       } else {
         setFeedback(
           opponentReply
@@ -298,7 +243,7 @@ export default function DailyPuzzle() {
       overflow: "hidden",
       boxShadow: "0 5px 18px rgba(51, 75, 78, 0.12)",
     },
-    onPieceDrop: handlePieceDrop,
+    onPieceDrop: ({ sourceSquare, targetSquare }: PieceDropHandlerArgs) => attemptMove(sourceSquare, targetSquare),
   };
 
   const puzzleSide =
@@ -331,7 +276,7 @@ export default function DailyPuzzle() {
       {loading && (
         <div className="extras-daily-message">
           <span className="extras-daily-spinner" />
-          Loading today's puzzle...
+          Loading today&apos;s puzzle...
         </div>
       )}
 
@@ -356,7 +301,7 @@ export default function DailyPuzzle() {
             <div className="extras-daily-board-panel">
               <div className="extras-daily-player">
                 <span className="extras-daily-piece">
-                  {orientation === "white" ? "♚" : "♔"}
+                  <Icon name="king" />
                 </span>
 
                 <span>
@@ -375,7 +320,7 @@ export default function DailyPuzzle() {
 
               <div className="extras-daily-player">
                 <span className="extras-daily-piece">
-                  {orientation === "white" ? "♔" : "♚"}
+                  <Icon name="king" />
                 </span>
 
                 <span>{puzzleSide}</span>
@@ -383,6 +328,7 @@ export default function DailyPuzzle() {
                 <small>YOU</small>
               </div>
 
+              <ChessMoveEntry disabled={solved} onMove={(move) => attemptMove(move.slice(0, 2), move.slice(2, 4), move[4])} />
               <p className="extras-daily-board-hint">
                 Drag a piece to make your move.
               </p>
@@ -410,6 +356,7 @@ export default function DailyPuzzle() {
               </div>
 
               <div
+                role="status"
                 className="extras-daily-feedback"
                 style={
                   solved

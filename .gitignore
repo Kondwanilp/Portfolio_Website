@@ -21,6 +21,8 @@
 /build
 
 # misc
+.studio/
+supabase/.temp/
 .DS_Store
 *.pem
 

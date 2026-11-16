@@ -1,0 +1,24 @@
+/* Living Matter OS: shared public interface materials; private Studio keeps its scope. */
+.editorial-navigation { position: sticky; top: 0; background: #f1ebe0ed; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: #d4ccbdc9; min-height: 88px; }
+.editorial-desktop-links { align-items:center; gap:clamp(8px,1.3vw,22px); }
+.editorial-desktop-links > a { padding-inline:8px; border-radius:7px; transition:background-color 160ms ease,color 160ms ease,transform 200ms cubic-bezier(.2,.8,.2,1); }
+.editorial-desktop-links > a:hover { background:#719d9a12; text-decoration:none; }
+.editorial-desktop-links > a[aria-current=page] { background:#719d9a18; color:#426662; text-decoration:none; }
+.editorial-navigation :is(a,summary):active { transform:translateY(1px); }
+:is(.research-page,.about-page,.destination-page,.journal-index,.extras-page) :is(button,summary) { -webkit-tap-highlight-color:transparent; }
+:is(.research-page,.about-page,.destination-page,.journal-index,.extras-page) button { transition: background-color 160ms ease,border-color 160ms ease,box-shadow 160ms ease; }
+.method-options button { border-radius:6px; padding:8px 11px; position:relative; }
+.method-options button[aria-pressed=true] { background:#719d9a1a; }
+.method-options button[aria-pressed=true]::before { content:""; position:absolute; width:4px; height:4px; border-radius:50%; background:var(--sage-ink); left:2px; top:50%; }
+.research-supporting-details { transition:background-color 180ms ease; }
+.research-supporting-details[open] { background:#fffdf95c; }
+.personal-fieldnotes { border-top:1px solid var(--border); margin-top:48px; }
+.personal-fieldnotes > summary { font:26px/1.35 var(--font-heading); padding-block:24px; min-height:56px; }
+.personal-fieldnotes .extras-section { border:0; padding-block:20px 40px; }
+.extras-page .extras-channel-icon--listening { color:var(--sage-ink); }
+.extras-page .extras-channel-hero--listening { border-bottom-color:var(--border); }
+.living-os-home .cover-cv .cv-links a { min-height:48px; }
+.living-os-home .cover-identity { font-size:16px; line-height:1.7; }
+.exhibition-directory p { font-size:16px; line-height:1.6; }
+@media(max-width:700px) { .editorial-navigation { min-height:76px; } .living-os-home .cover-identity { font-size:16px; } .exhibition-directory p { font-size:16px; } .personal-fieldnotes > summary { font-size:24px; } }
+@media(prefers-reduced-motion:reduce) { .editorial-navigation :is(a,summary),.research-supporting-details,.method-options button { transition:none; } }

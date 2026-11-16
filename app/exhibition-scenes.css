@@ -1,0 +1,35 @@
+/* Living Matter OS: finite decorative studies, bounded by the shared stage.
+   No autonomous CSS loops; normalized progress comes from the public controller. */
+.exhibition-scene { isolation: isolate; }
+.exhibition-scene .exhibition-editorial-line { fill: none; stroke: #719d9a; stroke-width: 1.4; }
+.exhibition-signaling > g > path { fill: none; stroke: #719d9a; stroke-width: 2.1; stroke-linecap: round; }
+.exhibition-signaling .exhibition-signal-light { fill: #e6dac0; stroke: #cfab7d; stroke-width: 3; }
+.exhibition-signaling .exhibition-network-core { stroke: #c7d6b7; stroke-width: 1; }
+.exhibition-cell { stroke: #527b77; stroke-width: 2.1; stroke-linejoin: round; }
+.exhibition-cell-rim { fill: none; stroke: #fffdf9; stroke-width: 1.7; opacity: .6; stroke-linecap: round; }
+.exhibition-community-link { stroke: #b89b70; stroke-width: 1.5; fill: none; }
+.exhibition-growth > path { fill: none; stroke: #527b77; stroke-width: 2.2; stroke-linecap: round; }
+.exhibition-growth .exhibition-growth-tip { fill: #b99a6f; }
+.exhibition-growth .exhibition-journal-spine { stroke: #cfab7d; stroke-width: 1; }
+.exhibition-waveform { fill: none; stroke: #527b77; stroke-width: 1.7; stroke-linecap: round; }
+.exhibition-vinyl-groove { fill: none; stroke: #96a89b; stroke-opacity: .3; stroke-width: .8; }
+.exhibition-square-dark { fill: #71958a; }
+.exhibition-square-light { fill: #e6ddcc; }
+.exhibition-chess-piece { stroke: #344a43; stroke-width: 1.35; stroke-linejoin: round; stroke-linecap: round; fill-rule: evenodd; }
+.exhibition-chess-piece--black { stroke: #c2d1bd; stroke-width: .8; }
+.exhibition-knight-trace { stroke: #527b77; fill: none; stroke-width: 1.5; }
+.exhibition-court-lines { stroke: #a98a62; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.exhibition-backboard { fill: #fffdf9; fill-opacity: .28; stroke: #719d9a; stroke-width: 1.7; }
+.exhibition-net { fill: none; stroke: #8c9485; stroke-width: 1.25; stroke-linecap: round; }
+.exhibition-rim { fill: none; stroke: #a6764c; stroke-width: 3; }
+.exhibition-ball-seams { fill: none; stroke: #624426; stroke-width: 1.2; }
+.exhibition-shot-trail { fill: none; stroke: #b99a6f; stroke-width: 1; }
+.exhibition-pulse > path:first-child { stroke: #527b77; stroke-width: 1.7; fill: none; stroke-linecap: round; }
+.exhibition-pulse > circle { fill: #cfab7d; }
+@media (max-width: 600px) {
+  .exhibition-scene .exhibition-editorial-line { stroke-width: 2; }
+  .exhibition-signaling > g > path, .exhibition-growth > path { stroke-width: 2.8; }
+  .exhibition-net { stroke-width: 1.8; }
+  .exhibition-scene--chess { overflow: visible; }
+}
+@media (prefers-reduced-motion: reduce) { .exhibition-scene { display: none; } }

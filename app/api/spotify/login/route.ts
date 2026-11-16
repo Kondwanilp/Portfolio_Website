@@ -1,15 +1,13 @@
 
 import { randomBytes, createHash } from "node:crypto";
 import { NextRequest, NextResponse } from "next/server";
+import { isLocalSpotifySetup } from "@/lib/spotify-authorization";
 
 export async function GET(request: NextRequest) {
   // Spotify owner authorization is only allowed locally.
   const hostname = request.nextUrl.hostname;
 
-  if (
-    process.env.NODE_ENV === "production" ||
-    !["localhost", "127.0.0.1"].includes(hostname)
-  ) {
+  if (!isLocalSpotifySetup(hostname, process.env.NODE_ENV)) {
     return NextResponse.json(
       { error: "Spotify authorization is only available locally." },
       { status: 404 }

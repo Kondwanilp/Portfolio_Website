@@ -10,7 +10,7 @@
   border: 1px solid #d5e3e6;
   border-radius: 13px;
   background: rgba(255, 255, 255, 0.7);
-  color: #293d49;
+  color: var(--foreground);
 }
 
 .extras-daily-header {
@@ -26,16 +26,16 @@
 .extras-daily-eyebrow,
 .extras-daily-panel-label {
   margin: 0 0 8px;
-  color: #77949e;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 9px;
   letter-spacing: 1px;
 }
 
 .extras-daily-header h2 {
   margin: 0;
-  color: #304b56;
-  font-family: "EB Garamond", Georgia, serif;
+  color: var(--foreground);
+  font-family: var(--font-heading);
   font-size: 32px;
   font-weight: 400;
 }
@@ -43,7 +43,7 @@
 .extras-daily-header > div > p:last-child {
   max-width: 490px;
   margin: 7px 0 0;
-  color: #7c9099;
+  color: var(--text-secondary);
   font-size: 11px;
   line-height: 1.7;
 }
@@ -57,15 +57,15 @@
 }
 
 .extras-daily-rating span {
-  color: #8a9da3;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.8px;
 }
 
 .extras-daily-rating strong {
-  color: #4d7381;
-  font-family: "EB Garamond", Georgia, serif;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
   font-size: 29px;
   font-weight: 500;
 }
@@ -80,7 +80,7 @@
   justify-content: center;
   gap: 12px;
   min-height: 180px;
-  color: #718991;
+  color: var(--text-secondary);
   font-size: 12px;
 }
 
@@ -107,7 +107,7 @@
   border: 1px solid #cbdde1;
   border-radius: 6px;
   background: white;
-  color: #527482;
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
@@ -142,7 +142,7 @@
   aspect-ratio: 1;
   place-items: center;
   background: #e6eef0;
-  color: #718991;
+  color: var(--text-secondary);
   font-size: 12px;
 }
 
@@ -151,20 +151,20 @@
   align-items: center;
   gap: 8px;
   min-height: 26px;
-  color: #597681;
+  color: var(--text-secondary);
   font-size: 11px;
 }
 
 .extras-daily-player small {
   margin-left: auto;
-  color: #91a1a5;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.8px;
 }
 
 .extras-daily-piece {
-  color: #537685;
+  color: var(--text-secondary);
   font-size: 19px;
 }
 
@@ -172,7 +172,7 @@
   margin: 13px 0 0;
   padding-top: 11px;
   border-top: 1px solid #e1e8e7;
-  color: #8a999c;
+  color: var(--text-secondary);
   font-size: 10px;
   text-align: center;
 }
@@ -199,15 +199,15 @@
 
 .extras-daily-info-card h3 {
   margin: 0;
-  color: #344f59;
-  font-family: "EB Garamond", Georgia, serif;
+  color: var(--foreground);
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 400;
 }
 
 .extras-daily-info-card > p:last-child {
   margin: 7px 0 0;
-  color: #819197;
+  color: var(--text-secondary);
   font-size: 10px;
   line-height: 1.7;
 }
@@ -218,15 +218,15 @@
 }
 
 .extras-daily-feedback-label {
-  color: #74917b;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.9px;
 }
 
 .extras-daily-feedback p {
   margin: 7px 0 0;
-  color: #536d58;
+  color: var(--text-secondary);
   font-size: 11px;
   line-height: 1.65;
 }
@@ -242,7 +242,7 @@
   border: 1px solid #dce7e8;
   border-radius: 20px;
   background: #f5f8f6;
-  color: #6f858b;
+  color: var(--text-secondary);
   font-size: 9px;
 }
 
@@ -263,15 +263,15 @@
 }
 
 .extras-daily-stats span {
-  color: #8a9da3;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.6px;
 }
 
 .extras-daily-stats strong {
-  color: #496b77;
-  font-family: "EB Garamond", Georgia, serif;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
   font-size: 21px;
   font-weight: 500;
 }
@@ -298,8 +298,8 @@
   border: 1px solid #cfdfe2;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.85);
-  color: #617d87;
-  font-family: "Instrument Sans", sans-serif;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
   font-size: 10px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -308,7 +308,7 @@
 .extras-daily-secondary:hover {
   border-color: #9fbfc8;
   background: white;
-  color: #385c69;
+  color: var(--text-secondary);
 }
 
 .extras-daily-primary {
@@ -328,7 +328,7 @@
 }
 
 .extras-daily-source {
-  color: #78929a;
+  color: var(--text-secondary);
   font-size: 9px;
   text-decoration: underline;
   text-decoration-color: #c4d7da;
@@ -347,8 +347,8 @@
   margin-top: 20px;
   padding-top: 13px;
   border-top: 1px solid #dce7e8;
-  color: #8a9da3;
-  font-family: "Courier Prime", monospace;
+  color: var(--text-secondary);
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.7px;
 }
@@ -419,17 +419,17 @@
 
 /* Puzzle completion message */
 .puzzle-complete {
-  color: #16834a;
+  color: var(--text-secondary);
   font-weight: 700;
 }
 
 .puzzle-complete strong {
-  color: #08783d;
+  color: var(--text-secondary);
   font-weight: 800;
 }
 
 .puzzle-complete p {
-  color: #246b45;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 

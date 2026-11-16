@@ -1,0 +1,19 @@
+/* A reading index, separate from the private Studio workspace. */
+.journal-index > header { max-width: 850px; padding-block: clamp(64px, 8vw, 112px) 56px; }
+.journal-index > header h1 { font-size: clamp(48px, 7vw, 92px); line-height: 1.02; margin-block: 22px; }
+.journal-index > header > p:last-child { font-size: 18px; line-height: 1.7; color: var(--text-secondary); max-width: 60ch; }
+.journal-index .journal-empty { min-height: 250px; padding-block: 48px 72px; }
+.journal-index .journal-empty h2 { font-size: clamp(30px, 4vw, 42px); max-width: 25ch; }
+.journal-index .journal-empty p, .journal-index .published-collection article > p:last-child { font-size: 17px; line-height: 1.75; max-width: 65ch; }
+.journal-index .published-collection > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+.journal-index .published-collection article { padding-block: 28px 34px; display: grid; grid-template-columns: 160px minmax(0, 1fr); column-gap: 40px; }
+.journal-index .published-collection article > p:first-child { grid-row: 1 / 3; padding-top: 9px; font-size: 12px; }
+.journal-index .published-collection article h3 { margin-top: 0; font-size: 36px; }
+.journal-index .published-collection article > p:last-child { grid-column: 2; }
+@media (max-width: 600px) {
+  .journal-index > header { padding-block: 56px 40px; }
+  .journal-index .published-collection article { grid-template-columns: minmax(0, 1fr); }
+  .journal-index .published-collection article > p:first-child { grid-row: auto; padding-block: 0 12px; }
+  .journal-index .published-collection article > p:last-child { grid-column: 1; }
+  .journal-index .published-collection article h3 { font-size: 31px; }
+}

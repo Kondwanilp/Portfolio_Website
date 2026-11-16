@@ -1,6 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import ChessMoveEntry from "./ChessMoveEntry";
+import Feedback from "../components/Feedback";
+import Icon from "../components/Icon";
+
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Chess, type Square } from "chess.js";
 import type {
@@ -69,15 +73,11 @@ function getGameStatus(game: Chess, humanColor: "w" | "b"): string {
 // ============================================
 
 export default function ChessCorner() {
-  const gameRef = useRef<Chess | null>(null);
+  const [game] = useState(() => new Chess());
+  const gameRef = useRef(game);
   const engineRef = useRef<Worker | null>(null);
   const orientationRef = useRef<"white" | "black">("white");
 
-  if (gameRef.current === null) {
-    gameRef.current = new Chess();
-  }
-
-  const game = gameRef.current;
   const boardContainerRef = useRef<HTMLDivElement>(null);
 
   const [fen, setFen] = useState(game.fen());
@@ -86,6 +86,9 @@ export default function ChessCorner() {
   const [orientation, setOrientation] = useState<"white" | "black">("white");
   const [boardWidth, setBoardWidth] = useState(480);
 
+  const [engineVersion, setEngineVersion] = useState(0);
+  const searchFen = useRef<string | null>(null);
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [engineReady, setEngineReady] = useState(false);
   const [engineThinking, setEngineThinking] = useState(false);
   const [engineError, setEngineError] = useState<string | null>(null);
@@ -122,15 +125,16 @@ export default function ChessCorner() {
   // Stockfish always plays the color at the top.
   // ============================================
 
-  function startBotMove() {
+  const startBotMove = useCallback(() => {
     const currentGame = gameRef.current;
     const engine = engineRef.current;
 
     if (
       !currentGame ||
       !engine ||
+      searchFen.current !== null ||
       currentGame.isGameOver() ||
-      currentGame.turn() !== getBotColor()
+      currentGame.turn() !== (orientationRef.current === "white" ? "b" : "w")
     ) {
       return;
     }
@@ -138,9 +142,17 @@ export default function ChessCorner() {
     setEngineThinking(true);
     setStatus(`${BOT_NAME} is thinking...`);
 
+    searchFen.current = currentGame.fen();
+    searchTimer.current = setTimeout(() => {
+      engine.postMessage("stop");
+      searchFen.current = null;
+      setEngineThinking(false);
+      setEngineReady(false);
+      setEngineError("The chess engine took too long. Reconnect to continue.");
+    }, 10000);
     engine.postMessage(`position fen ${currentGame.fen()}`);
     engine.postMessage("go movetime 1000");
-  }
+  }, []);
 
   // ============================================
   // LOAD STOCKFISH
@@ -154,6 +166,10 @@ export default function ChessCorner() {
     );
 
     engineRef.current = engine;
+    const startupTimer = setTimeout(() => {
+      setEngineError("The chess engine did not become ready. Reconnect to try again.");
+      setEngineReady(false);
+    }, 20000);
 
     engine.onmessage = (event: MessageEvent) => {
       if (!isMounted) return;
@@ -173,6 +189,7 @@ export default function ChessCorner() {
       }
 
       if (message.includes("readyok")) {
+        clearTimeout(startupTimer);
         setEngineReady(true);
 
         const currentGame = gameRef.current;
@@ -188,6 +205,10 @@ export default function ChessCorner() {
       }
 
       if (message.startsWith("bestmove")) {
+        if (searchTimer.current) clearTimeout(searchTimer.current);
+        const expectedFen = searchFen.current;
+        searchFen.current = null;
+        if (!expectedFen || gameRef.current.fen() !== expectedFen) { setEngineThinking(false); return; }
         const bestMove = message.split(/\s+/)[1];
 
         if (
@@ -236,7 +257,12 @@ export default function ChessCorner() {
     engine.onerror = (error) => {
       console.error("Stockfish failed to load:", error);
 
+      clearTimeout(startupTimer);
+      if (searchTimer.current) clearTimeout(searchTimer.current);
+      searchFen.current = null;
       if (isMounted) {
+        setEngineThinking(false);
+        setEngineReady(false);
         setEngineError(
           "Couldn't load the chess engine. Please refresh the page."
         );
@@ -247,10 +273,13 @@ export default function ChessCorner() {
 
     return () => {
       isMounted = false;
+      clearTimeout(startupTimer);
+      if (searchTimer.current) clearTimeout(searchTimer.current);
+      searchFen.current = null;
       engine.terminate();
       engineRef.current = null;
     };
-  }, []);
+  }, [startBotMove, engineVersion]);
 
   // ============================================
   // RESPONSIVE BOARD
@@ -266,7 +295,7 @@ export default function ChessCorner() {
 
       if (width) {
         setBoardWidth(
-          Math.max(240, Math.min(520, Math.floor(width)))
+          Math.max(1, Math.min(520, Math.floor(width)))
         );
       }
     });
@@ -280,13 +309,12 @@ export default function ChessCorner() {
   // YOU MAKE A MOVE
   // ============================================
 
-  function handlePieceDrop({
-    sourceSquare,
-    targetSquare,
-  }: PieceDropHandlerArgs): boolean {
+  function attemptMove(sourceSquare: string, targetSquare: string | null, promotion = "q"): boolean {
     if (
       !targetSquare ||
       !engineReady ||
+      engineError ||
+      searchFen.current !== null ||
       engineThinking ||
       game.isGameOver() ||
       game.turn() !== getHumanColor()
@@ -298,7 +326,7 @@ export default function ChessCorner() {
       const move = game.move({
         from: sourceSquare as Square,
         to: targetSquare as Square,
-        promotion: "q",
+        promotion: promotion as "q" | "r" | "b" | "n",
       });
 
       if (!move) return false;
@@ -320,7 +348,7 @@ export default function ChessCorner() {
   // ============================================
 
   function rotateBoard() {
-    if (!engineReady || engineThinking || game.isGameOver()) return;
+    if (!engineReady || engineError || engineThinking || game.isGameOver()) return;
 
     const nextOrientation =
       orientationRef.current === "white" ? "black" : "white";
@@ -341,7 +369,7 @@ export default function ChessCorner() {
   // ============================================
 
   function undoMove() {
-    if (engineThinking || moveHistory.length === 0) return;
+    if (!engineReady || engineError || engineThinking || moveHistory.length === 0) return;
 
     game.undo();
 
@@ -363,9 +391,10 @@ export default function ChessCorner() {
   // ============================================
 
   function startNewGame() {
-    if (engineThinking) return;
+    if (!engineReady || engineError || engineThinking) return;
 
     game.reset();
+    engineRef.current?.postMessage("ucinewgame");
 
     setFen(game.fen());
     setMoveHistory([]);
@@ -403,6 +432,9 @@ export default function ChessCorner() {
   // CHESSBOARD SETTINGS
   // ============================================
 
+  const humanColor = orientation === "white" ? "w" : "b";
+  const botColor = orientation === "white" ? "b" : "w";
+
   const chessboardOptions: ChessboardOptions = {
     id: "kondwani-chess-corner",
 
@@ -412,9 +444,10 @@ export default function ChessCorner() {
 
     allowDragging:
       engineReady &&
+      !engineError &&
       !engineThinking &&
       !game.isGameOver() &&
-      game.turn() === getHumanColor(),
+      game.turn() === humanColor,
 
     showNotation: true,
 
@@ -436,15 +469,15 @@ export default function ChessCorner() {
       boxShadow: "0 5px 18px rgba(51, 75, 78, 0.12)",
     },
 
-    onPieceDrop: handlePieceDrop,
+    onPieceDrop: ({ sourceSquare, targetSquare }: PieceDropHandlerArgs) => attemptMove(sourceSquare, targetSquare),
   };
 
   // ============================================
   // PLAYER LABELS
   // ============================================
 
-  const topPlayerPiece = orientation === "white" ? "♚" : "♔";
-  const bottomPlayerPiece = orientation === "white" ? "♔" : "♚";
+  const topPlayerPiece = <Icon name="king" />;
+  const bottomPlayerPiece = <Icon name="king" />;
 
   // ============================================
   // RENDER
@@ -461,7 +494,7 @@ export default function ChessCorner() {
           <h2>Make a move.</h2>
 
           <p>
-            Think you can beat me? Let's find out.
+            Think you can beat me? Let&apos;s find out.
           </p>
         </div>
 
@@ -495,6 +528,8 @@ export default function ChessCorner() {
             <Chessboard options={chessboardOptions} />
           </div>
 
+          <ChessMoveEntry disabled={!engineReady || engineThinking || Boolean(engineError) || game.isGameOver() || game.turn() !== humanColor} onMove={(move) => attemptMove(move.slice(0, 2), move.slice(2, 4), move[4])} />
+
           {/* BOTTOM PLAYER: ALWAYS YOU */}
 
           <div className="extras-chess-player extras-chess-player-bottom">
@@ -525,7 +560,7 @@ export default function ChessCorner() {
               {engineThinking
                 ? `${BOT_NAME} is thinking...`
                 : engineReady
-                  ? `You're playing ${getHumanColor() === "w" ? "White" : "Black"}.`
+                  ? `You're playing ${humanColor === "w" ? "White" : "Black"}.`
                   : "Preparing your opponent..."}
             </span>
           </div>
@@ -541,7 +576,7 @@ export default function ChessCorner() {
               CURRENT POSITION
             </p>
 
-            <div className="extras-chess-status">
+            <div className="extras-chess-status" role="status">
               <span className="extras-chess-status-dot" />
 
               {engineError
@@ -550,7 +585,7 @@ export default function ChessCorner() {
                   ? `${BOT_NAME} is thinking...`
                   : !engineReady
                     ? "Loading Stockfish..."
-                    : getGameStatus(game, getHumanColor())}
+                    : status}
             </div>
 
             <p className="extras-chess-hint">
@@ -562,9 +597,11 @@ export default function ChessCorner() {
                     ? "Game over. Ready for another round?"
                     : engineThinking
                       ? "Let's see what I've got."
-                      : `You're playing ${getHumanColor() === "w" ? "White" : "Black"}. ${BOT_NAME} plays ${getBotColor() === "w" ? "White" : "Black"}.`}
+                      : `You're playing ${humanColor === "w" ? "White" : "Black"}. ${BOT_NAME} plays ${botColor === "w" ? "White" : "Black"}.`}
             </p>
           </div>
+
+          {engineError && <Feedback kind="error" action={<button type="button" onClick={() => { setEngineError(null); setEngineReady(false); setEngineThinking(false); setEngineVersion((value) => value + 1); }}>Reconnect engine</button>}>{engineError}</Feedback>}
 
           {/* MOVE HISTORY */}
 
@@ -579,7 +616,7 @@ export default function ChessCorner() {
 
             {moveRows.length === 0 ? (
               <div className="extras-chess-empty">
-                <span>♟</span>
+                <span><Icon name="pawn" /></span>
 
                 <p>No moves yet.</p>
 
@@ -614,7 +651,7 @@ export default function ChessCorner() {
               type="button"
               onClick={undoMove}
               disabled={
-                moveHistory.length === 0 || engineThinking
+                !engineReady || Boolean(engineError) || moveHistory.length === 0 || engineThinking
               }
               className="extras-chess-secondary-button"
             >
@@ -624,7 +661,7 @@ export default function ChessCorner() {
             <button
               type="button"
               onClick={startNewGame}
-              disabled={engineThinking}
+              disabled={!engineReady || Boolean(engineError) || engineThinking}
               className="extras-chess-primary-button"
             >
               New game ↗
@@ -663,7 +700,7 @@ export default function ChessCorner() {
                 color: "#292720",
               }}
             >
-              Let's play a real game.
+              Let&apos;s play a real game.
             </h3>
 
             <p
@@ -697,7 +734,7 @@ export default function ChessCorner() {
                 textDecoration: "none",
               }}
             >
-              ♟ Challenge me on Chess.com ↗
+              <Icon name="pawn" /> Challenge me on Chess.com ↗
             </a>
 
             <p
@@ -719,7 +756,7 @@ export default function ChessCorner() {
       <div className="extras-chess-footer">
         <span>THINK BEFORE YOU MOVE.</span>
 
-        <span>GOOD LUCK. YOU'LL NEED IT.</span>
+        <span>GOOD LUCK. YOU&apos;LL NEED IT.</span>
       </div>
     </section>
   );

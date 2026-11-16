@@ -1,0 +1,1 @@
+export const publicDestinations = [["/", "Home"], ["/about", "About"], ["/research", "Research"], ["/experience", "Experience"], ["/leadership", "Leadership"], ["/journal", "Journal"], ["/extras", "Extras"]] as const;

@@ -1,29 +1,32 @@
+import SiteNavigation from "../components/SiteNavigation";
+import ResearchMethods from "../components/ResearchMethods";
+import ImageLightbox from "../components/ImageLightbox";
+import PublishedCollection from "@/app/components/PublishedCollection";
+import quantumDotPoster from "../../public/research/posters/quantum_dot_solarcell_poster.jpg";
+import academyPresentation from "../../public/research/presentations/las100.jpeg";
+import undergraduatePresentation from "../../public/research/presentations/undergrad_symposium.jpeg";
+import seabirdHeatwavePoster from "../../public/research/posters/las100_poster.jpg";
+import undergraduatePoster from "../../public/research/posters/2025undergraduate_symposium_poster.jpg";
+import toxicologyWorkPhoto from "../../public/research/lab-photos/molecular-toxicology-lab2.jpg";
+import toxicologyLabPhoto from "../../public/research/lab-photos/molecular-toxicology-lab.jpg";
+import Image from "next/image";
+import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Research",
+  description: "Explore Kondwani Phiri's research in molecular toxicology, seabird physiology, quantum dots, and solar cells.",
+};
 
 export default function ResearchPage() {
   return (
-    <main className="research-page">
+    <main id="main-content" tabIndex={-1} className="research-page">
 
       {/* RESEARCH PAGE NAVIGATION */}
-      <nav className="navigation">
-        <a href="/" className="wordmark">
-          Kondwani Phiri<span>.</span>
-        </a>
-
-        <div className="nav-links">
-          <a href="/#about">About</a>
-          <a href="/#experience">Experience</a>
-          <a href="/research">Research</a>
-          <a href="/#gallery">Gallery</a>
-          <a href="/#extras">Extras</a>
-        </div>
-
-        <a href="/" className="back-home">
-          ← Back home
-        </a>
-      </nav>
+      <SiteNavigation />
 
       {/* RESEARCH HERO */}
-      <header className="research-hero">
+      <header className="research-hero" data-living-destination="research">
         <p className="section-label">
           SELECTED RESEARCH · 2024–PRESENT
         </p>
@@ -46,13 +49,15 @@ export default function ResearchPage() {
         </div>
       </header>
 
+      <div className="research-heading-rule" data-living-rule />
       {/* RESEARCH NAVIGATION */}
       <div className="research-index">
-        <a href="#dorsey">01 · Molecular Toxicology</a>
-        <a href="#douglas">02 · Environmental Biology</a>
-        <a href="#yang">03 · Quantum Dots</a>
+        <Link href="#dorsey">01 · Molecular Toxicology</Link>
+        <Link href="#douglas">02 · Environmental Biology</Link>
+        <Link href="#yang">03 · Quantum Dots</Link>
       </div>
 
+      <ResearchMethods>
       {/* PROJECT 01: DR. DORSEY */}
       <section id="dorsey" className="research-project">
         <div className="research-project-heading">
@@ -66,6 +71,8 @@ export default function ResearchPage() {
 
           <span className="research-year">2025 – PRESENT</span>
         </div>
+
+        <figure className="dossier-lead-image"><ImageLightbox source={toxicologyWorkPhoto.src} label="Laboratory work &mdash; view full-size photograph"><Image src={toxicologyWorkPhoto} alt="Kondwani working with samples in the Molecular Toxicology Research Laboratory" sizes="(max-width: 700px) 88vw, 54vw" /></ImageLightbox><figcaption>01 / Molecular Toxicology Laboratory &middot; Grambling State University</figcaption></figure>
 
         <div className="research-project-body">
           <div className="research-main-copy">
@@ -125,7 +132,7 @@ export default function ResearchPage() {
           </aside>
         </div>
 
-        <div className="research-methods">
+        <details className="research-methods"><summary>Explore the methods and tools</summary>
           <p className="section-label">TECHNIQUES &amp; METHODS</p>
 
           <div className="research-tags">
@@ -139,38 +146,42 @@ export default function ResearchPage() {
             <span>Microscopy</span>
             <span>GLP documentation</span>
           </div>
-        </div>
+        </details>
 
         {/* DORSEY LAB PHOTOGRAPHS */}
-        <div className="presentation-section">
+        <details className="research-supporting-details"><summary>Laboratory &amp; presentation photographs</summary>
+<div className="presentation-section">
           <p className="section-label">IN THE LAB</p>
 
           <div className="presentation-photo-grid">
-            <div className="photo-placeholder">
-              <img
-                src="/research/lab-photos/molecular-toxicology-lab.jpg"
+            <ImageLightbox source={toxicologyLabPhoto.src} label="Molecular Toxicology Laboratory - view full-size photograph">
+              <Image
+                src={toxicologyLabPhoto} sizes="(max-width: 600px) 86vw, 42vw"
                 alt="Kondwani in the Molecular Toxicology Research Laboratory"
                 style={{
+                    aspectRatio: toxicologyLabPhoto.width / toxicologyLabPhoto.height,
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                   objectFit: "cover",
                 }}
               />
-            </div>
+            </ImageLightbox>
 
-            <div className="photo-placeholder">
-              <img
-                src="/research/lab-photos/molecular-toxicology-lab2.jpg"
+            <ImageLightbox source={toxicologyWorkPhoto.src} label="Molecular toxicology laboratory work - view full-size photograph">
+              <Image
+                src={toxicologyWorkPhoto} sizes="(max-width: 600px) 86vw, 42vw"
                 alt="Kondwani working in the Molecular Toxicology Research Laboratory"
                 style={{
+                    aspectRatio: toxicologyWorkPhoto.width / toxicologyWorkPhoto.height,
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                   objectFit: "cover",
                 }}
               />
-            </div>
+            </ImageLightbox>
           </div>
         </div>
+        </details>
       </section>
 
       {/* PROJECT 02: DR. DOUGLAS */}
@@ -190,6 +201,8 @@ export default function ResearchPage() {
 
           <span className="research-year">2025 – PRESENT</span>
         </div>
+
+        <figure className="dossier-lead-image"><ImageLightbox source={academyPresentation.src} label="Research presentation &mdash; view full-size photograph"><Image src={academyPresentation} alt="Kondwani presenting seabird research at the Louisiana Academy of Sciences" sizes="(max-width: 700px) 88vw, 54vw" /></ImageLightbox><figcaption>02 / Louisiana Academy of Sciences &middot; 2026</figcaption></figure>
 
         <div className="research-project-body">
           <div className="research-main-copy">
@@ -257,7 +270,7 @@ export default function ResearchPage() {
         </div>
 
         {/* DOUGLAS RESEARCH MEASUREMENTS */}
-        <div className="research-methods">
+        <details className="research-methods"><summary>Explore the physiological measurements</summary>
           <p className="section-label">WHAT WE MEASURE</p>
 
           <div className="measurement-grid">
@@ -288,9 +301,9 @@ export default function ResearchPage() {
               </p>
             </article>
           </div>
-        </div>
+        </details>
 
-        <div className="research-methods">
+        <details className="research-methods"><summary>Explore the methods and tools</summary>
           <p className="section-label">TECHNIQUES &amp; METHODS</p>
 
           <div className="research-tags">
@@ -304,10 +317,11 @@ export default function ResearchPage() {
             <span>Python / Pandas</span>
             <span>Microsoft Excel</span>
           </div>
-        </div>
+        </details>
 
         {/* DOUGLAS POSTERS */}
-        <div className="poster-section">
+        <details className="research-supporting-details"><summary>Research posters &amp; presentation records</summary>
+<div className="poster-section">
           <div className="poster-heading">
             <div>
               <p className="section-label">RESEARCH PRESENTATIONS</p>
@@ -319,17 +333,18 @@ export default function ResearchPage() {
 
           <div className="poster-grid">
             <article className="poster-card">
-              <div className="poster-placeholder">
-                <img
-                  src="/research/posters/2025undergraduate_symposium_poster.jpg"
+              <ImageLightbox source={undergraduatePoster.src} label="Stress and Condition in Relation to Diet in Seabirds at Culebra, Puerto Rico - view full-size poster">
+                <Image
+                  src={undergraduatePoster} sizes="(max-width: 600px) 86vw, 42vw"
                   alt="2025 GSU Undergraduate Research Symposium poster on seabird stress and condition"
                   style={{
+                    aspectRatio: undergraduatePoster.width / undergraduatePoster.height,
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                     objectFit: "contain",
                   }}
                 />
-              </div>
+              </ImageLightbox>
 
               <div className="poster-caption">
                 <p className="poster-event">
@@ -348,17 +363,18 @@ export default function ResearchPage() {
             </article>
 
             <article className="poster-card">
-              <div className="poster-placeholder">
-                <img
-                  src="/research/posters/las100_poster.jpg"
+              <ImageLightbox source={seabirdHeatwavePoster.src} label="Contrast in Condition and Stress of Tropical Seabirds During and After a Marine Heat Wave - view full-size poster">
+                <Image
+                  src={seabirdHeatwavePoster} sizes="(max-width: 600px) 86vw, 42vw"
                   alt="2026 Louisiana Academy of Sciences poster on tropical seabird stress during and after a marine heatwave"
                   style={{
+                    aspectRatio: seabirdHeatwavePoster.width / seabirdHeatwavePoster.height,
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                     objectFit: "contain",
                   }}
                 />
-              </div>
+              </ImageLightbox>
 
               <div className="poster-caption">
                 <p className="poster-event">
@@ -377,37 +393,42 @@ export default function ResearchPage() {
             </article>
           </div>
         </div>
+        </details>
 
         {/* DOUGLAS PRESENTATION PHOTOS */}
-        <div className="presentation-section">
+        <details className="research-supporting-details"><summary>Laboratory &amp; presentation photographs</summary>
+<div className="presentation-section">
           <p className="section-label">PRESENTATION PHOTOGRAPHS</p>
 
           <div className="presentation-photo-grid">
-            <div className="photo-placeholder">
-              <img
-                src="/research/presentations/undergrad_symposium.jpeg"
+            <ImageLightbox source={undergraduatePresentation.src} label="Undergraduate Research Symposium presentation - view full-size photograph">
+              <Image
+                src={undergraduatePresentation} sizes="(max-width: 600px) 86vw, 42vw"
                 alt="Kondwani presenting research at the GSU Undergraduate Research Symposium"
                 style={{
+                    aspectRatio: undergraduatePresentation.width / undergraduatePresentation.height,
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                   objectFit: "cover",
                 }}
               />
-            </div>
+            </ImageLightbox>
 
-            <div className="photo-placeholder">
-              <img
-                src="/research/presentations/las100.jpeg"
+            <ImageLightbox source={academyPresentation.src} label="Louisiana Academy of Sciences presentation - view full-size photograph">
+              <Image
+                src={academyPresentation} sizes="(max-width: 600px) 86vw, 42vw"
                 alt="Kondwani presenting research at the Louisiana Academy of Sciences meeting"
                 style={{
+                    aspectRatio: academyPresentation.width / academyPresentation.height,
                   width: "100%",
-                  height: "100%",
+                  height: "auto",
                   objectFit: "cover",
                 }}
               />
-            </div>
+            </ImageLightbox>
           </div>
         </div>
+        </details>
       </section>
 
       {/* PROJECT 03: DR. YANG */}
@@ -423,6 +444,8 @@ export default function ResearchPage() {
 
           <span className="research-year">FALL 2024</span>
         </div>
+
+        <figure className="dossier-lead-image dossier-poster"><ImageLightbox source={quantumDotPoster.src} label="Quantum-dot project poster &mdash; view full-size poster"><Image src={quantumDotPoster} alt="Research poster for Quantum Dots as Wavelength Conversion Material for Solar Cells" sizes="(max-width: 700px) 88vw, 54vw" /></ImageLightbox><figcaption>03 / Quantum Dots &amp; Solar Cells &middot; Fall 2024</figcaption></figure>
 
         <div className="research-project-body">
           <div className="research-main-copy">
@@ -487,7 +510,7 @@ export default function ResearchPage() {
           </aside>
         </div>
 
-        <div className="research-methods">
+        <details className="research-methods"><summary>Explore the methods and tools</summary>
           <p className="section-label">PROJECT FOCUS</p>
 
           <div className="research-tags">
@@ -498,10 +521,11 @@ export default function ResearchPage() {
             <span>Data modeling</span>
             <span>Team leadership</span>
           </div>
-        </div>
+        </details>
 
         {/* YANG POSTER */}
-        <div className="poster-section">
+        <details className="research-supporting-details"><summary>Research posters &amp; presentation records</summary>
+<div className="poster-section">
           <div className="poster-heading">
             <div>
               <p className="section-label">RESEARCH PRESENTATION</p>
@@ -513,17 +537,18 @@ export default function ResearchPage() {
 
           <div className="poster-grid single-poster">
             <article className="poster-card">
-              <div className="poster-placeholder">
-                <img
-                  src="/research/posters/quantum_dot_solarcell_poster.jpg"
+              <ImageLightbox source={quantumDotPoster.src} label="Quantum Dots as Wavelength Conversion Material for Solar Cells - view full-size poster">
+                <Image
+                  src={quantumDotPoster} sizes="(max-width: 600px) 86vw, 42vw"
                   alt="Quantum Dots as Wavelength Conversion Material for Solar Cells research poster"
                   style={{
+                    aspectRatio: quantumDotPoster.width / quantumDotPoster.height,
                     width: "100%",
-                    height: "100%",
+                    height: "auto",
                     objectFit: "contain",
                   }}
                 />
-              </div>
+              </ImageLightbox>
 
               <div className="poster-caption">
                 <p className="poster-event">
@@ -542,23 +567,26 @@ export default function ResearchPage() {
             </article>
           </div>
         </div>
+        </details>
       </section>
 
+      </ResearchMethods>
       {/* RESEARCH PAGE FOOTER */}
       <footer className="site-footer">
-        <a href="/" className="wordmark">
+        <Link href="/" className="footer-signature">
           Kondwani Phiri<span>.</span>
-        </a>
+        </Link>
 
         <p>
           Thanks for taking the time to explore my research.
         </p>
 
-        <a href="/" className="text-link">
+        <Link href="/" className="text-link">
           Back to the main site ↗
-        </a>
+        </Link>
       </footer>
 
-    </main>
+    <PublishedCollection kind="research" />
+</main>
   );
 }

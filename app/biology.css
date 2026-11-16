@@ -1,0 +1,164 @@
+/* Figma raster textures remain intact. Masks separate structures for 2.5D motion. */
+.biology-figure,
+.research-hero > .biology-figure {
+  float: none;
+  width: min(100%, 960px);
+  max-width: min(960px, 120svh);
+  margin: 0 auto 40px;
+}
+.biology-figure .scientific-motion { padding-bottom: 48px; }
+.biology-stage {
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 60% 30%, #fcf3df, #f2e3c6);
+  border: 1px solid #ded0b4;
+}
+.biology-poster { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; }
+.biology-figure .biology-definitions { position: absolute; width: 0; height: 0; aspect-ratio: auto; pointer-events: none; }
+.biology-layers { display: none; position: absolute; inset: 0; }
+.biology-texture {
+  position: absolute;
+  inset: 0;
+  background-image: var(--biology-art);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+[data-enhanced="true"] .biology-poster { visibility: hidden; }
+[data-enhanced="true"] .biology-layers { display: block; }
+.biology-stage[data-unavailable="true"] .biology-poster { visibility: hidden; }
+.biology-unavailable { position: absolute; inset: 0; padding: 28px; display: grid; align-content: center; text-align: center; color: var(--text-secondary); }
+.biology-figure figcaption { max-width: 720px; font-size: 12px; line-height: 1.75; padding-top: 8px; }
+.biology-figure .motion-skip,
+.biology-figure .motion-replay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--foreground);
+  font: 11px/1.5 var(--font-label);
+}
+/* Mitochondrial gradient, central rotors, and matrix-side products. */
+.biology-mito-camera { perspective: 1000px; transform-style: preserve-3d; }
+.biology-mito-membrane { z-index: 1; }
+.biology-synthase-unit { position: absolute; inset: 0; z-index: 3; }
+.biology-rotor { transform: rotate(360deg); }
+.biology-proton, .biology-atp { position: absolute; inset: 0; opacity: 0; }
+.biology-proton i, .biology-atp i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: clamp(3px, .45vw, 6px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #ffe7a1;
+  box-shadow: 0 0 7px 2px #ffc453aa;
+}
+.biology-atp i { background: #fff3bc; box-shadow: 0 0 11px 3px #ffd158aa; }
+.biology-membrane-light {
+  position: absolute;
+  inset: 12% 10% 15%;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 35% 40%, #d1ec9b55, transparent 48%);
+  mix-blend-mode: screen;
+  clip-path: polygon(0 10%, 19% 0, 48% 24%, 75% 41%, 91% 45%, 100% 73%, 96% 100%, 64% 97%, 34% 71%, 5% 52%);
+}
+.biology-energy-wave { position: absolute; inset: 9%; z-index: 4; border-radius: 50%; border: 1px solid #ffdc8d; opacity: 0; pointer-events: none; }
+[data-motion="playing"] .biology-mito-camera { animation: biology-camera 2700ms cubic-bezier(.2,.6,.3,1) both; will-change: transform; }
+[data-motion="playing"] .biology-rotor { animation: biology-rotor 1450ms calc(400ms + var(--delay)) linear both; }
+[data-motion="playing"] .biology-proton { animation: biology-proton 540ms calc(200ms + var(--delay)) ease-in 3 both; }
+[data-motion="playing"] .biology-atp { animation: biology-atp 700ms calc(850ms + var(--delay)) ease-out 2 both; }
+[data-motion="playing"] .biology-membrane-light { animation: biology-gradient 1650ms 100ms ease both; }
+[data-motion="playing"] .biology-energy-wave { animation: biology-wave 550ms 2050ms ease-out both; }
+@keyframes biology-camera {
+  from { transform: perspective(1000px) scale(1.08) rotateX(3deg) rotateY(-4deg) rotateZ(-1deg); }
+  80%, to { transform: perspective(1000px) scale(1) rotateX(0) rotateY(0) rotateZ(0); }
+}
+@keyframes biology-rotor { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes biology-proton {
+  0% { opacity: 0; transform: translate(.3%, 3.2%); }
+  25% { opacity: 1; }
+  85% { opacity: 1; transform: translate(0, 0); }
+  to { opacity: 0; transform: translate(0, 0); }
+}
+@keyframes biology-atp {
+  from { opacity: 0; transform: translate(0, 0) scale(.95); }
+  15%, 50% { opacity: 1; }
+  to { opacity: 0; transform: translate(2.2%, 2.5%) scale(1.02); }
+}
+@keyframes biology-gradient {
+  from { opacity: 0; transform: translate(-3%, -1%); }
+  35%, 65% { opacity: .8; }
+  to { opacity: 0; transform: translate(7%, 3%); }
+}
+@keyframes biology-wave { from { opacity: .6; transform: scale(.7); } to { opacity: 0; transform: scale(1.15); } }
+/* Each subunit, tRNA and peptide bead reuses pixels from the translation artwork. */
+.biology-preload { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.biology-body { background-image: var(--biology-body); }
+.biology-trna-outgoing { background-image: var(--biology-gold); }
+.biology-trna-incoming { background-image: var(--biology-teal); }
+.biology-amino-acid { background-image: var(--biology-peptide); }
+.biology-rna { background-image: var(--biology-rna); }
+.biology-ribosome-travel { position: absolute; inset: 0; z-index: 1; transform: translate(2.4%, .4%); }
+.biology-trna-outgoing { z-index: 2; transform: translate(-5%, -6%) rotate(-10deg); transform-origin: 43% 54%; }
+.biology-trna-incoming { z-index: 2; transform: translate(-3.6%, -3%) rotate(-12deg); transform-origin: 58% 55%; }
+.biology-rna { z-index: 2; }
+.biology-peptide-release { position: absolute; inset: 0; z-index: 3; transform: translate(1.2%, -2%) rotate(1deg); transform-origin: 51% 28%; }
+.biology-peptide-growth { position: absolute; inset: 0; }
+.biology-amino-acid { transform: none; }
+[data-motion="playing"] .biology-ribosome-travel { animation: biology-translocation 2700ms linear both; will-change: transform; }
+[data-motion="playing"] .biology-trna-incoming { animation: biology-trna-incoming 2700ms ease both; }
+[data-motion="playing"] .biology-trna-outgoing { animation: biology-trna-outgoing 2700ms ease both; }
+[data-motion="playing"] .biology-amino-acid { animation: biology-peptide-assembly 260ms var(--bead-delay) ease-out both; }
+[data-motion="playing"] .biology-peptide-release { animation: biology-peptide-release 2700ms cubic-bezier(.2,.65,.3,1) both; }
+@keyframes biology-translocation {
+  0%, 14% { transform: translate(0, 0); }
+  20%, 34% { transform: translate(.8%, .1%); }
+  40%, 54% { transform: translate(1.6%, .3%); }
+  60%, 100% { transform: translate(2.4%, .4%); }
+}
+@keyframes biology-trna-incoming {
+  from { transform: translate(7%, -5%) rotate(9deg); }
+  25%, 42% { transform: translate(0, 0) rotate(0); }
+  58%, 73% { transform: translate(-1.5%, .2%) rotate(-2deg); }
+  to { transform: translate(-3.6%, -3%) rotate(-12deg); }
+}
+@keyframes biology-trna-outgoing {
+  0%, 24% { transform: translate(0, 0) rotate(0); }
+  60% { transform: translate(-4%, -3%) rotate(-10deg); }
+  to { transform: translate(-5%, -6%) rotate(-10deg); }
+}
+@keyframes biology-peptide-assembly {
+  from { visibility: hidden; transform: translate(-.6%, 1%) scale(.3); }
+  5% { visibility: visible; }
+  to { visibility: visible; transform: none; }
+}
+@keyframes biology-peptide-release {
+  0%, 72% { transform: translate(0, 0) rotate(0); }
+  to { transform: translate(1.2%, -2%) rotate(1deg); }
+}
+/* Reading stays available in HTML. Only introductory copy receives a visual reveal. */
+.research-hero:has(.scientific-motion--mitochondrion-figma-v2[data-motion="playing"]) > :is(h1, p, .research-hero-footer),
+#about:has(.scientific-motion--translation-figma-v2[data-motion="playing"]) .about-layout {
+  animation: biology-content-reveal 350ms 2300ms ease both;
+}
+#about:focus-within .about-layout { animation: none !important; }
+@keyframes biology-content-reveal { from { opacity: .12; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) {
+  .biology-figure, .research-hero > .biology-figure { max-width: 100%; margin-bottom: 28px; }
+  .biology-figure figcaption { font-size: 11px; }
+  .biology-stage { border-color: #e1d1b4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .biology-figure *, .biology-figure *::before, .biology-figure *::after { animation: none !important; transition: none !important; }
+  .biology-figure .biology-layers { display: none !important; }
+  .biology-figure .biology-poster { visibility: visible !important; }
+  .biology-figure .motion-skip, .biology-figure .motion-replay { display: none !important; }
+  .research-hero > :is(h1, p, .research-hero-footer), #about .about-layout { animation: none !important; }
+}

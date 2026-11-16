@@ -1,0 +1,15 @@
+{
+  "increment": "4.1",
+  "applied": false,
+  "algorithm": "SHA-256 of exact file bytes",
+  "migrations": [
+    {
+      "path": "supabase/migrations/20261115213550_studio_cms_review.sql",
+      "sha256": "dc2642e84ae5b029cf22ba6658d3abf474875a58691e05cf890feac961df6e3b"
+    },
+    {
+      "path": "supabase/migrations/20261115220705_studio_persistence_publication.sql",
+      "sha256": "3d3efec98bf0c3ed784e17a5e1e646b20145b1f7c1068cf907153311f8f4a688"
+    }
+  ]
+}

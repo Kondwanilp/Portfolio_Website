@@ -1,0 +1,31 @@
+/* Decorative scenes are confined to their finite viewport, never article height. */
+.living-transition { position: fixed; inset: 0; z-index: 80; pointer-events: none; }
+.living-stage { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.living-transition-veil { position: absolute; inset: 0; background: #10191b; }
+.living-stage:not(.living-stage--research):not(.living-stage--listening) .living-transition-veil { background: #f1ebe0; }
+.living-stage > .living-scene { position: absolute; inset: 0; }
+.editorial-navigation { z-index: 90; }
+.editorial-navigation a[aria-current="page"] { text-decoration: underline; text-underline-offset: 7px; color: var(--sage-ink); }
+@media (prefers-reduced-motion: reduce) { .living-transition { display: none; } }
+.living-scene { display: block; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.living-scene .living-arrival-strokes { fill: none; stroke: #85d7de; stroke-width: 1.6; stroke-linecap: round; }
+.living-scene .living-energy-particles { fill: #a6e3dc; }
+.living-scene .living-outer-membrane { stroke-linecap: round; stroke-linejoin: round; }
+.living-scene .living-mrna { fill: none; stroke: #719d9a; stroke-width: 3.5; stroke-linecap: round; }
+.living-scene .living-codon-mark { stroke: #426662; stroke-width: 1.2; }
+.living-scene .living-codon, .living-scene .living-strand-end { fill: #625d53; font: 15px var(--font-label, monospace); }
+.living-scene .living-strand-end { font-size: 18px; }
+.living-scene .living-ribosome-large { stroke: #426662; stroke-width: 1.8; }
+.living-scene .living-ribosome-small { stroke: #8d6b4c; stroke-width: 1.8; }
+.living-scene .living-ribosome-rim { stroke: #d4dfc8; stroke-width: 1.4; fill: none; stroke-linecap: round; }
+.living-scene .living-trna > path { fill: #e3d9bf; stroke: #8b7456; stroke-width: 2.1; stroke-linejoin: round; }
+.living-scene .living-trna--departing > path { fill: #c9d3bb; stroke: #627b69; }
+.living-scene .living-polypeptide > path { fill: none; stroke: #719d9a; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.living-scene .living-polypeptide > circle { stroke: #f1ebe0; stroke-width: 1.3; }
+.living-scene .living-narrative-edge { fill: none; stroke: #719d9a; stroke-width: 1.5; }
+@media (max-width: 600px) {
+  .living-scene .living-energy-particles circle:nth-child(even) { display: none; }
+  .living-scene .living-arrival-strokes path:last-child { display: none; }
+  .living-scene .living-trna > path { stroke-width: 2.8; }
+  .living-scene .living-mrna { stroke-width: 4; }
+}

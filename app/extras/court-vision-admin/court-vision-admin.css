@@ -12,7 +12,7 @@
   gap: 20px;
   padding-bottom: 15px;
   border-bottom: 1px solid #dcd4c6;
-  font-family: "Courier Prime", monospace;
+  font-family: var(--font-label);
   font-size: 9px;
   letter-spacing: 1.2px;
   color: #858074;
@@ -36,7 +36,7 @@
 }
 
 .cv-admin-eyebrow {
-  font-family: "Courier Prime", monospace;
+  font-family: var(--font-label);
   font-size: 10px;
   letter-spacing: 1.4px;
   color: #858074;
@@ -45,7 +45,7 @@
 
 .cv-admin-header h1,
 .cv-admin-login h1 {
-  font-family: "EB Garamond", serif;
+  font-family: var(--font-heading);
   font-size: clamp(42px, 6vw, 62px);
   font-weight: 500;
   line-height: 1;
@@ -68,7 +68,7 @@
   background: transparent;
   color: #625e54;
   padding: 10px 16px;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   cursor: pointer;
 }
@@ -82,7 +82,7 @@
 }
 
 .cv-admin-section-heading h2 {
-  font-family: "EB Garamond", serif;
+  font-family: var(--font-heading);
   font-size: 32px;
   font-weight: 500;
   margin: 0 0 7px;
@@ -103,7 +103,7 @@
   flex-direction: column;
   gap: 8px;
   color: #777267;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
 }
 
@@ -120,7 +120,7 @@
   background: #f8f5ef;
   color: #292720;
   padding: 12px;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 12px;
   outline: none;
 }
@@ -151,7 +151,7 @@
   background: #292720;
   color: #fffdf9;
   padding: 13px 18px;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   cursor: pointer;
   transition: background 0.2s ease;
@@ -222,7 +222,7 @@
 }
 
 .cv-admin-video-heading h3 {
-  font-family: "EB Garamond", serif;
+  font-family: var(--font-heading);
   font-size: 21px;
   font-weight: 500;
   margin: 0 0 5px;
@@ -242,7 +242,7 @@
 
 .cv-admin-status {
   flex-shrink: 0;
-  font-family: "Courier Prime", monospace;
+  font-family: var(--font-label);
   font-size: 8px;
   letter-spacing: 0.8px;
   padding: 6px 8px;
@@ -269,7 +269,7 @@
   background: transparent;
   color: #625e54;
   padding: 8px 12px;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 10px;
   cursor: pointer;
 }
@@ -323,7 +323,7 @@
 }
 
 .cv-admin-empty h3 {
-  font-family: "EB Garamond", serif;
+  font-family: var(--font-heading);
   font-size: 22px;
   font-weight: 500;
   color: #292720;
@@ -372,7 +372,7 @@
   background: #292720;
   color: #fffdf9;
   padding: 13px;
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--font-body);
   font-size: 11px;
   cursor: pointer;
 }
@@ -385,7 +385,7 @@
 .cv-admin-footer {
   padding-top: 20px;
   border-top: 1px solid #dcd4c6;
-  font-family: "Courier Prime", monospace;
+  font-family: var(--font-label);
   font-size: 9px;
   letter-spacing: 1.2px;
   color: #858074;
@@ -436,4 +436,27 @@
     margin: 55px auto;
     padding: 22px;
   }
+}
+
+.cv-admin-page {
+  width: min(1100px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.cv-admin-fields {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.cv-admin-page progress { width: 100%; accent-color: var(--focus-ring); }
+.cv-admin-page button:disabled { opacity: 0.6; }
+
+@media (max-width: 600px) {
+  .cv-admin-fields { grid-template-columns: 1fr; }
+  .cv-admin-page { width: calc(100% - 32px); }
 }

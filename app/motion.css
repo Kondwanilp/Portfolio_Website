@@ -1,0 +1,59 @@
+/* Every animation has a finite end. The server-rendered default is the complete figure. */
+.scientific-motion { position: relative; min-width: 0; }
+.scientific-figure { width: min(100%, 560px); margin: 0 0 38px; }
+.scientific-figure svg { display: block; width: 100%; height: auto; aspect-ratio: 2; fill: none; stroke: var(--sage-deep); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.scientific-figure text { fill: var(--sage-ink); stroke: none; font: 11px var(--font-label); letter-spacing: .5px; }
+.scientific-figure figcaption { color: var(--text-secondary); font: 11px/1.65 var(--font-label); max-width: 470px; padding-top: 12px; }
+.scientific-figure .secondary-line { stroke: var(--accent); }
+.scientific-figure .impulse { stroke: #a26143; stroke-width: 3; }
+.scientific-figure .ribosome { fill: #719d91; fill-opacity: .12; }
+.scientific-figure .energy-particles { fill: #a26143; color: #a26143; }
+.scientific-figure--translation { margin-left: auto; }
+.scientific-figure--neuron, .scientific-figure--mitosis { width: min(100%, 410px); margin-left: auto; }
+.scientific-figure--pulse { width: min(100%, 430px); margin-bottom: 40px; }
+.motion-skip { position: absolute; right: 0; bottom: 0; z-index: 2; min-height: 44px; padding: 8px 12px; border: 1px solid var(--border); color: var(--foreground); background: var(--paper); font: 11px/1.5 var(--font-label); }
+[data-motion="playing"] .draw-line { animation: scientific-draw 1700ms ease both; }
+[data-motion="playing"] .secondary-line { animation-delay: 250ms; }
+[data-motion="playing"] .impulse { animation: scientific-impulse 1400ms 650ms ease both; }
+[data-motion="playing"] .energy-particles { animation: scientific-energy 700ms 1400ms ease both; }
+[data-motion="playing"] .rotor { transform-box: fill-box; transform-origin: center; animation: scientific-rotate 1500ms 500ms linear both; }
+[data-motion="playing"] .portrait-print { animation: portrait-develop 1800ms ease both; }
+[data-motion="playing"] .portrait-note { animation: scientific-note 650ms 1500ms ease both; }
+[data-motion="playing"] .ribosome { animation: ribosome-read 2200ms ease both; }
+[data-motion="playing"] .trna { animation: trna-arrive 550ms ease both; }
+[data-motion="playing"] .trna-1 { animation-delay: 450ms; }
+[data-motion="playing"] .trna-2 { animation-delay: 900ms; }
+[data-motion="playing"] .trna-3 { animation-delay: 1350ms; }
+[data-motion="playing"] .peptide { animation: peptide-release 650ms 1700ms ease both; }
+[data-motion="playing"] .daughter-left { animation: chromosome-left 700ms 700ms ease both; }
+[data-motion="playing"] .daughter-right { animation: chromosome-right 700ms 700ms ease both; }
+@keyframes chromosome-left { from { transform: translateX(38px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes chromosome-right { from { transform: translateX(-38px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.research-hero:has([data-motion="playing"]) h1,
+#about:has([data-motion="playing"]) .about-intro,
+#experience:has(.scientific-motion--neuron[data-motion="playing"]) .experience-intro h2,
+.extras-intro:has([data-motion="playing"]) h1 { animation: editorial-reveal 650ms ease both; }
+@keyframes editorial-reveal { from { transform: translateY(8px); opacity: .75; } to { transform: translateY(0); opacity: 1; } }
+.scientific-motion--neuron[data-motion="playing"] .draw-line,
+.scientific-motion--mitosis[data-motion="playing"] .draw-line,
+.scientific-motion--pulse[data-motion="playing"] .draw-line,
+.scientific-motion--branches[data-motion="playing"] .draw-line { animation-duration: 700ms; }
+[data-visible="false"] *, [data-visible="false"] *::before, [data-visible="false"] *::after { animation-play-state: paused !important; }
+@keyframes scientific-draw { from { stroke-dasharray: 1800; stroke-dashoffset: 1800; } to { stroke-dasharray: 1800; stroke-dashoffset: 0; } }
+@keyframes scientific-impulse { from { stroke-dasharray: 30 650; stroke-dashoffset: 50; opacity: 0; } 25% { opacity: 1; } to { stroke-dasharray: 30 650; stroke-dashoffset: -560; opacity: 0; } }
+@keyframes scientific-energy { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scientific-rotate { to { transform: rotate(360deg); } }
+@keyframes scientific-note { from { opacity: 0; } to { opacity: 1; } }
+@keyframes portrait-develop { from { opacity: .4; transform: translateY(12px) rotate(-2deg); filter: saturate(.3); } to { opacity: 1; transform: translateY(0) rotate(-5deg); filter: saturate(1); } }
+@keyframes ribosome-read { 0%, 12% { transform: translateX(0); } 30% { transform: translateX(87px); } 52% { transform: translateX(174px); } 74% { transform: translateX(261px); } 92% { transform: translateX(348px); opacity: 1; } 100% { transform: translateX(348px); opacity: 0; } }
+@keyframes trna-arrive { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes peptide-release { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 600px) {
+  .scientific-figure { margin-bottom: 28px; }
+  .scientific-figure figcaption { font-size: 10px; }
+  .scientific-figure--translation { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scientific-motion *, .scientific-motion *::before, .scientific-motion *::after { animation: none !important; transition: none !important; }
+  .motion-skip { display: none !important; }
+}

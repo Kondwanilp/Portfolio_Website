@@ -1,0 +1,72 @@
+﻿/* Public channels share the exhibition's paper, ink and editorial rhythm. */
+.extras-page { --extras-ink: #292720; --extras-muted: #625d53; --extras-border: #d4ccbd; --extras-paper: #fffdf9; background: #f1ebe0; color: var(--extras-ink); }
+.extras-page::before { display: none; }
+.extras-page > .editorial-navigation, .extras-page .extras-topbar, .extras-page .extras-main-content, .extras-page .extras-footer { width: calc(100% - 2 * var(--page-gutter)); max-width: 1280px; margin-inline: auto; }
+.extras-page .extras-topbar { border-bottom: 1px solid var(--extras-border); background: transparent; padding-block: 18px; }
+.extras-section-marker { color: var(--extras-muted); font: 12px/1.6 var(--font-label); }
+.extras-page .extras-return-link, .extras-page .extras-back-to-channels { color: #426662; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; }
+.extras-page .extras-main-content { padding-block: 0 80px; }
+.extras-page .extras-intro { padding-block: clamp(64px, 8vw, 104px) 64px; max-width: 900px; }
+.extras-page .extras-intro h1 { color: var(--extras-ink); font: 400 clamp(48px, 6.5vw, 92px)/1.02 var(--font-heading); letter-spacing: -.045em; }
+.extras-page .extras-intro h1 span { color: #426662; font-style: italic; }
+.extras-page .extras-intro-text { color: var(--extras-muted); font-size: 18px; line-height: 1.75; max-width: 52ch; margin-top: 28px; }
+.extras-page .extras-channel-section { clear: both; }
+.extras-page .extras-channel-section-header { margin-bottom: 24px; }
+.extras-page .extras-channel-section-header h2, .extras-page .extras-channel-content-header h2 { font-size: 34px; }
+.extras-page .extras-channel-section-header > span, .extras-page .extras-channel-content-header > span, .extras-page .extras-channel-number, .extras-page .extras-enter-label, .extras-page .extras-eyebrow { font-size: 11px; color: var(--extras-muted); }
+.extras-page .extras-channel-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; }
+.extras-page .extras-channel-card { display: grid; grid-template-columns: 90px 64px minmax(0, 1fr); align-items: center; gap: 30px; padding: 30px 0; min-height: 150px; border: 0; border-top: 1px solid var(--extras-border); border-radius: 0; background: transparent; box-shadow: none; transform: none; }
+.extras-page .extras-channel-card:last-child { border-bottom: 1px solid var(--extras-border); }
+.extras-page .extras-channel-card:hover { background: #fffdf955; transform: none; box-shadow: none; }
+.extras-page .extras-card-top { display: grid; gap: 14px; align-content: start; margin: 0; }
+.extras-page .extras-channel-icon { margin: 0; width: 58px; height: 58px; border: 0; border-radius: 0; color: #426662; background: transparent; }
+.extras-page .extras-channel-card h3 { color: var(--extras-ink); font-size: 38px; }
+.extras-page .extras-channel-card p { color: var(--extras-muted); font-size: 16px; line-height: 1.65; }
+.extras-page .extras-card-bottom { border: 0; padding: 0; margin: 0; display: flex; gap: 20px; justify-content: space-between; align-items: center; }
+.extras-page .extras-channel-hero { gap: 24px; padding: 34px 0 38px; border: 0; border-bottom: 1px solid var(--extras-border); border-radius: 0; box-shadow: none; background: transparent; }
+.extras-page .extras-channel-hero-icon { flex: 0 0 60px; width: 60px; height: 60px; border: 0; border-radius: 0; background: transparent; color: #426662; }
+.extras-page .extras-channel-hero-text h1 { font-size: clamp(44px, 6vw, 72px); letter-spacing: -.035em; }
+.extras-page .extras-channel-hero-text > p:last-child { font-size: 17px; line-height: 1.7; max-width: 62ch; }
+.extras-page .extras-entry-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.extras-page .extras-entry-card { display: grid; grid-template-columns: 50px 240px minmax(0, 1fr); align-items: baseline; gap: 24px; padding: 28px 0; min-height: 0; border: 0; border-top: 1px solid var(--extras-border); border-radius: 0; background: transparent; }
+.extras-page .extras-entry-card:hover { transform: none; background: transparent; box-shadow: none; }
+.extras-page .extras-entry-card h3 { font-size: 29px; margin: 0; }
+.extras-page .extras-entry-card p { font-size: 16px; line-height: 1.75; max-width: 62ch; }
+.extras-page .extras-footer { font-size: 11px; line-height: 1.8; padding-block: 28px; border-color: var(--extras-border); color: var(--extras-muted); }
+.extras-page .published-collection { width: calc(100% - 2 * var(--page-gutter)); max-width: 1280px; }
+/* Board and notes stay useful without acquiring another dashboard shell. */
+.extras-page .extras-daily-puzzle { border: 0; border-radius: 0; background: transparent; padding: 32px 0; }
+.extras-page .extras-daily-board-panel, .extras-page .extras-chess-board-area { border: 0; border-radius: 0; background: #fffdf9; padding: 14px; }
+.extras-page .extras-daily-info-card, .extras-page .extras-daily-feedback, .extras-page .extras-daily-themes, .extras-page .extras-chess-status-card, .extras-page .extras-chess-history { border: 0; border-top: 1px solid var(--extras-border); border-radius: 0; background: transparent; padding: 20px 0; box-shadow: none; }
+.extras-page .extras-daily-layout, .extras-page .extras-chess-layout { gap: 36px; }
+.extras-page .extras-daily-header > div > p:last-child, .extras-page .extras-daily-info-card > p:last-child, .extras-page .extras-chess-heading > div > p:last-child, .extras-page .extras-chess-hint, .extras-page .extras-daily-message { font-size: 16px; line-height: 1.7; }
+.extras-page .extras-daily-eyebrow, .extras-page .extras-daily-panel-label, .extras-page .extras-daily-rating span, .extras-page .extras-daily-player small, .extras-page .extras-daily-board-hint, .extras-page .extras-chess-eyebrow, .extras-page .extras-chess-panel-label, .extras-page .extras-chess-history-heading > span { font-size: 11px; }
+.extras-page .extras-chess-player, .extras-page .extras-daily-player { font-size: 13px; }
+.extras-page .extras-daily-actions button, .extras-page .extras-chess-secondary-button, .extras-page .extras-chess-primary-button { min-height: 44px; font-size: 13px; border-radius: 0; border-color: var(--extras-border); }
+.extras-page .extras-daily-primary, .extras-page .extras-chess-primary-button { background: #426662; border-color: #426662; color: #fffdf9; }
+.extras-page .extras-daily-feedback p { font-size: 16px; line-height: 1.7; }
+.extras-page .extras-daily-feedback-label, .extras-page .extras-daily-stats span, .extras-page .extras-daily-source, .extras-page .extras-daily-footer, .extras-page .extras-chess-footer { font-size: 11px; }
+.extras-page .extras-daily-themes > div span { border: 0; border-radius: 0; background: transparent; padding: 3px 6px 3px 0; font-size: 12px; }
+.extras-page .extras-daily-stats > div { border: 0; border-radius: 0; background: transparent; padding: 12px 0; }
+.extras-page .extras-chess-mode { border-radius: 0; background: transparent; color: #426662; font-size: 11px; }
+.cv-court-study { width: 220px; max-width: 35%; height: auto; flex-shrink: 0; fill: none; stroke: #426662; stroke-width: 1.2; }
+@media (max-width: 800px) {
+  .extras-page .extras-channel-card { grid-template-columns: 50px minmax(0, 1fr); gap: 16px 22px; }
+  .extras-page .extras-card-top { grid-column: 1 / -1; display: flex; justify-content: space-between; }
+  .extras-page .extras-card-bottom { grid-column: 2; flex-wrap: wrap; }
+  .extras-page .extras-entry-card { grid-template-columns: 30px minmax(0, 1fr); gap: 14px; }
+  .extras-page .extras-entry-card p { grid-column: 2; }
+}
+@media (max-width: 540px) {
+  .extras-page .extras-intro { padding-block: 48px; }
+  .extras-page .extras-intro-text { font-size: 16px; }
+  .extras-page .extras-channel-card h3 { font-size: 32px; }
+  .extras-page .extras-enter-label { display: none; }
+  .extras-page .extras-channel-hero { align-items: flex-start; gap: 15px; }
+  .extras-page .extras-channel-hero-icon { flex-basis: 36px; width: 36px; height: 44px; }
+  .extras-page .extras-channel-hero-text > p:last-child { font-size: 16px; }
+  .extras-page .extras-channel-section-header > span { display: none; }
+  .extras-page .extras-daily-board-panel, .extras-page .extras-chess-board-area { padding: 6px; }
+  .extras-page .extras-daily-layout, .extras-page .extras-chess-layout { grid-template-columns: minmax(0, 1fr); }
+  .cv-court-study { width: 150px; max-width: 100%; }
+}

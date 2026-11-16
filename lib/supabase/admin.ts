@@ -1,5 +1,6 @@
 import "server-only";
 
+import { boundedFetch } from "../studio/transport";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,6 +18,7 @@ export const supabaseAdmin = createClient(
   supabaseUrl,
   supabaseSecretKey,
   {
+    global: { fetch: boundedFetch(15000) },
     auth: {
       autoRefreshToken: false,
       persistSession: false,

@@ -14,15 +14,15 @@ for (const [route, expected] of Object.entries(preservation)) {
  const text = readable(body.replace(/<!--.*?-->/g, "").replace(/<[^>]+>/g," "));
  assert.ok(/<title>[^<]*Kondwani Phiri[^<]*<\/title>/.test(html),route+" title");
  assert.ok(body.includes('aria-label="Main navigation"'),route+" navigation");
- assert.ok(body.includes('class="editorial-mobile-menu"'),route+" mobile menu");
+ assert.ok(body.includes('v3-sidebar') && body.includes('v3-mobile-collections'),route+" responsive source-list navigation");
  assert.ok(!body.includes('Skip animation') && !body.includes('Freeze / scrub'),route+" public animation controls");
  assert.ok(!/<dialog\b[^>]*\sopen(?:\s|[=>])/.test(body),route+" unexpected open dialog");
  assert.ok(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html),route+" external fonts");
  for(const passage of expected) { assert.ok(text.includes(readable(passage)),route+" lost original passage "+readable(passage).slice(0,70)); passages++; }
- for(const href of ["/about","/research","/experience","/leadership","/journal","/extras"]) assert.ok(body.includes(`href="${href}"`),route+" missing "+href);
+ for(const href of ["/about","/research","/experience","/leadership","/gallery","/journal","/extras/listening","/extras/chess","/extras/basketball"]) assert.ok(body.includes(`href="${href}"`),route+" missing "+href);
  if(route==="/") {
-  assert.ok(body.includes('class="cover-portrait"'),"Real portrait");
-  assert.ok(body.includes('aria-label="Explore the exhibition"'),"Editorial directory");
+  assert.ok(body.includes('alt="Kondwani Phiri"'),"Real portrait");
+  assert.ok(body.includes('v3-workspace'),"Fieldwork welcome workspace");
   assert.ok(body.includes('aria-haspopup="dialog"'),"In-site resume entry");
   assert.ok(body.includes('download="Kondwani-Phiri-CV.pdf"'),"PDF download");
   assert.ok(!body.includes('class="about-copy"') && !body.includes('class="experience-grid"'),"Homepage must stay short");
@@ -30,10 +30,11 @@ for (const [route, expected] of Object.entries(preservation)) {
  if(route==="/research") {
   for(const asset of ["molecular-toxicology-lab.","molecular-toxicology-lab2.","undergrad_symposium.","las100.","2025undergraduate_symposium_poster.","las100_poster.","quantum_dot_solarcell_poster."]) assert.ok(body.includes(asset),"Original research image "+asset);
   assert.equal((body.match(/class="research-methods"/g)??[]).length,4,"Original method disclosures");
-  assert.ok(body.includes('aria-label="Research method connections"'));
+  assert.ok(body.includes('aria-label="Research case files"'),"Accessible research file navigation");
+  assert.ok(body.includes('aria-labelledby="technique-label"'),"Accessible technique connection controls");
   assert.ok(text.includes("theoretical model suggesting a 2% improvement"));
  }
- if(["/research","/about","/experience","/leadership","/journal","/extras/listening","/extras/chess","/extras/basketball"].includes(route)) assert.ok(body.includes('data-living-destination='),route+" public motion integration");
+ assert.ok(!/class="living-transition(?:\s|"|$)/.test(body),route+" forced section cinema must stay unmounted");
  console.log("Editorial server HTML",route,"passed");
 }
 assert.equal(passages,35,"Every original substantive passage must remain public");

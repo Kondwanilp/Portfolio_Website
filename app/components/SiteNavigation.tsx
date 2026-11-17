@@ -1,15 +1,29 @@
 import Link from "next/link";
-import CVLinks from "./CVLinks";
-import { hasPublicCv } from "@/lib/cv.server";
 import { Suspense } from "react";
+import { hasPublicCv } from "@/lib/cv.server";
+import { publicCollections, type CollectionGroup } from "@/lib/public-navigation";
+import { publicContact } from "@/lib/public-contact";
+import CVLinks from "./CVLinks";
 import NavigationLinks from "./NavigationLinks";
-import { publicDestinations } from "@/lib/public-navigation";
+import WorkspaceIcon from "./WorkspaceIcon";
+import WorkspaceToolbar from "./WorkspaceToolbar";
+
+function SourceGroup({ group }: { group: CollectionGroup }) {
+ const fallback = publicCollections.filter(collection => collection.group === group).map(collection => <Link key={collection.href} href={collection.href} className="v3-source-link"><WorkspaceIcon name={collection.icon} /><span>{collection.label}</span></Link>);
+ return <section className="v3-source-group" aria-label={group === "workbench" ? "Workbench collections" : "Off-duty collections"}>
+  {group === "workbench" ? <p className="v3-source-heading">Workbench</p> : <Link className="v3-source-heading v3-source-heading-link" href="/extras">Off duty <span aria-hidden="true">&#8599;</span></Link>}
+  <Suspense fallback={fallback}><NavigationLinks group={group} /></Suspense>
+ </section>;
+}
 export default function SiteNavigation() {
-  const fallback = publicDestinations.map(([href, label]) => <Link key={href} href={href}>{label}</Link>);
-  const links = <Suspense fallback={fallback}><NavigationLinks /></Suspense>;
-  return <nav className="editorial-navigation" aria-label="Main navigation">
-    <Link href="/" className="wordmark">Kondwani Phiri<span>.</span></Link>
-    <div className="editorial-desktop-links">{links}<CVLinks available={hasPublicCv()} compact /></div>
-    <details className="editorial-mobile-menu"><summary>Explore <span aria-hidden="true">＋</span></summary><div>{links}<CVLinks available={hasPublicCv()} compact /></div></details>
-  </nav>;
+ const available = hasPublicCv();
+ const menu = <nav aria-label="Main navigation"><SourceGroup group="workbench" /><SourceGroup group="off-duty" /></nav>;
+ return <>
+  <aside className="v3-sidebar" aria-label="Fieldwork workspace">
+   <Link href="/" className="v3-workspace-brand"><span className="v3-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 23 16 9l8 14M8 23h16" /><circle cx="16" cy="9" r="3" /><circle cx="8" cy="23" r="3" /><circle cx="24" cy="23" r="3" /></svg></span><span>Fieldwork<small>Kondwani Phiri</small></span></Link>
+   {menu}
+   <div className="v3-sidebar-note"><span>Lusaka roots.</span><span>Grambling days.</span><a href={publicContact.href}>{publicContact.label} &#8599;</a></div>
+  </aside>
+  <Suspense fallback={<header className="v3-toolbar"><details className="v3-mobile-collections"><summary aria-label="Browse collections"><WorkspaceIcon name="collections" /><span>Collections</span></summary><div className="v3-mobile-source-list">{menu}</div></details><span className="v3-toolbar-loading">Fieldwork</span><div className="v3-toolbar-actions"><CVLinks available={available} compact /></div></header>}><WorkspaceToolbar menu={menu} resume={<CVLinks available={available} compact />} /></Suspense>
+ </>;
 }

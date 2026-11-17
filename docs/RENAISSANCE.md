@@ -2,11 +2,11 @@
 
 ## Working agreement
 
-`Living-Matter-Art-Direction.md` is the definitive approved creative direction. Increment 5.2 implements it on the actual local website, combining Living Matter's biological motion with archival editorial precision. The subsequent owner instruction replaces session-only navigation playback with autonomous, scroll-responsive section playback and natural replay on reentry. No production deployment is authorized. Database activation and container-dependent staging remain deferred.
+Portfolio V3 supersedes the V2 visual direction. The approved reset is documented in `V3_REFERENCE_ANALYSIS.md` and `V3_CREATIVE_DIRECTION.md`: Fieldwork, a personal scientific workspace. Work takes place in the separate `kondwani-portfolio-v3` checkout on `portfolio-v3`. The original `kondwani-portfolio` working tree, its uncommitted V2 source, `portfolio-v2` and `main` are preserved. The latest explicit instruction is local review before GitHub or Vercel; no push or deployment is authorized. Database activation and container-dependent staging remain deferred.
 
 The Studio uses Supabase-backed drafts, revisions, private media and published snapshots through a verified owner-only server/API boundary. Both proposed migrations await explicit live-activation approval. Existing source-controlled portfolio content remains available while the hosted Studio schema is pending. Court Vision retains its established administration and publication modules.
 
-The active checkout is `kondwani-portfolio` on `portfolio-v2`. Work proceeds in reviewable local increments. The portfolio's personal writing, research, warm beige editorial identity, Spotify integration, Chess Corner, Court Vision, Supabase authentication, and video management are core requirements.
+The active V3 checkout is `kondwani-portfolio-v3` on `portfolio-v3`; V2 remains separately recoverable at `kondwani-portfolio`. Work proceeds in reviewable local increments. Personal writing, research, the approved palette, Spotify, Chess Corner, Court Vision, authentication, video management and the actual résumé are preserved requirements. Historical increment records below describe earlier V2 states and are not the current V3 design contract.
 
 Production deployment, paid services, changes to `main`, secret disclosure, and destructive database changes require the owner's explicit approval.
 
@@ -726,3 +726,69 @@ The development-only `/motion-lab` now has one direction and real page iframes r
 The existing local development server at **http://localhost:3000** serves the updated website; HTTP checks confirm the new cover and `/about` navigation. Visit `/research`, `/about`, `/#about`, `/extras`, `/extras/chess`, `/extras/basketball`, `/journal` and `/motion-lab?view=research` or `/motion-lab?view=about`. No production deployment has occurred.
 
 For manual acceptance: pause at a signature introduction, scroll gently then quickly, stop and check continued playback, scroll fully beyond it and return. Check Escape/Skip, reduced motion, touch scrolling, keyboard navigation, native modifier clicks and rapid route changes. Freeze the anatomy in the laboratory and inspect all requested viewport sizes. Actual browser review and at least one refinement based on rendered-page screenshots remain outstanding until browser access is restored. Device performance is a target, not an established measurement. The live Studio activation/backups/staging and legacy public `hoops_bucket` security follow-up remain subject to their existing approvals; this work does not resolve those deferred infrastructure requirements.
+
+
+## Portfolio V3 - Fieldwork creative reset
+
+### Recovery and branch isolation
+
+The V3 brief was read in full. Before V3 presentation changes, the current V2 committed/uncommitted tree was audited and encrypted checkpoint `2026-11-16T23-21-21-470Z-source.rbackup` verified: 385 files, SHA-256 `4702320fb1390b4d54d3b2a8763663cf992a11975a797daa72ce7a558f56794d`. Verification checked authenticated archive integrity; it was not another full restore rehearsal.
+
+A separate worktree at `../kondwani-portfolio-v3` uses branch `portfolio-v3`. All 226 current nonprivate source/asset files were copied byte-for-byte and checked against a baseline manifest. Commit `75d10a5` records that complete V2 working source on V3, before the creative reset. The original V2 branch still points to `f418901c4b35c8f085a98525599b1ce7c4fd76af`; neither V2 nor main was checked out for new implementation. Environment configuration remains local and ignored. Source backups, private staging and credentials were not staged.
+
+Dependencies initially used a local junction for speed. Before a V3 security patch, that junction was moved (not recursively deleted) into ignored staging. V3 now has its own physical installed dependencies. V2's installed packages are not modified. The old local dev listener was identified by its project command path before stopping it; port 3000 is reserved for the new local V3 server. This changes a local runtime, not V2 source or production resources.
+
+### Discovery and creative decision
+
+`docs/V3_REFERENCE_ANALYSIS.md` records the reference investigation, evidence limits, original reinterpretations, public source URLs, and the Craft Anything review. Craft was read-only. Its MIT/Apache code terms and separately protected brand/icon assets were reviewed; no Craft code, assets or Rust installation were needed. The useful method is evidence-first study, state-based inspection and iterative comparison against an original direction. Public-source findings are not labeled clean-room or browser observations.
+
+`docs/V3_CREATIVE_DIRECTION.md` defines Fieldwork. The stable source list and contextual toolbar provide an application frame; research becomes a real collection of case files; photographs, music, chess and basketball receive content-specific spaces. The V2 full-screen biological sequences are no longer mounted. The palette and native document experience remain, while the old public presentation cascade was replaced instead of retaining layers of V2 overrides.
+
+### Implemented interface and preserved content
+
+- `SiteNavigation`, `NavigationLinks`, `WorkspaceToolbar`, `WorkspaceIcon`, `public-navigation.ts` and `v3-shell.css` implement grouped source-list navigation, current collection state, a compact mobile collections menu, server-rendered fallback navigation, direct URLs and immediate resume access.
+- The new welcome workspace uses the real portrait and academic identity, authentic case-file links, photographic/journal shortcuts and a distinct off-duty shelf. It does not repeat the full biography, experience timeline or leadership record.
+- Research uses `ResearchNotebook`, `ResearchCaseFiles`, its pure selection model and a scoped notebook stylesheet. Native disclosures retain complete SSR/no-JS write-ups; client enhancement selects a case with URL-backed hashes and browser history. Arrow keys and the mobile picker support selection. Technique connections are factual, including the shared data-analysis relationship. All 17 original research passages and seven original photograph/poster assets remain.
+- About, Experience, Leadership, Gallery, Journal and published articles use the same workspace frame with different reading/collection compositions. All 35 original substantive content passages are still checked by unchanged fixture text. The original public contact mailto was verified from the actual CV rather than copied from the reference or auth configuration.
+- Listening Room, chess and Court Vision retain their provider/game/video implementations and separate personalities. No decorative sequence resets a game or blocks its board. Public API, authorization, video storage, draft/revision/publication and migration code remain protected boundaries.
+- The actual PDF/media window system was deliberately retained as a useful V3 tool. Its review corrected stale native close events during StrictMode, WAAPI-close failure fallback, navigation cleanup and accumulated requested zoom. Fullscreen/expand, zoom/fit, original-file access, download, Escape, focus restoration and near-full-screen mobile presentation remain functional design contracts. The one-page original CV and pinned local PDF worker are unchanged.
+
+### Safe maintenance found during audit
+
+The previous homepage extraction had left review-only Studio seed preparation pointing to old source locations. `prepare-studio-seed.mjs` now resolves `ResearchCaseFiles`, `ExperienceTimeline` and `PortfolioGallery` while retaining the original five seed keys/IDs. Current source locations are recorded separately. Imported public images are resolved; dynamic expressions remain marked for editorial review. Source-only preflight can exclude private local drafts. This prepares review data; it does not publish or apply a migration.
+
+The local Extras validation allowlist now includes the existing Listening Room channel. No hosted schema or policy changed.
+
+A read-only dependency audit confirmed GHSA-mfr8-8qww-v76h against Next 16.4.3 (moderate; affected range 16.3.0-16.4.4). The source does not contain the advisory's `unstable_cache()` nesting pattern. V3 is now pinned to the compatible Next/eslint-config-next 16.4.6 patch in its independent dependency directory. Advisory details were checked against [the official GitHub advisory](https://github.com/advisories/GHSA-mfr8-8qww-v76h). The post-patch production dependency audit reports **zero vulnerabilities**. The installation's development-inclusive audit still reports **seven moderate vulnerabilities**; these need a separate compatibility-aware dependency review before release. No broad `audit fix` was applied. V2 retains its original dependencies.
+
+Final independent source review caught an early PDF-render cancellation window. Painting promises are now observed immediately, even when cancellation precedes text loading. Development browser telemetry recorded that cancellation error before the fix; post-fix interactive replay remains pending. Research technique selection now marks related files with a border rather than reducing operable link/text opacity. The root document declares Next's supported `data-scroll-behavior="smooth"` contract so route transitions do not inherit CSS smooth scrolling. A React checklist review retained lazy document loading, server-rendered content, functional state updates and effect cleanup without adding a component framework.
+
+### Verification and remaining acceptance
+
+Final post-patch checks, repeated after the PDF cancellation and research contrast fixes:
+
+| Check | Result and scope |
+| --- | --- |
+| `npm.cmd run lint` | Pass; no remaining ESLint errors or warnings. |
+| `npm.cmd run typecheck` | Pass. |
+| Serial complete test suite | **98/98 pass**, zero skipped, including four research/source-list model tests and four actual-source/seed preservation tests. |
+| `npm.cmd run build` | Pass with Next 16.4.6/Webpack; all 36 static-generation entries completed. |
+| `verify-editorial.mjs` | All 11 public destinations pass; all 35 original substantive passages, research assets/methods and public navigation contracts preserved. |
+| `verify-public-assets.mjs` | All 16 public media HEAD requests pass; no full media bodies downloaded. |
+| Production `verify-motion-lab.mjs` | Five current/legacy query variants return 404; actual CV HEAD returns 200, `application/pdf`, 65,225 bytes; in-site/view/download entry checks pass. |
+| Local production smoke | Public/Extras/legacy-admin routes, Spotify, Stockfish, Studio gates, API denial and session closure checks pass; detailed limits below. |
+| PDF engine | Installed PDF.js rendered the actual one-page CV to a 918 by 1,188 pixel local inspection image; visual inspection passed without changing the PDF. This is not browser-window interaction proof. |
+| Production dependency audit | Zero known vulnerabilities reported after the framework patch. Seven moderate development-inclusive audit findings remain for separate review. |
+| Preservation and private-file review | All 226 V2 source hashes, its branch/HEAD and all 113 status entries match the saved baseline. Thirty-five V3 candidate files reviewed; no private artifacts or common credential patterns detected. `git diff --check` passes. |
+
+Commands used the workstation's bounded Node heap (`--max-old-space-size=768 --max-semi-space-size=8`); the test runner additionally used `--liftoff-only --wasm-num-compilation-tasks=1 --test --test-concurrency=1 tests/*.test.ts`. The original content fixture text was not deleted or weakened; obsolete V2 presentation expectations were replaced with V3 navigation, document and preservation contracts. Logs and the PDF inspection image stay in ignored local staging, not public assets.
+
+The final full local production smoke returned four fresh Spotify tracks and verified five coalesced concurrent responses. An intermediate rerun under a network-restricted server stopped at Spotify 503; restarting the identical build with upstream network access made the full smoke pass. Both logs are retained, and the development server has the required network access. No Spotify code or tokens were edited to obtain that result. Stockfish JavaScript/WASM assets return 200; deterministic game/puzzle tests pass, while actual board interaction remains a browser acceptance item. Studio pages return the login boundary. Anonymous and forged sessions receive 401/no-store; foreign-origin requests receive 403; guarded persistence/upload/media endpoints deny anonymous access. Unpublished/unavailable media returns 503 with no private redirect while Studio activation is pending. Sign-out clears the secure cookie and rejects foreign origins. **No real-owner mutation, media upload, revision recovery, publication or live schema activation was exercised by this creative increment.** Earlier isolated integration tests remain in the suite; they do not prove current hosted activation.
+
+Browser/native inspection was retried for this increment and timed out. No V3 desktop/mobile screenshots, hover outcomes, clips, measured FPS, Lighthouse or screen-reader acceptance are claimed. Source review caught and corrected a mobile sidebar-variable cascade issue, while actual rendered-page iteration remains pending browser access. The source-list/no-JS fallback and real URL contracts have automated checks; they do not substitute for device interaction testing. Development browser telemetry also recorded hydration attribute diffs for injected `bis_skin_checked`/`__processed` attributes. The shown diffs are consistent with browser-extension injection; an extension-free browser retest is still required. Hydration warnings were not hidden with blanket suppression.
+
+### Local handoff and outstanding work
+
+The V3 development server runs at **http://localhost:3000** from `kondwani-portfolio-v3` on `portfolio-v3`, using `npm.cmd run dev -- --webpack --hostname 127.0.0.1 --port 3000` and a 1,536 MiB old-space heap for route compilation. The production verification server is temporary and is stopped after checks. A local implementation commit follows baseline `75d10a5`; use `git log --oneline -2` to identify both checkpoints. No push, merge to main, deployment, live database migration or production policy change occurred.
+
+Manual review must cover the welcome workspace, research selection/history and keyboard navigation, mobile menu, resume opening/rapid zoom/closing, poster/photo zoom, music, puzzle/freeplay, Court Vision and private admin restrictions. Complete desktop/mobile visual refinement and device accessibility/performance acceptance once browser tools recover. Review development dependency advisories separately. Existing Studio activation, full recovery/staging acceptance and the legacy public `hoops_bucket` privacy follow-up remain deferred under their original approval requirements. V2 presentation, optional biological renderers and the archived development laboratory remain recoverable; they are not mounted as public entrances or linked in the new navigation.

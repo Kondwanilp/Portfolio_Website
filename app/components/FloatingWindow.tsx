@@ -17,19 +17,25 @@ export default function FloatingWindow({ title, subtitle, children, onClose, cla
     previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     if (dialog && typeof dialog.showModal === "function") {
       const dispose = mountViewerDialog(dialog, previousFocus.current);
-      return () => { closing.current?.cancel(); dispose(); };
+      const leaveDocument = () => { if (dialog.open) dialog.close(); };
+      window.addEventListener("popstate", leaveDocument);
+      window.addEventListener("hashchange", leaveDocument);
+      return () => { window.removeEventListener("popstate", leaveDocument); window.removeEventListener("hashchange", leaveDocument); const animation = closing.current; closing.current = null; animation?.cancel(); dispose(); };
     }
   }, []);
   function close() {
     const dialog = ref.current;
     if (!dialog || closing.current) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof dialog.animate !== "function") { dialog.close(); return; }
-    const style = getComputedStyle(dialog);
-    const animation = dialog.animate([{ opacity: style.opacity, transform: style.transform }, { opacity: 0, transform: "translateY(8px) scale(.99)" }], { duration: 140, easing: "ease-out", fill: "forwards" });
-    closing.current = animation;
-    void animation.finished.then(() => { if (dialog.isConnected && dialog.open) dialog.close(); }, () => {}).finally(() => { closing.current = null; });
+    try {
+      const style = getComputedStyle(dialog);
+      const animation = dialog.animate([{ opacity: style.opacity, transform: style.transform }, { opacity: 0, transform: "translateY(8px) scale(.99)" }], { duration: 140, easing: "ease-out", fill: "forwards" });
+      closing.current = animation;
+      const settle = () => { if (closing.current === animation && dialog.isConnected && dialog.open) dialog.close(); };
+      void animation.finished.then(settle, settle).finally(() => { if (closing.current === animation) closing.current = null; });
+    } catch { dialog.close(); }
   }
-  return <dialog ref={ref} className={`exhibition-window ${expanded ? "exhibition-window--expanded" : ""} ${className}`} aria-labelledby={labelId} onClose={onClose} onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
+  return <dialog ref={ref} className={`exhibition-window ${expanded ? "exhibition-window--expanded" : ""} ${className}`} aria-labelledby={labelId} onClose={() => { if (!ref.current?.open) onClose(); }} onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
     <div className="exhibition-window-panel">
       <header className="exhibition-window-titlebar">
         <div className="exhibition-window-title"><strong id={labelId}>{title}</strong>{subtitle && <span>{subtitle}</span>}</div>

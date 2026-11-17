@@ -3,6 +3,8 @@ import { Suspense } from "react";
 import { isMotionLabEnabled } from "@/lib/motion-lab";
 import MotionLaboratory from "./MotionLaboratory";
 import "./motion-lab.css";
+import "../living-matter.css";
+import "../exhibition-scenes.css";
 
 export const metadata = { title: "Motion Laboratory", robots: { index: false, follow: false } };
 

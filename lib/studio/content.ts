@@ -12,7 +12,7 @@
     { key: "topic", label: "Topic" },
   ] },
   { id: "extras", title: "Extras", description: "Stories and discoveries beyond the laboratory.", publicPath: "/extras", fields: [
-    { key: "channel", label: "Channel", options: ["chess", "basketball", "wordplay", "archives"] },
+    { key: "channel", label: "Channel", options: ["listening", "chess", "basketball", "wordplay", "archives"] },
   ] },
 ] as const;
 

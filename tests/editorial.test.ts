@@ -29,7 +29,7 @@ test("the redesign preserves every substantive original homepage and research te
   const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content.json", import.meta.url), "utf8")) as Record<string, string[]>;
   for (const [file, passages] of Object.entries(baseline)) {
     // The approved short cover moves content to real destinations; retain every fixture passage.
-    const files = file === "app/page.tsx" ? [file, "app/about/page.tsx", "app/components/ExperienceTimeline.tsx", "app/components/LeadershipTimeline.tsx", "app/components/PersonalInterests.tsx", "app/components/SiteFooter.tsx"] : [file];
+    const files = file === "app/page.tsx" ? [file, "app/about/page.tsx", "app/components/ExperienceTimeline.tsx", "app/components/LeadershipTimeline.tsx", "app/components/PersonalInterests.tsx", "app/components/SiteFooter.tsx"] : file === "app/research/page.tsx" ? [file, "app/components/ResearchCaseFiles.tsx"] : [file];
     const source = (await Promise.all(files.map(path => readFile(new URL(`../${path}`, import.meta.url), "utf8")))).join(" ").replace(/\s+/g, " ");
     for (const passage of passages) assert.ok(source.includes(passage.replace(/\s+/g, " ").trim()), `${file} lost ${passage.trim().slice(0, 80)}`);
   }

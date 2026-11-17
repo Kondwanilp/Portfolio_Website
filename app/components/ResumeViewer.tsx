@@ -68,11 +68,14 @@ export default function ResumeViewer({ onClose }: { onClose: () => void }) {
       // A fresh canvas per render keeps cancellation/rapid zoom from sharing a painting surface.
       host.replaceChildren(canvas, textContainer);
       render = pdfPage.render({ canvas, viewport: bounds, transform: density === 1 ? undefined : [density, 0, 0, density, 0, 0] });
+      const painting = render.promise;
+      // Cleanup can cancel painting before text loading completes. Observe it immediately.
+      void painting.catch(() => {});
       const pdfjs = await import("pdfjs-dist");
       const content = await pdfPage.getTextContent();
       if (cancelled) return;
       text = new pdfjs.TextLayer({ textContentSource: content, container: textContainer, viewport: bounds });
-      await Promise.all([render.promise, text.render()]);
+      await Promise.all([painting, text.render()]);
       if (!cancelled) { setActualZoom(scale); setRendering(false); }
     })().catch(failure => {
       if (!cancelled && failure?.name !== "RenderingCancelledException") { setError(true); setRendering(false); }
@@ -80,7 +83,7 @@ export default function ResumeViewer({ onClose }: { onClose: () => void }) {
     return () => { cancelled = true; render?.cancel(); text?.cancel(); };
   }, [pdf, page, fit, zoom, area, error]);
 
-  function changeZoom(delta: number) { setFit("custom"); setZoom(clampViewerZoom(actualZoom + delta)); }
+  function changeZoom(delta: number) { setZoom(current => clampViewerZoom((fit === "custom" ? current : actualZoom) + delta)); setFit("custom"); }
   return <FloatingWindow title="Résumé" subtitle="Kondwani Phiri / cv.pdf" onClose={onClose} className="resume-window" toolbar={<>
     <div className="viewer-tool-group"><button type="button" disabled={!pdf || error || actualZoom <= .25} onClick={() => changeZoom(-.25)} aria-label="Zoom out">−</button><output aria-label="Document magnification">{Math.round(actualZoom * 100)}%</output><button type="button" disabled={!pdf || error || actualZoom >= 4} onClick={() => changeZoom(.25)} aria-label="Zoom in">+</button></div>
     <label className="viewer-fit"><span className="sr-only">Fit document</span><select aria-label="Fit document" value={fit} disabled={!pdf || error} onChange={event => setFit(event.target.value as ViewerFit)}><option value="page">Fit page</option><option value="width">Fit width</option><option value="custom">Custom zoom</option></select></label>

@@ -44,6 +44,8 @@ test("local content validation accepts the real Listening Room channel and rejec
 test("public V3 layout retains direct document access without mounting the old section curtain",async()=>{
  const [layout,viewer,window] = await Promise.all([readFile(new URL("../app/layout.tsx",import.meta.url),"utf8"),readFile(new URL("../app/components/CVLinks.tsx",import.meta.url),"utf8"),readFile(new URL("../app/components/FloatingWindow.tsx",import.meta.url),"utf8")]);
  assert.doesNotMatch(layout,/<LivingTransitions\b|import LivingTransitions/);
- assert.match(viewer,/href="\/cv.pdf"/);assert.match(viewer,/aria-haspopup="dialog"/);assert.match(viewer,/download="Kondwani-Phiri-CV.pdf"/);
+ assert.match(viewer,/href="\/cv.pdf"/);assert.match(viewer,/aria-haspopup="dialog"/);assert.doesNotMatch(viewer,/download=/);
+ const resume = await readFile(new URL("../app/components/ResumeViewer.tsx",import.meta.url),"utf8");
+ assert.match(resume,/download="Kondwani-Phiri-CV.pdf"/);
  assert.match(window,/<dialog/);assert.match(window,/aria-labelledby/);assert.match(window,/onCancel/);assert.match(window,/mountViewerDialog/);
 });

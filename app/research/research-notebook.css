@@ -120,3 +120,5 @@
 
 .research-notebook[data-enhanced=false] :is(.notebook-mobile-picker,.notebook-techniques) { display:none; }
 @media(max-width:700px) { .research-notebook[data-enhanced=false] .notebook-index nav { display:grid; grid-template-columns:minmax(0,1fr); } }
+
+.dossier-head-crop img { object-position: center 15%; }

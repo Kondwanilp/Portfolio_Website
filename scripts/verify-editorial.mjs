@@ -4,7 +4,7 @@ const base = process.env.PORTFOLIO_TEST_URL ?? "http://127.0.0.1:3101";
 const baseline = JSON.parse(await readFile(new URL("../tests/fixtures/editorial-content.json", import.meta.url), "utf8"));
 const readable = value => value.replace(/&amp;/g, "&").replace(/&(?:apos|#x27|#39);/g, "'").replace(/&quot;/g, '"').replace(/\s+/g, " ").trim();
 const home = baseline["app/page.tsx"];
-const preservation = { "/": [home[0],home[17]], "/about": home.slice(1,6), "/experience": home.slice(6,11), "/leadership": home.slice(11,14), "/extras": home.slice(14,17), "/research": baseline["app/research/page.tsx"], "/gallery": [], "/journal": [] };
+const preservation = { "/": ["Take a closer look."], "/about": home.slice(0,5), "/leadership": home.filter(passage => /Founded and lead|Support residential|Mentor Zambian/.test(passage)), "/extras": ["Comic-Omics", "Places I’ve been."], "/research": baseline["app/research/page.tsx"] };
 let passages = 0;
 for (const [route, expected] of Object.entries(preservation)) {
  const response = await fetch(base + route, { signal: AbortSignal.timeout(30000) });
@@ -14,17 +14,19 @@ for (const [route, expected] of Object.entries(preservation)) {
  const text = readable(body.replace(/<!--.*?-->/g, "").replace(/<[^>]+>/g," "));
  assert.ok(/<title>[^<]*Kondwani Phiri[^<]*<\/title>/.test(html),route+" title");
  assert.ok(body.includes('aria-label="Main navigation"'),route+" navigation");
- assert.ok(body.includes('v3-sidebar') && body.includes('v3-mobile-collections'),route+" responsive source-list navigation");
+ assert.ok(body.includes('v3-sidebar') && body.includes('v3-mobile-direct-nav'),route+" responsive source-list navigation");
+ assert.ok(body.includes('v3-toolbar-home'),route+" permanent Home link");
+ assert.ok(!body.includes('Browse collections'),route+" removed Collections dropdown");
  assert.ok(!body.includes('Skip animation') && !body.includes('Freeze / scrub'),route+" public animation controls");
  assert.ok(!/<dialog\b[^>]*\sopen(?:\s|[=>])/.test(body),route+" unexpected open dialog");
  assert.ok(!/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html),route+" external fonts");
  for(const passage of expected) { assert.ok(text.includes(readable(passage)),route+" lost original passage "+readable(passage).slice(0,70)); passages++; }
- for(const href of ["/about","/research","/experience","/leadership","/gallery","/journal","/extras"]) assert.ok(body.includes(`href="${href}"`),route+" missing "+href);
+ for(const href of ["/about","/research","/leadership","/extras"]) assert.ok(body.includes(`href="${href}"`),route+" missing "+href);
  if(route==="/") {
-  assert.ok(body.includes('alt="Kondwani Phiri"'),"Real portrait");
-  assert.ok(body.includes('v3-workspace'),"Fieldwork welcome workspace");
+  assert.ok(!body.includes('alt="Kondwani Phiri"'),"Homepage portrait removed");
+  assert.ok(body.includes('lab-exhibition'),"Fieldwork welcome workspace");
   assert.ok(body.includes('aria-haspopup="dialog"'),"In-site resume entry");
-  assert.ok(body.includes('download="Kondwani-Phiri-CV.pdf"'),"PDF download");
+  assert.ok(!body.includes('download="Kondwani-Phiri-CV.pdf"'),"Download belongs inside the resume window");
   assert.ok(!body.includes('class="about-copy"') && !body.includes('class="experience-grid"'),"Homepage must stay short");
  }
  if(route==="/research") {
@@ -37,7 +39,11 @@ for (const [route, expected] of Object.entries(preservation)) {
  assert.ok(!/class="living-transition(?:\s|"|$)/.test(body),route+" forced section cinema must stay unmounted");
  console.log("Editorial server HTML",route,"passed");
 }
-assert.equal(passages,35,"Every original substantive passage must remain public");
+for (const route of ["/experience", "/gallery", "/journal"]) {
+ const response = await fetch(base + route);
+ assert.equal(response.status, 404, route + " retired public page");
+}
+assert.equal(passages, Object.values(preservation).flat().length);
 console.log("Content preservation and approved copy revisions across public destinations",passages);
 for (const [channel, anchor] of [["listening","listening"],["chess","chess"],["basketball","basketball"],["wordplay","comics"],["archives","interests"]]) {
  const response = await fetch(`${base}/extras/${channel}`, { redirect:"manual", signal:AbortSignal.timeout(30000) });

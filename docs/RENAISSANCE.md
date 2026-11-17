@@ -843,3 +843,113 @@ The final integration smoke passes. Spotify returns four available tracks and fi
 A restricted-process repeat failed to initialize PGlite under memory pressure. The workstation reported 488 MiB free physical memory at inspection. The verified old V3 listener was stopped, and the isolated owner-context rerun passed all 101 tests. An earlier development HTTP repeat timed out. The final production HTTP and integration runs pass. Test logs remain in ignored local staging.
 
 For this handoff, the built application is served locally at `http://localhost:3000` with `npm.cmd run start -- --hostname 127.0.0.1 --port 3000`, using a 512 MiB old-space heap. This keeps the local review independent of development compilation overhead. Source editing with hot reload uses the documented `npm.cmd run dev` command after stopping the preview listener. Cover assets and reviews are checked into the application source. Reading dates and additional personal recommendations await owner input. Real-device touch, screen-reader and measured performance acceptance remain outstanding.
+
+
+## Browser annotation follow-up — November 2026
+
+The owner's fourteen browser annotations supersede the previous homepage and public collection list.
+
+### Implemented changes
+
+- The homepage is now an interactive illustrated laboratory bench. Four specimen slides open About, Research, Leadership, and Extras through an 850 ms microscope transition. Normal links, modifier clicks, keyboard navigation, and reduced-motion immediate navigation remain available. Navigation never locks scrolling or gates content.
+- Comic reviews render immediately, with no spoiler disclosure or cover/catalog actions. Covers rotate automatically when visible and idle. Hover, keyboard focus, hidden documents, and reduced-motion preferences suspend rotation. Previous, next, and drag gestures remain available. Marvel Zombies now reads “twist”. The additional Thor volume retains its artwork.
+- Spotify's compact listening list uses play symbols. Links still open the track on Spotify, with the existing accessible link labels.
+- Extras has an inline orthographic globe with all nine supplied places, linked threads, a rotation slider, and selectable location labels. Alabama and Mississippi use approximate state-center positions because no cities were supplied. Threads represent connections between visited places and do not assert a chronological itinerary.
+- The globe bundles simplified public-domain Natural Earth 1:110m coastline geometry locally. It performs no runtime map-provider requests. Source https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_110m_land.geojson.
+- Anime opens in the existing native-dialog window system through #anime, with Escape, focus restoration, and browser fragment navigation. The watched list and ratings await the owner's input. No viewing history or ratings were invented.
+- The recommendation form validates a nonempty message, bounds input to 1,000 characters, URL-encodes the content, and opens an email addressed to kondwanilphiri2023@gmail.com. The interface explicitly asks the visitor to send from their email app. Direct server delivery awaits the owner's email service configuration. No message was sent during testing.
+- The résumé toolbar provides View Résumé. Download and Open original remain inside the résumé window, including its fallback state.
+- About's bottom cross-links were removed. The microscope photo now crops toward the upper part of the original image. Full-resolution viewing retains the original photograph.
+- Experience, Photographs, and Journal index pages are removed from public navigation and return 404. Assets, source content components, Studio modules, and database content remain available for future restoration. Published content detail URLs remain available for existing CMS publication links.
+
+### Verification and remaining items
+
+The initial complete run passed 101 tests, ESLint, TypeScript, and a Webpack production build. Follow-up checks exposed old assertions requiring the removed toolbar download and retired pages. Those contracts were updated to the owner's annotations, with added regression coverage for always-visible reviews, anime fragment handling, mail composition, coastline coordinates, and relocated download access. Final verification results follow below.
+
+Native Chrome visual review confirmed the illustrated homepage at desktop and a narrow 504-pixel window, the working microscope-to-Extras navigation, visible comic reviews, clean Spotify play symbols, the inline globe, and the anime dialog. The rebuilt preview confirms the bundled coastlines and the toolbar containing only View Résumé. Physical touch-device, screen-reader, and measured frame-rate verification remain outstanding.
+
+No database migration, policy change, deployment, or source edit to the original V2 worktree was performed. Work remains in the existing portfolio-v3 worktree established during the approved creative reset.
+
+
+### Final annotation verification
+
+- ESLint and TypeScript pass with no diagnostics.
+- All 103 automated tests pass. Existing Node module-type warnings remain informational.
+- The Webpack production build passes. Verification was run serially with bounded heaps because this workstation has limited available memory. A restricted runner stalled during lint and was stopped. The owner-context full verification completed successfully.
+- HTTP checks pass for all five retained public pages, all five legacy Extras channel redirects, 28 rendered-content assertions, and the three retired page 404 responses.
+- All 20 public media assets pass HEAD checks. The résumé returns the original 65,225-byte PDF. The download action is verified in the résumé window source and excluded from the initial homepage toolbar. Native Chrome also rendered the original PDF successfully and displayed Download and Open original inside its window.
+- The integration smoke passes. Spotify returns five tracks and five coalesced concurrent responses. Both Stockfish engine files return 200. Studio signed-out gates, anonymous and forged-token 401 responses, foreign-origin 403 responses, and secure-cookie clearing pass. Missing public media fails closed with 503 and no redirect, as expected before hosted Studio activation.
+- Native Chrome confirms the real microscope slide transition into Extras, always-visible reviews, Spotify play icons, geographic coastlines, globe selection controls, and the anime dialog. Escape dismisses Anime and returns the fragment to #play. A narrow 504-pixel window was reviewed alongside the desktop layout. Physical-device touch and screen-reader acceptance remain unverified.
+
+The local preview is served at http://localhost:3000. Watched anime, personal ratings, and a chosen email-delivery service remain the only new content/configuration requirements. The current recommendation form uses an explicitly labeled email-app handoff. Hosted Studio activation and the previously documented legacy video privacy issue remain separate outstanding work.
+
+
+## Anime review collection and recommendation delivery
+
+The owner supplied 28 anime entries. The Anime window now presents a three-poster carousel and one visible personal review, with previous/next buttons, arrow keys, touch swipe, automatic nine-second rotation, and a jump-to-show selector. Ratings sort descending with the original input order preserved for ties. Decimal ratings remain exact. Unrated titles appear last. My Home Hero remains currently watching with no score. Hunter x Hunter and Spirited Away remain on the watchlist with no invented review or score.
+
+The display titles use standard spellings. “Death parody” is interpreted as Death Parade based on the supplied afterlife review. Naruto/Shippuden and Dragon Ball Z/Super remain combined review entries, represented by Shippuden and Dragon Ball Z artwork respectively. The owner's review wording is retained.
+
+Poster metadata was retrieved from the public anime-offline-database archive after the live Jikan service timed out. The artwork is hosted locally, with catalog and original artwork URLs in lib/anime-artwork.json. The 28 poster files are commentary-associated promotional artwork belonging to their respective rights holders. No anime provider is queried by visitors. Only the three visible posters mount images. Metadata source https://github.com/manami-project/anime-offline-database/releases/download/latest/anime-offline-database-minified.json.zst.
+
+Web3Forms is prepared as an optional browser submission provider. Its published free plan currently includes 250 monthly submissions. Browser submission follows the official API guidance. Server forwarding requires a paid plan and is unnecessary for this form. The provider's access key is designed to be public and identifies the destination form. Mailbox credentials are never required by this implementation.
+
+The recommendation form bounds messages to 1,000 characters, rejects whitespace-only input, uses the provider's honeypot field, blocks duplicate in-flight submissions, cancels requests after 20 seconds or on unmount, and requires a successful HTTP response with boolean success=true before confirming delivery. An error retains the message and offers explicit retry or email composition. It never automatically retries an uncertain delivery.
+
+### Local activation steps for Web3Forms
+
+1. Open https://app.web3forms.com and choose the free plan. Verify kondwanilphiri2023@gmail.com and create a form for anime recommendations.
+2. Copy that form's public access key into the existing ignored .env.local file as NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-form-access-key. Do not use an email password or any Supabase credential.
+3. Rebuild and restart the local preview, because NEXT_PUBLIC variables are included during the Next.js build. Development mode needs a server restart.
+4. Submit one real recommendation from the browser and confirm receipt in the intended inbox, including the spam folder if needed. This requires the owner's verified form. No live test message was sent during implementation.
+
+Until a form key is configured, the recommendation box continues its explicitly labeled email-app handoff. No service account was created, subscription purchased, or production configuration changed. Official provider references are https://web3forms.com/pricing, https://docs.web3forms.com/getting-started/api-reference, and https://docs.web3forms.com/getting-started/faq.
+
+
+### Anime follow-up verification
+
+ESLint, TypeScript, all 107 tests, and the Webpack production build pass. New provider tests use mocked fetch responses and send no email. They cover strict success confirmation, rejection, malformed responses, HTTP 429, cancellation, and validation before network access. Content tests verify all 28 IDs, stable rating order, decimal scores, watching status, and unrated watchlist entries.
+
+HTTP verification passes all 48 public media files, including the 28 new posters, and the retained-page editorial checks and legacy Extras redirects. The artwork totals 1,068,985 bytes before Next.js image optimization. Native Chrome reviewed the refreshed narrow and desktop Anime window, real poster rendering, next-review navigation, keyboard selection of Spirited Away as entry 28/28, its Not rated yet state, and the recommendation form. The first navigation reused an already open page's older client chunk until a full refresh. The refreshed version loads the new carousel correctly.
+
+Live Web3Forms delivery remains unverified until the owner creates and verifies the free form and configures NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY. The email-app fallback remains active in the local preview. Source changes and documentation remain local in portfolio-v3. No Next.js feedback candidate was identified during this follow-up.
+
+
+## Homepage composition refinement
+
+The previous illustrated bench was assessed at 6/10. Its scientific premise was relevant, while the flat artwork, weak identity hierarchy, and excessive empty area on narrow screens limited the introduction. The replacement keeps a short scientific welcome and uses the tactile artwork and editorial restraint established in Extras.
+
+The homepage now introduces Kondwani by name, studies, university, and Lusaka/Grambling connection. A custom generated microscope illustration is stored as a local transparent WebP, approximately 119 KB. This is decorative generated artwork, with no claim that it depicts personal laboratory equipment. A separately rendered cell illustration responds to pointer movement and a native keyboard-accessible Focus slider. Collection slides change the specimen tint on hover or focus and navigate through ordinary Next links with no timed routing delay.
+
+The cell canvas renders at approximately 30 fps, caps resolution scaling at 1.5, stops animation offscreen and in background tabs, and draws a static illustration under reduced-motion preferences. It uses no external provider, runtime image generation, or persistent storage. Cleanup disconnects its observer and cancels its animation frame. The cells are illustrative and display no fabricated microscopy measurements or research results.
+
+ESLint, TypeScript, all 107 tests, and the final Webpack production build pass. HTTP checks pass the retained-page editorial verification, five legacy Extras redirects, and all 49 public media assets. Native Chrome confirms the initial desktop composition fits the introduction, focus control, and all four slides. Mouse adjustment visibly defocuses the lens, and the End key restores clarity. The Extras specimen slide opens the functioning Extras page immediately, and browser Back restores Home. Narrow-window composition was also reviewed. Real-device touch, screen-reader acceptance, and instrumented frame-rate measurements remain unverified. The generated source artwork remains in the image generation output directory, and the optimized project asset is public/home/microscope-study.webp.
+
+
+## November 17 browser annotation refinement
+
+The fixed toolbar now provides a real Home link on every public section. The Collections dropdown has been removed. Narrow screens show direct About, Research, Leadership, and Extras links beneath the Home/résumé row. Native popup titlebars also include Home, which closes the window and navigates to the homepage. Desktop navigation uses the existing source-list sidebar.
+
+The travel globe retains its dimensional ocean and coastline artwork. Mouse dragging rotates both longitude and latitude, arrow keys provide keyboard rotation, and a compact native range adjusts zoom. Touch interaction preserves vertical page panning while horizontal dragging turns the globe. Pin heads use shaded red enamel and metal stems. Overlapping locations receive separated heads whose stems remain anchored to their actual approximate coordinates. Location names appear on hover, keyboard focus, or selection. Visible place-name lists and the rotation slider have been removed. Alabama and Mississippi are corrected to Birmingham and Jackson. Threads now follow great-circle paths along the globe, with braided highlights and shadows, and hidden rear sections are clipped. Their connections represent visited places without asserting a trip chronology.
+
+Court Vision begins with the owner's complete “A game that found me” story. The generic introductory block, team-allegiance card, and notebook observations are removed. Existing published pickup videos and hoop-session data remain in their established components.
+
+“News 4 Dubs fans” uses public headline metadata from the official Warriors website. Its right-to-left image cards link to the original stories and show dates and available photograph credits. Hover pauses motion. Keyboard focus and reduced-motion mode provide a static horizontally browsable strip. A new read-only API route caches verified news metadata with a 15-minute revalidation period. Provider requests have an eight-second deadline and reject redirects. The parser caps accepted page size, validates official article and image hosts, removes markup from text, excludes malformed entries, and sorts publication dates. Source failures return 503 with a retry interval and expose no upstream response details. The frontend has loading, retry, and official-source fallback access. The endpoint returns headline, date, source-link, image, and credit metadata.
+
+The live local endpoint returned six current dated stories with images. The official archive's embedded JSON is the integration boundary. If the upstream page changes structure, the adapter fails visibly and needs maintenance. The integration reads the public official archive.
+
+The Vinland Saga review now stores “La Peace” without backslashes and renders the phrase with semantic emphasis.
+
+ESLint, TypeScript, all 113 automated tests, and the production build pass. New tests cover geographic projection, zoom, occlusion, corrected cities, great-circle interpolation, clustered pins, provider validation, unsafe URLs, malformed metadata, and transport failures. HTTP verification passes the permanent Home link and removed dropdown checks across retained public pages. Native Chrome verifies direct navigation on a narrow screen, pin labels, dragging, zoom, the basketball story opening, real news cards, and the popup Home action. The Vinland Saga review visibly emphasizes La Peace, and the popup Home action closes Court Vision and opens the homepage. Browser review identified a default mouse-focus outline on the draggable SVG. The source now suppresses that outline while retaining a visible keyboard-focus indicator. Physical-device touch and screen-reader acceptance remain unverified.
+
+
+### Final annotation verification
+
+The final production build passes after the pointer-focus refinement. All 113 tests, lint, and TypeScript pass. Final HTTP checks pass 28 retained-content assertions, all five legacy Extras redirects, all 49 public media assets, and the existing integration smoke. Spotify and Stockfish checks succeed, while signed-out Studio, forged-token, foreign-origin, protected-media, and sign-out boundaries retain their expected responses. Three concurrent Warriors news requests returned 200 with identical six-story payloads. The cache headers advertise a 15-minute shared lifetime and a stale-revalidation interval.
+
+Native Chrome verified the fixed Home navigation on Research and Extras, replacement direct mobile section links, red pin labels, globe dragging, zoom, the story-first Court Vision layout, dated news cards, popup-to-home navigation, the Vinland Saga emphasis, and Home placement inside a narrow Anime window. The current preview runs at http://localhost:3000. The news adapter's upstream-format dependency and physical-device/screen-reader verification limitations are documented above. No Next.js feedback candidate was identified during this refinement.
+
+
+## GitHub source publication — November 17
+
+The owner authorized committing and pushing the completed work to origin/portfolio-v3. The reviewed source and outgoing historical blobs pass the sensitive-pattern and private-file inspection. Environment configuration and local inspection data are ignored. The branch-specific vercel.json rule sets git.deploymentEnabled.portfolio-v3 to false, preserving the owner's deployment approval boundary during Git publication. The last application verification passed 113 tests, lint, TypeScript, production builds, integration checks, and desktop/narrow browser review.

@@ -1,0 +1,412 @@
+.fieldwork .lab-home {
+  width: calc(100% - var(--v3-sidebar-width));
+  margin-left: var(--v3-sidebar-width);
+  padding-top: var(--v3-toolbar-height);
+  min-height: 100svh;
+}
+
+.lab-exhibition {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.35fr);
+  grid-template-rows: minmax(370px, 1fr) auto;
+  align-items: center;
+  gap: 0 20px;
+  min-height: calc(100svh - 72px);
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 28px clamp(24px, 4vw, 64px) 26px;
+  overflow: clip;
+}
+.lab-exhibition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 70% 50%, #e4dfce80, transparent 60%);
+  pointer-events: none;
+}
+.lab-introduction {
+  position: relative;
+  z-index: 3;
+  padding-bottom: 30px;
+}
+.lab-eyebrow {
+  font: 11px/1.7 var(--font-label);
+  color: #70695d;
+  margin: 0 0 22px;
+}
+.lab-exhibition h1 {
+  font: 400 clamp(66px, 6.8vw, 108px) / 0.91 var(--font-heading);
+  letter-spacing: -0.05em;
+  margin: 0 0 28px;
+}
+.lab-exhibition h1 em {
+  font-weight: 400;
+  color: #496b5e;
+}
+.lab-identity {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #4f5148;
+}
+.lab-university {
+  font: 11px/1.7 var(--font-label);
+  color: #70695d;
+}
+.lab-still-life {
+  position: relative;
+  min-width: 0;
+  height: clamp(340px, 55svh, 470px);
+  align-self: center;
+}
+.lab-light-pool {
+  position: absolute;
+  width: 110%;
+  height: 140px;
+  left: -8%;
+  bottom: 8px;
+  background: radial-gradient(ellipse, #797f6330, transparent 66%);
+  transform: rotate(-8deg);
+}
+.lab-lens {
+  position: absolute;
+  width: 66%;
+  aspect-ratio: 1;
+  max-width: min(345px, 40svh);
+  right: -6px;
+  top: 24px;
+  margin: 0;
+  border: 9px solid #e5dfcf;
+  border-radius: 50%;
+  background: #234d42;
+  box-shadow:
+    0 0 0 1px #a9ad995c,
+    inset 0 0 0 3px #465a45,
+    8px 15px 35px #343c311c;
+  overflow: hidden;
+  transform: rotate(-12deg);
+}
+.lab-lens canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: blur(var(--lens-blur)) hue-rotate(var(--lens-hue));
+  transition: filter 0.9s ease;
+  touch-action: pan-y;
+}
+.lab-instrument {
+  position: absolute;
+  left: -12%;
+  bottom: 8px;
+  width: 78%;
+  height: 100%;
+  pointer-events: none;
+}
+.lab-instrument img {
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(8px 16px 9px #343c311c);
+}
+.lab-handwritten {
+  position: absolute;
+  right: 1%;
+  bottom: 78px;
+  font: 34px/1.1 var(--font-hand);
+  color: #697957;
+  transform: rotate(-7deg);
+  white-space: nowrap;
+}
+.lab-focus {
+  position: absolute;
+  right: 0;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 10px var(--font-label);
+  color: #656957;
+}
+.lab-focus-knob {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #92987d;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    #8b947a 0deg 2deg,
+    transparent 2deg 18deg
+  );
+  box-shadow: inset 0 0 0 5px #e9e5d8;
+}
+.lab-focus input {
+  width: 85px;
+  height: 28px;
+  accent-color: #597a62;
+  cursor: ew-resize;
+}
+.lab-slide-tray {
+  grid-column: 1/-1;
+  position: relative;
+  z-index: 4;
+  margin-top: 18px;
+}
+.lab-tray-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #6c6b5b;
+  font: 11px var(--font-label);
+}
+.lab-tray-heading p {
+  margin: 0;
+}
+.lab-slides {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  padding: 0 5px 12px;
+}
+.lab-slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 92px;
+  padding: 13px 15px;
+  border: 1px solid #b5bca58c;
+  border-radius: 3px;
+  background: linear-gradient(125deg, #fffffb70, #e7ede247 55%, #f9f9ed70);
+  color: #353f35;
+  text-decoration: none;
+  box-shadow:
+    2px 5px 8px #414c3020,
+    inset 0 0 0 3px #ffffff40;
+  transform: rotate(calc((var(--slide-index) - 1.5) * 1.2deg));
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s,
+    border-color 0.45s;
+}
+.lab-slide:hover,
+.lab-slide:focus-visible {
+  transform: translateY(-9px) rotate(0);
+  border-color: #6c8c73;
+  box-shadow:
+    3px 14px 20px #414c3029,
+    inset 0 0 0 3px #ffffff50;
+}
+.lab-slide:focus-visible {
+  outline: 2px solid #426662;
+  outline-offset: 5px;
+}
+.lab-slide--active {
+  border-color: #819c7b;
+}
+.lab-slide-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  flex: 1;
+  font-size: 13px;
+}
+.lab-slide-label > span {
+  font-size: 12px;
+  color: #6e7f62;
+}
+.slide-specimen {
+  position: relative;
+  display: block;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #ede9d069, transparent);
+}
+.slide-specimen i {
+  position: absolute;
+  width: 26px;
+  height: 21px;
+  background: var(--slide-color);
+  border: 1px solid #53624465;
+  border-radius: 52% 44% 47% 60%;
+  opacity: 0.72;
+  left: 3px;
+  top: 7px;
+  box-shadow: inset 2px 3px 5px #ffffff50;
+}
+.slide-specimen i::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 5px;
+  border-radius: 50%;
+  background: #57533d70;
+  left: 9px;
+  top: 6px;
+}
+.slide-specimen i:nth-child(2) {
+  left: 17px;
+  top: 21px;
+  width: 22px;
+  height: 17px;
+  transform: rotate(-25deg);
+}
+.slide-specimen i:nth-child(3) {
+  left: 27px;
+  top: 5px;
+  width: 13px;
+  height: 12px;
+}
+.slide-specimen i:nth-child(3)::after {
+  width: 3px;
+  height: 3px;
+  left: 4px;
+  top: 3px;
+}
+.slide-specimen i:nth-child(4) {
+  left: 5px;
+  top: 29px;
+  width: 10px;
+  height: 9px;
+  opacity: 0.4;
+}
+.slide-specimen i:nth-child(4)::after {
+  display: none;
+}
+@media (min-width: 1440px) {
+  .lab-still-life {
+    height: clamp(360px, 55svh, 500px);
+  }
+  .lab-lens {
+    max-width: min(360px, 40svh);
+    top: 14px;
+  }
+}
+@media (max-width: 1150px) {
+  .lab-exhibition {
+    gap: 0 8px;
+    padding-inline: 30px;
+  }
+  .lab-slide {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+  .slide-specimen {
+    width: 37px;
+    transform: scale(0.86);
+  }
+  .lab-slide-label {
+    font-size: 12px;
+  }
+  .lab-handwritten {
+    font-size: 29px;
+    right: -6px;
+  }
+}
+@media (max-width: 700px) {
+  .lab-exhibition {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 30px 24px 28px;
+    gap: 0;
+  }
+  .lab-introduction {
+    padding: 0;
+  }
+  .lab-exhibition h1 {
+    font-size: clamp(48px, 11.5vw, 80px);
+    margin-bottom: 16px;
+  }
+  .lab-exhibition h1 br {
+    display: none;
+  }
+  .lab-exhibition h1 em {
+    margin-left: 0.12em;
+  }
+  .lab-eyebrow {
+    margin-bottom: 16px;
+    font-size: 10px;
+  }
+  .lab-identity {
+    font-size: 14px;
+  }
+  .lab-identity br {
+    display: none;
+  }
+  .lab-university {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+  .lab-still-life {
+    height: 340px;
+    width: 100%;
+    max-width: 470px;
+    margin: 0 auto;
+  }
+  .lab-lens {
+    max-width: 245px;
+    width: 65%;
+    top: 12px;
+    right: 0;
+    border-width: 6px;
+  }
+  .lab-instrument {
+    left: -9%;
+    width: 79%;
+    bottom: 8px;
+  }
+  .lab-handwritten {
+    font-size: 27px;
+    bottom: 65px;
+    right: 0;
+  }
+  .lab-focus {
+    bottom: 10px;
+  }
+  .lab-slide-tray {
+    margin-top: 20px;
+  }
+  .lab-slides {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+  .lab-tray-heading {
+    margin-bottom: 16px;
+  }
+  .lab-slide {
+    min-height: 82px;
+    padding: 12px;
+  }
+  .lab-slide-label {
+    font-size: 13px;
+  }
+}
+@media (max-width: 370px) {
+  .lab-exhibition {
+    padding-inline: 16px;
+  }
+  .lab-still-life {
+    height: 290px;
+  }
+  .lab-handwritten {
+    font-size: 23px;
+    bottom: 56px;
+  }
+  .lab-focus input {
+    width: 62px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lab-exhibition * {
+    transition: none !important;
+  }
+  .lab-slide:hover,
+  .lab-slide:focus-visible {
+    transform: none;
+  }
+}

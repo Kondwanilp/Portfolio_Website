@@ -100,7 +100,7 @@ export default function SpotifyListeningRoom({ compact = false }: { compact?: bo
         <a href={track.spotifyUrl ?? undefined} target={track.spotifyUrl ? "_blank" : undefined} rel="noopener noreferrer" aria-label={track.spotifyUrl ? `Listen to ${track.name} by ${track.artists.join(", ")} on Spotify` : undefined}>
           <span className={styles.compactArtwork}>{track.albumArtwork ? <Image src={track.albumArtwork} alt="" width={56} height={56} unoptimized /> : <Icon name="music" />}</span>
           <span className={styles.compactTrackInfo}>{index === 0 && <small>Song of the week</small>}<strong>{track.name}</strong><span>{track.artists.join(", ")}</span></span>
-          {track.spotifyUrl && <span aria-hidden="true">↗</span>}
+          {track.spotifyUrl && <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 4v16l13-8z" /></svg>}
         </a>
       </li>)}</ol>
       <p className={styles.compactNote}>From my Spotify listening history.</p>

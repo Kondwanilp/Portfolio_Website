@@ -1,0 +1,107 @@
+.court-vision > .cv-warriors-story {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  max-width: 850px;
+}
+.court-vision > .cv-warriors-story h3 {
+  margin-top: 12px;
+}
+.warriors-news {
+  min-width: 0;
+  overflow: hidden;
+}
+.warriors-news > header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.warriors-news > header h3 {
+  font: 400 36px/1.2 var(--font-heading);
+  margin: 0;
+}
+.warriors-news > header a {
+  font: 12px var(--font-label);
+  color: #5d7460;
+}
+.warriors-news-viewport {
+  overflow: hidden;
+}
+.warriors-news-track {
+  display: flex;
+  width: max-content;
+  animation: warriors-news-travel var(--news-duration) linear infinite;
+}
+.warriors-news-set {
+  display: flex;
+  gap: 20px;
+  padding-right: 20px;
+}
+.warriors-news-card {
+  display: block;
+  width: 260px;
+  flex: none;
+  border: 1px solid #d4ccbd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fffdf7;
+  text-decoration: none;
+  color: inherit;
+}
+.warriors-news-card img {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+}
+.warriors-news-card > div {
+  padding: 16px;
+}
+.warriors-news-card time {
+  color: #716a5b;
+  font: 10px var(--font-label);
+}
+.warriors-news-card h4 {
+  font: 400 23px/1.25 var(--font-heading);
+  margin: 10px 0;
+}
+.warriors-news-card small {
+  display: block;
+  font: 9px/1.5 var(--font-body);
+  color: #716a5b;
+}
+.warriors-news-viewport:hover .warriors-news-track {
+  animation-play-state: paused;
+}
+.warriors-news-viewport:focus-within {
+  overflow-x: auto;
+}
+.warriors-news-viewport:focus-within .warriors-news-track {
+  animation: none;
+}
+.warriors-news-viewport:focus-within .warriors-news-copy {
+  display: none;
+}
+.warriors-news-card:focus-visible {
+  outline: 3px solid #426662;
+  outline-offset: -3px;
+}
+@keyframes warriors-news-travel {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .warriors-news-track {
+    animation: none;
+  }
+  .warriors-news-copy {
+    display: none;
+  }
+  .warriors-news-viewport {
+    overflow-x: auto;
+  }
+}

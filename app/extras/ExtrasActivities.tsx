@@ -7,6 +7,9 @@ import FloatingWindow from "../components/FloatingWindow";
 import Feedback from "../components/Feedback";
 import { extrasActivityFromHash, type ExtrasActivity } from "@/lib/comic-omics";
 
+const AnimeLibrary = dynamic(() => import("./AnimeLibrary"));
+const activityTitles = { anime: "Anime", chess: "Chess Corner", basketball: "Court Vision" };
+
 const ChessCorner = dynamic(() => import("./ChessCorner"), { loading: () => <Feedback kind="loading">Opening the board…</Feedback> });
 const CourtVision = dynamic(() => import("./CourtVision"), { loading: () => <Feedback kind="loading">Loading Court Vision…</Feedback> });
 
@@ -34,8 +37,8 @@ export default function ExtrasActivities() {
       </div>
       <noscript><p><Link href="/extras/chess">Open Chess Corner</Link> · <Link href="/extras/basketball">Open Court Vision</Link>. Games and videos require JavaScript.</p></noscript>
     </section>
-    {activity && <FloatingWindow key={activity} title={activity === "chess" ? "Chess Corner" : "Court Vision"} subtitle="Extras / Kondwani Phiri" onClose={() => close(activity)} className="extras-activity-window">
-      {activity === "chess" ? <ChessCorner /> : <CourtVision />}
+    {activity && <FloatingWindow key={activity} title={activityTitles[activity]} subtitle="Extras / Kondwani Phiri" onClose={() => close(activity)} className="extras-activity-window">
+      {activity === "anime" ? <AnimeLibrary /> : activity === "chess" ? <ChessCorner /> : <CourtVision />}
     </FloatingWindow>}
   </>;
 }

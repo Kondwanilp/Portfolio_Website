@@ -39,7 +39,9 @@ assert.doesNotMatch(html, /href="\/motion-lab/);
 const cv = await stat(new URL("../public/cv.pdf", import.meta.url)).catch(() => null);
 if (cv?.isFile() && cv.size > 0) {
   assert.match(html, /href="\/cv\.pdf"[^>]*aria-haspopup="dialog"/);
-  assert.match(html, /href="\/cv\.pdf"[^>]*download="Kondwani-Phiri-CV\.pdf"/);
+  assert.doesNotMatch(html, /download="Kondwani-Phiri-CV\.pdf"/);
+  const viewer = await readFile(new URL("../app/components/ResumeViewer.tsx", import.meta.url), "utf8");
+  assert.match(viewer, /download="Kondwani-Phiri-CV\.pdf"/);
   const pdf = await fetch(base + "/cv.pdf", { method: "HEAD" });
   assert.equal(pdf.status, 200);
   assert.match(pdf.headers.get("content-type") ?? "", /application\/pdf/);

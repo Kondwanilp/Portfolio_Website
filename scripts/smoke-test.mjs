@@ -81,8 +81,8 @@ for (const [path, method] of [
   console.log("Studio persistence boundary", method, path, response.status);
 }
 const journal = await fetch(base + "/journal");
-assert.equal(journal.status, 200);
-assert.match(await journal.text(), /<h1[^>]*>Journal\.<\/h1>/);
+assert.equal(journal.status, 404);
+assert.match(await journal.text(), /noindex/);
 const missingEntry = await fetch(base + "/journal/notes/nonexistent-entry");
 const missingEntryHtml = await missingEntry.text();
 assert.ok(missingEntry.status === 404 || missingEntryHtml.includes('name="robots" content="noindex"'));

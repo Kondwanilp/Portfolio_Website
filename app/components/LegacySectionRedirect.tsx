@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const destinations: Record<string, string> = { "#about": "/about", "#experience": "/experience", "#leadership": "/leadership", "#gallery": "/gallery", "#extras": "/extras" };
+const destinations: Record<string, string> = { "#about": "/about", "#leadership": "/leadership", "#extras": "/extras" };
 
 /** Preserve shared legacy bookmarks while the cover stays short. */
 export default function LegacySectionRedirect() {

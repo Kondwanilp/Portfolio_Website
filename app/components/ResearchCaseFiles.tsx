@@ -24,7 +24,7 @@ export function DorseyResearchFile() {
           <span className="research-year">2025 – PRESENT</span>
         </div>
 
-        <figure className="dossier-lead-image"><ImageLightbox source={toxicologyWorkPhoto.src} label="Laboratory work &mdash; view full-size photograph"><Image src={toxicologyWorkPhoto} alt="Kondwani working with samples in the Molecular Toxicology Research Laboratory" sizes="(max-width: 700px) 88vw, 54vw" /></ImageLightbox><figcaption>01 / Molecular Toxicology Laboratory &middot; Grambling State University</figcaption></figure>
+        <figure className="dossier-lead-image dossier-head-crop"><ImageLightbox source={toxicologyWorkPhoto.src} label="Laboratory work &mdash; view full-size photograph"><Image src={toxicologyWorkPhoto} alt="Kondwani working with samples in the Molecular Toxicology Research Laboratory" sizes="(max-width: 700px) 88vw, 54vw" /></ImageLightbox><figcaption>01 / Molecular Toxicology Laboratory &middot; Grambling State University</figcaption></figure>
 
         <div className="research-project-body">
           <div className="research-main-copy">

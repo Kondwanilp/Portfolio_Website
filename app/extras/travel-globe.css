@@ -1,0 +1,46 @@
+.travel-globe svg {
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  overflow: hidden;
+}
+.travel-globe svg.travel-globe-dragging {
+  cursor: grabbing;
+}
+.travel-globe svg:focus { outline: none; }
+.travel-globe svg:focus-visible {
+  outline: 2px solid #547b5e;
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+.travel-globe-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 8px;
+  font: 11px/1.5 var(--font-label);
+  color: #625d53;
+}
+.travel-globe-controls label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.travel-globe-controls input {
+  width: 92px;
+  min-height: 32px;
+  accent-color: #6d856a;
+}
+.travel-pin {
+  cursor: pointer;
+  outline: none;
+}
+.travel-pin:focus .travel-pin-head {
+  stroke: #fff2cc;
+  stroke-width: 2;
+}
+.travel-pin-label {
+  pointer-events: none;
+  font-family: var(--font-body);
+}

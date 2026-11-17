@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import portrait from "../../public/Portrait.jpg";
 import SiteNavigation from "../components/SiteNavigation";
 import CVLinks from "../components/CVLinks";
@@ -38,15 +37,9 @@ export default function AboutPage() {
         <p>Today, I&apos;m interested in cancer biology, molecular mechanisms of disease, and the possibility of turning scientific discoveries at the cellular and molecular levels into meaningful improvements in people&apos;s lives.</p>
         <p>But there&apos;s more to me than coursework and lab work. I find my curiosity in other things as well. You&apos;ll probably find me playing basketball, studying a chess position (I&apos;m a wannabe GM), listening to music, or getting unnecessarily competitive over Scrabble.</p>
         <p>Hope that tells you a little bit about me!</p>
-        <div className="about-story-links"><Link href="/research" className="primary-link">Explore my research ↗</Link><Link href="/extras" className="text-link">Outside the laboratory ↗</Link></div>
+
       </article>
     </div>
-    <nav className="about-next-chapter" aria-label="Continue exploring">
-      <span className="section-label">Elsewhere</span>
-      <Link href="/experience">Experience &amp; leadership <span aria-hidden="true">↗</span></Link>
-      <Link href="/gallery">Photographs &amp; field notes <span aria-hidden="true">↗</span></Link>
-      <Link href="/journal">The journal <span aria-hidden="true">↗</span></Link>
-    </nav>
-    <footer className="site-footer"><Link href="/" className="footer-signature">Kondwani Phiri.</Link><p>Biology, Technology, &amp; Everything Else.</p><Link href="/">Back to the cover ↗</Link></footer>
+
   </main>;
 }

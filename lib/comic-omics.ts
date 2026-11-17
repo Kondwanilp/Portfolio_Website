@@ -34,7 +34,7 @@ export const comicReviews: readonly ComicReview[] = [
     cover: "/comics/marvel-zombies.jpg",
     edition: "Marvel",
     rating: 5,
-    review: "Absolutely amazing way of introducing zombies to heros and thats swist with Hank Pym and T'challa was insane. Also captures what I think Peter Parker's psych would look like after what he went through",
+    review: "Absolutely amazing way of introducing zombies to heros and thats twist with Hank Pym and T'challa was insane. Also captures what I think Peter Parker's psych would look like after what he went through",
     sourceUrl: "https://prhcomics.com/book/?isbn=9780785120148",
     placeholder: false,
   },
@@ -67,9 +67,10 @@ export function comicSwipeDirection(distance: number, elapsed: number): -1 | 0 |
   return distance < 0 ? 1 : -1;
 }
 
-export type ExtrasActivity = "chess" | "basketball";
+export type ExtrasActivity = "chess" | "basketball" | "anime";
 
 export function extrasActivityFromHash(hash: string): ExtrasActivity | null {
+  if (hash === "#anime") return "anime";
   if (hash === "#chess") return "chess";
   if (hash === "#basketball") return "basketball";
   return null;

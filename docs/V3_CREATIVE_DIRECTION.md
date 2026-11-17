@@ -26,7 +26,7 @@ Use precise source-list alignment, quiet hairline divisions, comfortable 16-18px
 
 ## Engineering and recovery
 
-The V3 worktree is `../kondwani-portfolio-v3` on `portfolio-v3`. V2 stays in its original checkout and is not edited by this implementation. Baseline commit `75d10a5` contains the full V2 working source before the reset; an independently verified encrypted source checkpoint also exists. V3 has its own physical `node_modules` directory and pinned Next/eslint-config-next 16.4.6 dependencies. The initial V2 dependency junction was moved into ignored staging before installation; do not restore or install through that junction. Environment configuration stays local and ignored. API/auth/Studio/migrations are protected implementation boundaries. No production writes, GitHub push or Vercel deployment are authorized.
+The V3 worktree is `../kondwani-portfolio-v3` on `portfolio-v3`. V2 stays in its original checkout and is not edited by this implementation. Baseline commit `75d10a5` contains the full V2 working source before the reset; an independently verified encrypted source checkpoint also exists. V3 has its own physical `node_modules` directory and pinned Next/eslint-config-next 16.4.6 dependencies. The initial V2 dependency junction was moved into ignored staging before installation; do not restore or install through that junction. Environment configuration stays local and ignored. API/auth/Studio/migrations are protected implementation boundaries. The owner has authorized committing and pushing portfolio-v3 to GitHub. Production writes and Vercel deployment require separate approval.
 
 ## Quality gates
 
@@ -40,3 +40,13 @@ The owner requested a closer interpretation of the reference’s Extras composit
 Comic-Omics advances automatically while visible and idle. Pointing at or focusing the section holds rotation. Buttons, arrow keys, presses and horizontal drags provide manual navigation. A pause control persists the visitor’s choice for the mounted session. Reduced motion disables automatic rotation and transitions. Background tabs and offscreen sections stop the timer. Reviews appear alongside independently moving covers. The owner supplied Aliens: Labyrinth at 3/5, Marvel Zombies at 5/5 and Thor: God of Thunder volumes 1 and 2 at 5/5. Those three reviews now use four real collected-edition covers. The Thor volumes share the owner’s one review. Native spoiler disclosures retain the owner’s wording verbatim and pause rotation when opened. Existing image windows support inspecting both Thor covers. Reading dates have not been supplied.
 
 The public headings now use direct labels. The homepage has one after-hours invitation. Small viewport entrances, illustrated game launchers and responsive cover movement provide motion. Native document windows contain the existing games and basketball content. Research records, the biography, photographs and backend services retain their established data. The two generic homepage/footer fixture passages were intentionally revised for the requested copy edit. The other 33 passages remain unchanged.
+
+
+## Owner's annotated refinement
+
+The public site now centers on Home, About, Research, Leadership, and Extras. The landing page is an illustrated microscope bench with interactive specimen slides. Experience, Photographs, and the Journal index are retired from public presentation. Extras combines visible comic reviews, Spotify, an inline travel globe, an anime window, Chess Corner, and Court Vision. The owner supplies personal anime ratings. Recommendations currently hand off to the visitor's email app. Direct email delivery needs an email-service configuration.
+
+
+## Current homepage composition
+
+The homepage uses a short personal introduction, a generated enamel-and-brass microscope still life, and an independently animated cell illustration. The type hierarchy places Kondwani Phiri first, followed by Biology/Computer Science and Grambling. Four glass slides open the retained public collections with immediate navigation. Hover and focus tint the lens, and an accessible Focus slider changes the illustration's clarity. The previous flat room diagram and timed exit transition are superseded. The screen follows Extras' warm materials, real artwork, restrained copy, and tactile interactions. The microscope is decorative generated artwork, and the cells are an illustration rather than research imagery or data.

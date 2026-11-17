@@ -31,3 +31,12 @@ The V3 worktree is `../kondwani-portfolio-v3` on `portfolio-v3`. V2 stays in its
 ## Quality gates
 
 Keep every authentic content fixture and integration regression. Adapt obsolete V2 presentation assertions to V3 contracts rather than deleting coverage. Verify source-list routes, selection/history, PDF and media lifecycle, game-state isolation, provider caching and owner-only boundaries. Use the supported Webpack production path while the existing workstation exhibits Turbopack native allocation failures. Start the V3 development server at localhost:3000 after verifying and stopping only the old local project listener. Browser screenshots and mobile acceptance are explicit pending work if tools remain unavailable; do not claim them from source inspection.
+
+
+## Extras follow-up
+
+The owner requested a closer interpretation of the reference’s Extras composition, more personality and movement, and simpler public copy. Extras is now one destination containing a full-width Comic-Omics cover stack, a compact Spotify list, personal interests, and launchers for the existing chess and Court Vision applications. Legacy channel URLs redirect to the relevant fragment. Wordplay leads to Comic-Omics.
+
+Comic-Omics advances automatically while visible and idle. Pointing at or focusing the section holds rotation. Buttons, arrow keys, presses and horizontal drags provide manual navigation. A pause control persists the visitor’s choice for the mounted session. Reduced motion disables automatic rotation and transitions. Background tabs and offscreen sections stop the timer. Reviews appear alongside independently moving covers. The owner supplied Aliens: Labyrinth at 3/5, Marvel Zombies at 5/5 and Thor: God of Thunder volumes 1 and 2 at 5/5. Those three reviews now use four real collected-edition covers. The Thor volumes share the owner’s one review. Native spoiler disclosures retain the owner’s wording verbatim and pause rotation when opened. Existing image windows support inspecting both Thor covers. Reading dates have not been supplied.
+
+The public headings now use direct labels. The homepage has one after-hours invitation. Small viewport entrances, illustrated game launchers and responsive cover movement provide motion. Native document windows contain the existing games and basketball content. Research records, the biography, photographs and backend services retain their established data. The two generic homepage/footer fixture passages were intentionally revised for the requested copy edit. The other 33 passages remain unchanged.

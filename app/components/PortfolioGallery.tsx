@@ -8,7 +8,7 @@ export default function PortfolioGallery() {
   return (
         <section id="gallery" className="gallery-section">
           <p>PHOTOGRAPHS / FIELD NOTES</p>
-          <h1>Life beyond the laboratory.</h1>
+          <h1>Photographs.</h1>
           <p>
             People, places, experiences, research presentations,
             and everything in between.

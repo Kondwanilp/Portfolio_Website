@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { channels, findChannel } from "../../../lib/extras";
-import ExtrasView from "../ExtrasView";
 import { Suspense } from "react";
 import SiteNavigation from "../../components/SiteNavigation";
 import Feedback from "../../components/Feedback";
@@ -20,7 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ channel: 
 async function ChannelContent({ params }: { params: Promise<{ channel: string }> }) {
   const { channel } = await params;
   if (!findChannel(channel)) notFound();
-  return <ExtrasView channelId={channel} />;
+  const section = { listening: "listening", chess: "chess", basketball: "basketball", wordplay: "comics", archives: "interests" }[channel] ?? "comics";
+  redirect(`/extras#${section}`);
+  return null;
 }
 
 export default function ChannelPage({ params }: { params: Promise<{ channel: string }> }) {

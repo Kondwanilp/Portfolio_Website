@@ -17,7 +17,7 @@ export default function WorkspaceToolbar({ menu, resume }: { menu: ReactNode; re
       <summary aria-label="Browse collections"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" /><path d="M9 4v16M13 8h4M13 12h4M13 16h4" /></svg><span>Collections</span></summary>
       <div className="v3-mobile-source-list">{menu}</div>
     </details>
-    <div className="v3-toolbar-location" aria-label="Current collection"><span className="v3-toolbar-section">{collection.group === "workbench" ? "Workbench" : "Off duty"}</span><span className="v3-toolbar-separator" aria-hidden="true">/</span><strong>{collection.label}</strong></div>
+    <div className="v3-toolbar-location" aria-label="Current collection"><span className="v3-toolbar-section">{collection.group === "workbench" ? "Portfolio" : "After hours"}</span><span className="v3-toolbar-separator" aria-hidden="true">/</span><strong>{collection.label}</strong></div>
     <div className="v3-toolbar-actions">{resume}</div>
   </header>;
 }

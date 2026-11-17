@@ -34,6 +34,22 @@
 .v3-footer > div { display:flex; align-items:center; flex-wrap:wrap; gap:18px; }
 .v3-footer a { text-decoration:underline; text-underline-offset:4px; min-height:36px; display:inline-flex; align-items:center; }
 .v3-workspace { max-width:1500px; }
+.home-afterhours { display:flex; align-items:center; gap:32px; margin-top:42px; padding:30px 0; border-block:1px solid #d4ccbd; color:#292720; }
+.home-afterhours h2 { font:400 34px/1.2 var(--font-heading); margin:0 0 8px; }
+.home-afterhours p { font-size:14px; color:#625d53; margin:0; }
+.home-afterhours-link { margin-left:auto; font-size:13px; white-space:nowrap; }
+.home-comic-pile { position:relative; display:block; width:130px; height:95px; flex:none; }
+.home-comic-pile i { position:absolute; display:flex; align-items:end; width:62px; height:85px; bottom:0; padding:8px; border-radius:2px 5px 5px 2px; font:8px/1.4 var(--font-label); font-style:normal; color:#fffdf9; box-shadow:2px 5px 8px #29272025; transition:transform 500ms cubic-bezier(.22,1,.36,1); }
+.home-comic-pile i:nth-child(1) { left:7px; transform:rotate(-14deg); background:#9a6347; }
+.home-comic-pile i:nth-child(2) { left:35px; transform:rotate(-2deg); background:#527b77; }
+.home-comic-pile i:nth-child(3) { left:65px; transform:rotate(12deg); background:#414f69; }
+.home-comic-pile i:has(img) { padding:0; overflow:hidden; }
+.home-comic-pile img { display:block; width:100%; height:100%; object-fit:cover; }
+.home-afterhours:hover .home-comic-pile i:nth-child(1) { transform:translate(-5px,-8px) rotate(-20deg); }
+.home-afterhours:hover .home-comic-pile i:nth-child(2) { transform:translateY(-14px) rotate(-2deg); }
+.home-afterhours:hover .home-comic-pile i:nth-child(3) { transform:translate(5px,-8px) rotate(18deg); }
+@media(max-width:600px) { .home-afterhours { gap:20px; flex-wrap:wrap; } .home-comic-pile { width:105px; } .home-afterhours h2 { font-size:30px; } .home-afterhours > span:nth-child(2) { flex:1; min-width:150px; } .home-afterhours-link { margin-left:125px; } }
+@media(prefers-reduced-motion:reduce) { .home-comic-pile i { transition:none; } .home-afterhours:hover .home-comic-pile i { transform:none; } }
 .v3-welcome-heading { display:flex; justify-content:space-between; align-items:end; gap:24px; margin-bottom:34px; }
 .v3-overline { font:11px/1.6 var(--font-label); color:#625d53; text-transform:uppercase; letter-spacing:.06em; margin:0 0 10px; }
 .v3-welcome-heading h1 { font:clamp(36px,3.7vw,54px)/1.05 var(--font-heading); letter-spacing:-.035em; margin:0; }

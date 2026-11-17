@@ -15,7 +15,7 @@ export default function ResearchPage() {
   return <main id="main-content" tabIndex={-1} className="research-page fieldwork-research">
     <SiteNavigation />
     <header className="notebook-introduction">
-      <div><p className="notebook-label">Fieldwork / Research notebook</p><h1>Follow the question.</h1></div>
+      <div><p className="notebook-label">Undergraduate research</p><h1>Research.</h1></div>
       <p>A closer look at the research projects I&apos;ve contributed to, the questions behind them, the methods I&apos;ve learned, and the people I&apos;ve had the opportunity to work with.</p>
     </header>
     <ResearchNotebook files={[

@@ -9,8 +9,8 @@ export default function Journal() {
     <main id="main-content" className="journal-index">
       <SiteNavigation />
       <header data-living-destination="journal">
-        <p className="section-label">THE JOURNAL</p>
-        <h1>From the Studio.</h1>
+
+        <h1>Journal.</h1>
         <p>Research, photographs, notes, and recent work.</p>
       </header>
       <PublishedCollection showEmpty />

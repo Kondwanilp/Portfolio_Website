@@ -8,7 +8,11 @@ for (const path of ["/", "/research", "/extras", "/extras/court-vision-admin", .
   assert.equal(response.status, 200, path);
   assert.ok(html.includes('id="main-content"'), path);
   assert.equal(response.headers.get("x-content-type-options"), "nosniff", path);
-  if (path === "/extras") for (const id of channels) assert.ok(html.includes(`href="/extras/${id}"`));
+  if (path === "/extras") {
+    for (const id of ["chess", "basketball"]) assert.ok(html.includes(`href="#${id}"`));
+    assert.ok(html.includes("Comic-Omics"));
+    assert.ok(html.includes('id="listening"'));
+  }
   if (path === "/extras/court-vision-admin") assert.match(html, /name="robots" content="noindex, nofollow"/);
   console.log("Page", path, response.status);
 }
@@ -78,7 +82,7 @@ for (const [path, method] of [
 }
 const journal = await fetch(base + "/journal");
 assert.equal(journal.status, 200);
-assert.match(await journal.text(), /From the Studio/);
+assert.match(await journal.text(), /<h1[^>]*>Journal\.<\/h1>/);
 const missingEntry = await fetch(base + "/journal/notes/nonexistent-entry");
 const missingEntryHtml = await missingEntry.text();
 assert.ok(missingEntry.status === 404 || missingEntryHtml.includes('name="robots" content="noindex"'));

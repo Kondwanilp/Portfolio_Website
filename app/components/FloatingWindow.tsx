@@ -17,7 +17,9 @@ export default function FloatingWindow({ title, subtitle, children, onClose, cla
     previousFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     if (dialog && typeof dialog.showModal === "function") {
       const dispose = mountViewerDialog(dialog, previousFocus.current);
-      const leaveDocument = () => { if (dialog.open) dialog.close(); };
+      const openedLocation = window.location.href;
+      // Fragment navigation can emit both popstate and hashchange for the same URL.
+      const leaveDocument = () => { if (window.location.href !== openedLocation && dialog.open) dialog.close(); };
       window.addEventListener("popstate", leaveDocument);
       window.addEventListener("hashchange", leaveDocument);
       return () => { window.removeEventListener("popstate", leaveDocument); window.removeEventListener("hashchange", leaveDocument); const animation = closing.current; closing.current = null; animation?.cancel(); dispose(); };
@@ -35,7 +37,7 @@ export default function FloatingWindow({ title, subtitle, children, onClose, cla
       void animation.finished.then(settle, settle).finally(() => { if (closing.current === animation) closing.current = null; });
     } catch { dialog.close(); }
   }
-  return <dialog ref={ref} className={`exhibition-window ${expanded ? "exhibition-window--expanded" : ""} ${className}`} aria-labelledby={labelId} onClose={() => { if (!ref.current?.open) onClose(); }} onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
+  return <dialog ref={ref} className={`exhibition-window ${expanded ? "exhibition-window--expanded" : ""} ${className}`} aria-labelledby={labelId} onClose={() => { if (ref.current && !ref.current.open) onClose(); }} onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
     <div className="exhibition-window-panel">
       <header className="exhibition-window-titlebar">
         <div className="exhibition-window-title"><strong id={labelId}>{title}</strong>{subtitle && <span>{subtitle}</span>}</div>

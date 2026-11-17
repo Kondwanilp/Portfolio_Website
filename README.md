@@ -11,7 +11,7 @@ npm.cmd install
 npm.cmd run dev -- --webpack --hostname 127.0.0.1 --port 3000
 ```
 
-Open http://localhost:3000. Local environment configuration is ignored by Git. Never paste credentials into issues or documentation. The real public resume is `public/cv.pdf`.
+The current review handoff serves the built application at http://localhost:3000 using `npm.cmd run start -- --hostname 127.0.0.1 --port 3000`. Hot-reload development can use another free port while that preview runs. Local environment configuration is ignored by Git. Never paste credentials into issues or documentation. The real public resume is `public/cv.pdf`.
 
 ## Verification
 

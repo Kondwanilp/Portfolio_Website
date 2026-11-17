@@ -57,3 +57,10 @@ Licensing: core code is MIT OR Apache-2.0 (`LICENSE-MIT`, `LICENSE-APACHE`, `doc
 ## Acceptance still required
 
 Real browser investigation and V3 refinement must check desktop/mobile navigation, selected research documents, original PDF rendering and downloading, image inspection, Spotify, puzzle/freeplay, Court Vision, direct loads, Back/Forward, reduced motion and private administration boundaries. Public source evidence does not establish that these interactions are visually polished or performant on devices.
+
+
+## Follow-up browser inspection
+
+Windows computer use recovered during the Extras follow-up. Chrome desktop inspection visited the reference’s About, Engineering, Film, Gallery and Extra sections. Extra showed a rotating poster stack with adjacent title, review and rating details. Pointer-driven navigation and the changing front cover informed Comic-Omics. The second row paired a music area with a concise interests list. Engineering expanded a project row into a document and write-up. Film displayed a horizontal screening reel. Gallery displayed its photographic grid. About retained a portrait-led introduction and consistent navigation. These are follow-up visual observations. The earlier discovery record above describes the original source-only investigation.
+
+The implementation follows that hierarchy with original React components and the owner’s palette, content and integrations. The reference scripts were inspected in ignored local staging. Application source and visual assets were authored locally. Frame rate, device performance and every reference interaction have not been measured.

@@ -1,5 +1,6 @@
 ﻿/* Court Vision: a sports journal with real footage and a pickup-session ledger. */
 .court-vision { width: 100%; color: var(--foreground); padding-top: 48px; }
+.cv-court-study { width:220px; max-width:35%; height:auto; flex-shrink:0; fill:none; stroke:#426662; stroke-width:1.2; }
 .cv-heading { display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-bottom: 64px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
 .cv-eyebrow, .cv-section-label { font: 11px/1.65 var(--font-label); letter-spacing: .08em; color: var(--text-secondary); margin: 0 0 12px; }
 .cv-heading h2 { font: 400 clamp(46px, 6vw, 74px)/1 var(--font-heading); letter-spacing: -.035em; margin: 0 0 22px; }

@@ -792,3 +792,54 @@ Browser/native inspection was retried for this increment and timed out. No V3 de
 The V3 development server runs at **http://localhost:3000** from `kondwani-portfolio-v3` on `portfolio-v3`, using `npm.cmd run dev -- --webpack --hostname 127.0.0.1 --port 3000` and a 1,536 MiB old-space heap for route compilation. The production verification server is temporary and is stopped after checks. A local implementation commit follows baseline `75d10a5`; use `git log --oneline -2` to identify both checkpoints. No push, merge to main, deployment, live database migration or production policy change occurred.
 
 Manual review must cover the welcome workspace, research selection/history and keyboard navigation, mobile menu, resume opening/rapid zoom/closing, poster/photo zoom, music, puzzle/freeplay, Court Vision and private admin restrictions. Complete desktop/mobile visual refinement and device accessibility/performance acceptance once browser tools recover. Review development dependency advisories separately. Existing Studio activation, full recovery/staging acceptance and the legacy public `hoops_bucket` privacy follow-up remain deferred under their original approval requirements. V2 presentation, optional biological renderers and the archived development laboratory remain recoverable; they are not mounted as public entrances or linked in the new navigation.
+
+
+## V3 Extras and editorial refresh
+
+### Scope and implementation
+
+The owner requested a less repetitive site, simpler headings, more motion and one Extras destination closely informed by the reference’s Extra section. Work continues in the V3 worktree from checkpoint `5dda2a5`.
+
+Public navigation now has one Extras entry. The page contains Comic-Omics across the first row, compact Spotify history and personal interests on the next row, and illustrated launchers for Chess Corner and Court Vision. The five legacy channel links redirect to `#listening`, `#chess`, `#basketball`, `#comics` and `#interests`. The legacy private Court Vision administration route retains its existing implementation.
+
+Comic-Omics uses a rotating cover stack with eased independent transforms, arrow buttons, keyboard arrows, press/drag navigation and a velocity threshold for short flings. Hover, focus, active dragging, hidden tabs and leaving the viewport hold rotation. An explicit pause control is available. Reduced motion disables automatic rotation and transitions. Focus moves to the new front cover after cover-based navigation. Pointer cancellation restores the cover’s slot and vertical touch scrolling stays available.
+
+The owner supplied three reviews during implementation. Aliens: Labyrinth is rated 3/5, Marvel Zombies 5/5 and Thor: God of Thunder volumes 1 and 2 share a 5/5 review. Review text is retained verbatim, including the owner’s colloquial wording and spelling. Native spoiler disclosures pause rotation when opened. Four local collected-edition cover images replace the initial placeholders. Primary covers and the second Thor cover open through the existing image viewer. No reading dates were supplied.
+
+The homepage has one after-hours invitation with the actual comic covers. Repeated editorial slogans were removed from public headings and navigation. Of the 35 editorial fixture passages, 33 are unchanged and two generic homepage/footer passages were intentionally rewritten. The biography, research, images and professional records keep their original factual content.
+
+`PageMotion` adds short viewport entrances to public headings and selected collections. It keeps content visible before enhancement, observes each selected element once, cancels animations on navigation and preference changes, and leaves chess/game state independent. Game artwork, cover movement and hover responses share the existing palette.
+
+### Browser findings and fixes
+
+Native computer use recovered. Desktop Chrome inspection visited the reference’s About, Engineering, Film, Gallery and Extra sections, including an expanded engineering project and the moving poster stack. The local Extras page, cover changes, drag navigation, real Spotify artwork, mobile collections menu and narrow homepage were inspected. The restored narrow browser window measured 504 by 405 captured pixels. This is desktop responsive inspection. Real mobile-device and screen-reader acceptance remain outstanding.
+
+Rendered testing caught and corrected the compact music panel’s remote-image loading configuration. It now uses the existing Spotify artwork loading behavior. The summary avoids repeating the larger listening dashboard’s statistics.
+
+Activity windows exposed a duplicate fragment-event problem. Opening a fragment can emit both popstate and hashchange. The shared window now compares the actual URL with its opening URL before closing, and ignores stale close callbacks after unmount. Activity teardown also verifies the selected fragment before changing it. Escape returned from chess to the unified page. In Free Play, an entered `e2e4` was accepted and Stockfish replied `e6`. The attempted native drag did not establish move completion, so drag-based chess gameplay is not certified by this pass.
+
+Court Vision loaded the published Sunday Night Runs player, the truthful empty sessions state and existing personal basketball material. Visual inspection found its court illustration lacked styles after the old channel stylesheet was removed. The illustration styles now belong to `court-vision.css`, and that stylesheet is explicitly loaded by Extras. Window content scrolls independently, and repeated window introductions are hidden. Viewer icon rules are scoped to window controls so they do not restyle chess pieces or feature illustrations. Post-build desktop inspection confirmed the bounded court drawing, the published video frame and the functioning direct activity link. The actual comic covers, star ratings and expanded owner-written review were also visually confirmed in the built local preview.
+
+### Cover sources
+
+The four cover files total 194,389 bytes. They are public collected-edition artwork used alongside the owner’s commentary. Publisher ownership is retained. Reviews come from the owner. The image sources and bibliographic pages are recorded here for replacement or attribution maintenance.
+
+| Local file | ISBN | Image source | Book details |
+| --- | --- | --- | --- |
+| `public/comics/aliens-labyrinth.jpg` | 9781569711101 | [Open Library cover](https://covers.openlibrary.org/b/isbn/9781569711101-L.jpg) | [Open Library edition](https://openlibrary.org/isbn/9781569711101) |
+| `public/comics/marvel-zombies.jpg` | 9780785120148 | [Publisher cover](https://images.penguinrandomhouse.com/cover/9780785120148?width=400) | [Publisher catalog](https://prhcomics.com/book/?isbn=9780785120148) |
+| `public/comics/thor-god-of-thunder-vol-1.jpg` | 9780785166979 | [Publisher cover](https://images.penguinrandomhouse.com/cover/9780785166979?width=400) | [Publisher catalog](https://prhcomics.com/book/?isbn=9780785166979) |
+| `public/comics/thor-god-of-thunder-vol-2.jpg` | 9780785166986 | [Publisher cover](https://images.penguinrandomhouse.com/cover/9780785166986?width=400) | [Publisher catalog](https://prhcomics.com/book/?isbn=9780785166986) |
+
+The covers were visually inspected after download. Comic reviews currently live in `lib/comic-omics.ts`. Studio’s pending activation remains a separate requirement for database editing. Existing draft, publication, auth, media and migration services retain their established boundaries.
+
+
+### Final verification
+
+The final checks after adding the owner’s actual reviews pass. ESLint and TypeScript pass. All 101 tests pass, including local PostgreSQL policy/publication regressions and the new comic navigation, drag-threshold and review-data checks. The Webpack production build passes with all 36 static-generation entries completed. Editorial HTTP verification passes eight public destinations and all five legacy Extras redirects, with 35 content checks. All 20 public media files pass HEAD verification. Production laboratory URLs remain excluded, and the original résumé returns 200 with the expected PDF length.
+
+The final integration smoke passes. Spotify returns four available tracks and five coalesced concurrent responses. Both Stockfish assets return 200. Studio routes show the signed-out gate. Anonymous, forged-session, foreign-origin and protected media/upload requests retain their expected 401/403 boundaries. Unavailable published media fails closed with 503 and no redirect. Sign-out clears its secure cookie. Hosted owner mutations and database activation remain outside this visual increment’s verification.
+
+A restricted-process repeat failed to initialize PGlite under memory pressure. The workstation reported 488 MiB free physical memory at inspection. The verified old V3 listener was stopped, and the isolated owner-context rerun passed all 101 tests. An earlier development HTTP repeat timed out. The final production HTTP and integration runs pass. Test logs remain in ignored local staging.
+
+For this handoff, the built application is served locally at `http://localhost:3000` with `npm.cmd run start -- --hostname 127.0.0.1 --port 3000`, using a 512 MiB old-space heap. This keeps the local review independent of development compilation overhead. Source editing with hot reload uses the documented `npm.cmd run dev` command after stopping the preview listener. Cover assets and reviews are checked into the application source. Reading dates and additional personal recommendations await owner input. Real-device touch, screen-reader and measured performance acceptance remain outstanding.

@@ -15,8 +15,8 @@ export default function AboutPage() {
   return <main id="main-content" tabIndex={-1} className="about-page">
     <SiteNavigation />
     <header className="about-page-heading" data-living-destination="about">
-      <p className="section-label">The person behind the work</p>
-      <h1>A little context.<br /><em>A lot of curiosity.</em></h1>
+      <p className="section-label">About</p>
+      <h1>Hi, I’m Kondwani.</h1>
     </header>
     <div className="about-story-layout">
       <aside className="about-portrait-column">
@@ -42,7 +42,7 @@ export default function AboutPage() {
       </article>
     </div>
     <nav className="about-next-chapter" aria-label="Continue exploring">
-      <span className="section-label">A few other chapters</span>
+      <span className="section-label">Elsewhere</span>
       <Link href="/experience">Experience &amp; leadership <span aria-hidden="true">↗</span></Link>
       <Link href="/gallery">Photographs &amp; field notes <span aria-hidden="true">↗</span></Link>
       <Link href="/journal">The journal <span aria-hidden="true">↗</span></Link>

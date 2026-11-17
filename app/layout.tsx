@@ -1,6 +1,8 @@
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Suspense } from "react";
+import PageMotion from "./components/PageMotion";
 import "./globals.css";
 import "./foundations.css";
 import "./viewers.css";
@@ -29,6 +31,7 @@ export default function RootLayout({
       <body className="fieldwork">
         <a className="skip-link" href="#main-content">Skip to content</a>
         {children}
+        <Suspense fallback={null}><PageMotion /></Suspense>
       </body>
     </html>
   );

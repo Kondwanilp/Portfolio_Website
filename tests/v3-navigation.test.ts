@@ -5,7 +5,8 @@ import { researchFileFromHash,relatedResearchFiles,adjacentResearchFile,RESEARCH
 
 test("the workspace exposes unique real collections and keeps private/development routes out of navigation",()=>{
  const hrefs=publicCollections.map(item=>item.href);assert.equal(new Set(hrefs).size,hrefs.length);
- for(const path of ["/","/about","/research","/experience","/leadership","/gallery","/journal","/extras/listening","/extras/chess","/extras/basketball"]) assert.ok(hrefs.includes(path as typeof hrefs[number]));
+ for(const path of ["/","/about","/research","/experience","/leadership","/gallery","/journal","/extras"]) assert.ok(hrefs.includes(path as typeof hrefs[number]));
+ assert.equal(publicCollections.filter(item=>item.group==="off-duty").length,1);
  assert.ok(hrefs.every(href=>!href.startsWith("/studio")&&!href.startsWith("/motion-lab")&&!href.includes("#")));
  for(const collection of publicCollections)assert.equal(collectionForPath(collection.href).label,collection.label);
  assert.equal(collectionForPath("/journal/notes/a-real-note").label,"Journal");

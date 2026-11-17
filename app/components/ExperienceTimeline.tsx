@@ -5,7 +5,7 @@ export default function ExperienceTimeline() {
         <section id="experience" className="experience-section destination-timeline">
           <div className="section-topline">
             <p className="section-label">
-              02 / WHAT I&apos;VE BEEN WORKING ON
+              Experience
             </p>
 
             <span className="section-side-note">
@@ -15,9 +15,7 @@ export default function ExperienceTimeline() {
 
           <header className="experience-intro" data-living-destination="experience">
             <h1>
-              Experience shaped
-              <br />
-              by <em>curiosity.</em>
+              Experience.
             </h1>
 
             <p>

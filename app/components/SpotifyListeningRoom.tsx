@@ -24,7 +24,7 @@ type SpotifyResponse = {
   stale?: boolean;
 };
 
-export default function SpotifyListeningRoom() {
+export default function SpotifyListeningRoom({ compact = false }: { compact?: boolean }) {
   const [reload, setReload] = useState(0);
   const [stale, setStale] = useState(false);
   const [tracks, setTracks] = useState<SpotifyTrack[]>([]);
@@ -88,6 +88,24 @@ export default function SpotifyListeningRoom() {
   // The API returns tracks ranked from most played to least played.
   // The first track is therefore the Song of the Week.
   const songOfTheWeek = tracks.length > 0 ? tracks[0] : null;
+
+  if (compact) return <section className={styles.compactRoom} aria-labelledby="rotation-title">
+    <header className={styles.compactHeader}><h2 id="rotation-title">On repeat</h2><span>This week</span></header>
+    {loading && <Feedback kind="loading">Loading Spotify…</Feedback>}
+    {!loading && error && <Feedback kind="error" title="Spotify is taking a break." action={<button type="button" onClick={() => setReload(value => value + 1)}>Try again</button>}>{error}</Feedback>}
+    {!loading && !error && tracks.length === 0 && <p>No listening history yet.</p>}
+    {!loading && !error && tracks.length > 0 && <>
+      {stale && <p className={styles.compactNote}>Last available listening history.</p>}
+      <ol className={styles.compactTracks}>{tracks.map((track, index) => <li key={track.id}>
+        <a href={track.spotifyUrl ?? undefined} target={track.spotifyUrl ? "_blank" : undefined} rel="noopener noreferrer" aria-label={track.spotifyUrl ? `Listen to ${track.name} by ${track.artists.join(", ")} on Spotify` : undefined}>
+          <span className={styles.compactArtwork}>{track.albumArtwork ? <Image src={track.albumArtwork} alt="" width={56} height={56} unoptimized /> : <Icon name="music" />}</span>
+          <span className={styles.compactTrackInfo}>{index === 0 && <small>Song of the week</small>}<strong>{track.name}</strong><span>{track.artists.join(", ")}</span></span>
+          {track.spotifyUrl && <span aria-hidden="true">↗</span>}
+        </a>
+      </li>)}</ol>
+      <p className={styles.compactNote}>From my Spotify listening history.</p>
+    </>}
+  </section>;
 
   return (
     <section className={styles.listeningRoom}>

@@ -1,6 +1,6 @@
 {
   "app/page.tsx": [
-    "\n              A curious mind somewhere between the laboratory,\n              the chessboard, and whatever interesting thing\n              I happen to discover next.\n            ",
+    "Off the clock, I’m into comics, anime, chess, and basketball.",
     "\n                I&apos;m a scientist in training, a problem-solver\n                by nature, and a curious person by default.\n              ",
     "\n                I grew up in the Mtendere compound of Lusaka,\n                Zambia, in a large family of nine, and I&apos;m\n                currently a junior at Grambling State University,\n                studying Biology with a minor in Computer Science.\n              ",
     "\n                In tenth grade, I made a science project after\n                just learning about acids and bases. It was a\n                fire extinguisher that worked using discarded\n                eggshells and ordinary vinegar, and it won me\n                first place at a science fair. Since then,\n                I&apos;ve been excited about how &quot;small&quot;\n                things can make a big impact on people&apos;s\n                lives, and that&apos;s one of the reasons I\n                chose to study Biology.\n              ",
@@ -17,7 +17,7 @@
     "\n              Some of the communities I&apos;m part of, things I enjoy,\n              and little interests that keep me busy outside school\n              and research.\n            ",
     "\n                Studying positions, making questionable moves,\n                and occasionally convincing myself that I&apos;m\n                one tournament away from becoming a grandmaster.\n              ",
     "\n                Basketball, Scrabble, Wordle, puzzles, new places,\n                good conversations, and whatever else catches\n                my attention.\n              ",
-    "\n            Made with curiosity, a little coffee, and probably\n            too many browser tabs.\n          "
+    "Kondwani Phiri · Grambling, Louisiana"
   ],
   "app/research/page.tsx": [
     "\n          A closer look at the research projects I&apos;ve contributed\n          to, the questions behind them, the methods I&apos;ve learned,\n          and the people I&apos;ve had the opportunity to work with.\n        ",
@@ -25,7 +25,7 @@
     "\n              I work with TIB-73 mouse liver cell cultures, maintaining\n              and harvesting cells under sterile conditions. I have\n              also performed molecular biology procedures, including\n              SDS-PAGE and Western blotting, to examine inflammation-\n              related proteins.\n            ",
     "\n              Through this experience and my LS-LAMP research training,\n              I have developed practical experience in mammalian cell\n              culture, aseptic technique, cryopreservation, PCR,\n              protein analysis, and laboratory documentation.\n            ",
     "\n              This research investigates differences in physiological\n              stress and oxidative balance in tropical seabirds from\n              Culebra, Puerto Rico. The project examines three species:\n              Sooty terns, White-tailed tropicbirds, and Brown noddies.\n            ",
-    "\n              One part of the study compares samples collected during\n              the 2024 El Ni\u00f1o period with those collected in 2025\n              during La Ni\u00f1a conditions. The broader question is how\n              changing environmental conditions may be associated\n              with differences in seabird physiological health.\n            ",
+    "\n              One part of the study compares samples collected during\n              the 2024 El Niño period with those collected in 2025\n              during La Niña conditions. The broader question is how\n              changing environmental conditions may be associated\n              with differences in seabird physiological health.\n            ",
     "\n              My laboratory work has included processing feather\n              samples for corticosterone extraction and quantification,\n              as well as conducting assays on bird blood plasma to\n              investigate oxidative stress and antioxidant capacity.\n            ",
     "\n              I have also worked with ELISA, fluorescence plate-reader\n              measurements, TBARS assays, and data analysis using\n              Microsoft Excel and Python. These measurements provide\n              different perspectives on physiological stress,\n              oxidative damage, and antioxidant defenses.\n            ",
     "\n                A stress hormone measured in feathers to investigate\n                hormonal exposure during feather growth.\n              ",
@@ -34,7 +34,7 @@
     "\n                  Contrast in Condition and Stress of Tropical\n                  Seabirds During and After a Marine Heat Wave.\n                ",
     "\n              Exploring how quantum dots could help solar cells\n              capture more of the light around them.\n            ",
     "\n              Under Dr. Yang Haeyeon, I led a team of five in\n              evaluating the potential of quantum dots as wavelength\n              conversion materials for solar cells.\n            ",
-    "\n              Using existing quantum-dot wavelength data in Microsoft\n              Excel, I modeled how different quantum dots could\n              influence the wavelengths of light reaching a solar cell.\n              The analysis focused on cutting out wavelengths between\n              620\u2013800 nm and increasing the light available for\n              absorption in the 450\u2013500 nm range.\n            ",
+    "\n              Using existing quantum-dot wavelength data in Microsoft\n              Excel, I modeled how different quantum dots could\n              influence the wavelengths of light reaching a solar cell.\n              The analysis focused on cutting out wavelengths between\n              620–800 nm and increasing the light available for\n              absorption in the 450–500 nm range.\n            ",
     "\n              Through this process, we identified three quantum dots\n              that were theoretically suited to these goals and\n              developed a theoretical model suggesting a 2% improvement\n              in power generation.\n            ",
     "\n              This project gave me the opportunity to work with a team,\n              interpret scientific data, and explore how material\n              properties could be applied to an energy challenge.\n            "
   ]

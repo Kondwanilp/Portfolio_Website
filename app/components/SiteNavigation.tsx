@@ -11,7 +11,7 @@ import WorkspaceToolbar from "./WorkspaceToolbar";
 function SourceGroup({ group }: { group: CollectionGroup }) {
  const fallback = publicCollections.filter(collection => collection.group === group).map(collection => <Link key={collection.href} href={collection.href} className="v3-source-link"><WorkspaceIcon name={collection.icon} /><span>{collection.label}</span></Link>);
  return <section className="v3-source-group" aria-label={group === "workbench" ? "Workbench collections" : "Off-duty collections"}>
-  {group === "workbench" ? <p className="v3-source-heading">Workbench</p> : <Link className="v3-source-heading v3-source-heading-link" href="/extras">Off duty <span aria-hidden="true">&#8599;</span></Link>}
+  <p className="v3-source-heading">{group === "workbench" ? "Portfolio" : "After hours"}</p>
   <Suspense fallback={fallback}><NavigationLinks group={group} /></Suspense>
  </section>;
 }

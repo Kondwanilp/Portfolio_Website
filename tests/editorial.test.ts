@@ -25,7 +25,7 @@ test("translation starts at AUG, uses complementary antiparallel tRNAs, and term
   assert.equal(stop.aminoAcid, null);
 });
 
-test("the redesign preserves every substantive original homepage and research text passage", async () => {
+test("the redesign preserves factual content and the approved public copy revisions", async () => {
   const baseline = JSON.parse(await readFile(new URL("./fixtures/editorial-content.json", import.meta.url), "utf8")) as Record<string, string[]>;
   for (const [file, passages] of Object.entries(baseline)) {
     // The approved short cover moves content to real destinations; retain every fixture passage.
@@ -66,12 +66,13 @@ test("normal editorial text tokens meet 4.5 to 1 contrast on both paper surfaces
   }
 });
 
-test("Extras URL parameters and deferred channel modules retain server streaming boundaries", async () => {
+test("legacy Extras links retain server boundaries and open the unified page with deferred activities", async () => {
   const route = await readFile(new URL("../app/extras/[channel]/page.tsx", import.meta.url), "utf8");
   const view = await readFile(new URL("../app/extras/ExtrasView.tsx", import.meta.url), "utf8");
+  const activities = await readFile(new URL("../app/extras/ExtrasActivities.tsx", import.meta.url), "utf8");
   assert.match(route, /function ChannelContent[\s\S]*await params/);
   assert.match(route, /<Suspense[\s\S]*<ChannelContent params=\{params\}/);
-  for (const component of ["ChessCorner", "CourtVision", "PublishedCollection"]) {
-    assert.match(view, new RegExp(`<Suspense[^]*?<${component}[^]*?<\\/Suspense>`));
-  }
+  assert.match(route, /redirect\(`\/extras#/);
+  assert.match(view, /<Suspense[^]*?<PublishedCollection[^]*?<\/Suspense>/);
+  for (const component of ["ChessCorner", "CourtVision"]) assert.ok(activities.includes(`dynamic(() => import("./${component}")`));
 });

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Suspense } from "react";
 import PageMotion from "./components/PageMotion";
+import { LabJourneyProvider } from "./components/LabJourney";
 import "./globals.css";
 import "./foundations.css";
 import "./viewers.css";
@@ -30,8 +31,10 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth" className={`${editorial.variable} ${sans.variable} ${mono.variable} ${hand.variable}`}>
       <body className="fieldwork">
         <a className="skip-link" href="#main-content">Skip to content</a>
-        {children}
-        <Suspense fallback={null}><PageMotion /></Suspense>
+        <LabJourneyProvider>
+          {children}
+          <Suspense fallback={null}><PageMotion /></Suspense>
+        </LabJourneyProvider>
       </body>
     </html>
   );

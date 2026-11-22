@@ -10,6 +10,7 @@ import CVLinks from "./CVLinks";
 import NavigationLinks from "./NavigationLinks";
 import WorkspaceIcon from "./WorkspaceIcon";
 import WorkspaceToolbar from "./WorkspaceToolbar";
+import { LabReturnLink } from "./LabJourney";
 
 function SourceGroup({ group }: { group: CollectionGroup }) {
   const fallback = publicCollections
@@ -51,19 +52,19 @@ export default function SiteNavigation() {
   return (
     <>
       <aside className="v3-sidebar" aria-label="Fieldwork workspace">
-        <Link href="/" className="v3-workspace-brand">
+        <LabReturnLink href="/" className="v3-workspace-brand">
           <span className="v3-brand-mark" aria-hidden="true">
             <svg viewBox="0 0 32 32">
-              <path d="M8 23 16 9l8 14M8 23h16" />
-              <circle cx="16" cy="9" r="3" />
-              <circle cx="8" cy="23" r="3" />
-              <circle cx="24" cy="23" r="3" />
+              <circle cx="11" cy="17" r="6" />
+              <circle cx="22" cy="10" r="5" />
+              <circle cx="22" cy="23" r="5" />
+              <circle cx="11" cy="17" r="2" fill="#769c88" />
+              <circle cx="22" cy="10" r="1.6" fill="#769c88" />
+              <circle cx="22" cy="23" r="1.6" fill="#769c88" />
             </svg>
           </span>
-          <span>
-            Fieldwork<small>Kondwani Phiri</small>
-          </span>
-        </Link>
+          <span>Kondwani Levy Phiri</span>
+        </LabReturnLink>
         {menu}
         <div className="v3-sidebar-note">
           <span>Lusaka roots.</span>
@@ -74,9 +75,9 @@ export default function SiteNavigation() {
       <Suspense
         fallback={
           <header className="v3-toolbar">
-            <Link href="/" className="v3-toolbar-home">
+            <LabReturnLink href="/" className="v3-toolbar-home">
               Home
-            </Link>
+            </LabReturnLink>
             <span className="v3-toolbar-location" />
             <div className="v3-toolbar-actions">
               <CVLinks available={available} compact />

@@ -5,11 +5,11 @@ import { researchFileFromHash,relatedResearchFiles,adjacentResearchFile,RESEARCH
 
 test("the workspace exposes unique real collections and keeps private/development routes out of navigation",()=>{
  const hrefs=publicCollections.map(item=>item.href);assert.equal(new Set(hrefs).size,hrefs.length);
- for(const path of ["/","/about","/research","/leadership","/extras"]) assert.ok(hrefs.includes(path as typeof hrefs[number]));
+ for(const path of ["/","/about","/research","/experience","/leadership","/journal","/extras"]) assert.ok(hrefs.includes(path as typeof hrefs[number]));
  assert.equal(publicCollections.filter(item=>item.group==="off-duty").length,1);
  assert.ok(hrefs.every(href=>!href.startsWith("/studio")&&!href.startsWith("/motion-lab")&&!href.includes("#")));
  for(const collection of publicCollections)assert.equal(collectionForPath(collection.href).label,collection.label);
- for (const removed of ["/experience", "/gallery", "/journal"]) assert.ok(!hrefs.includes(removed as typeof hrefs[number]));
+ for (const removed of ["/gallery"]) assert.ok(!hrefs.includes(removed as typeof hrefs[number]));
  assert.equal(collectionForPath("/extras/wordplay").group,"off-duty");
 });
 test("research case hashes preserve selection across URL roundtrips and reject unknown file IDs",()=>{

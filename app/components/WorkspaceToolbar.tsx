@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { LabReturnLink } from "./LabJourney";
 import { type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { collectionForPath, publicCollections } from "@/lib/public-navigation";
@@ -9,13 +10,13 @@ export default function WorkspaceToolbar({ resume }: { resume: ReactNode }) {
   const collection = collectionForPath(pathname);
   return (
     <header className="v3-toolbar">
-      <Link
+      <LabReturnLink
         href="/"
         className="v3-toolbar-home"
         aria-current={pathname === "/" ? "page" : undefined}
       >
         Home
-      </Link>
+      </LabReturnLink>
       <div className="v3-toolbar-location" aria-label="Current section">
         {pathname !== "/" && (
           <>

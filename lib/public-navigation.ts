@@ -4,7 +4,9 @@ export const publicCollections = [
  { href: "/", label: "Home", title: "Kondwani Phiri", group: "workbench", icon: "welcome" },
  { href: "/about", label: "About", title: "About Kondwani", group: "workbench", icon: "profile" },
  { href: "/research", label: "Research", title: "Research", group: "workbench", icon: "research" },
+ { href: "/experience", label: "Experience", title: "Experience", group: "workbench", icon: "experience" },
  { href: "/leadership", label: "Leadership", title: "Leadership", group: "workbench", icon: "leadership" },
+ { href: "/journal", label: "Journal", title: "Journal", group: "workbench", icon: "journal" },
  { href: "/extras", label: "Extras", title: "Comics, music & the rest", group: "off-duty", icon: "collections" },
 ] as const;
 export const publicDestinations = publicCollections.map(collection => [collection.href, collection.label] as const);

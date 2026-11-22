@@ -9,6 +9,7 @@ import "./foundations.css";
 import "./viewers.css";
 import "./v3-shell.css";
 import "./v3.css";
+import "./lab-bench.css";
 
 const editorial = localFont({ src: [{ path: "./fonts/eb-garamond-normal-400-700.woff2", weight: "400 700", style: "normal" }, { path: "./fonts/eb-garamond-italic-400-700.woff2", weight: "400 700", style: "italic" }], variable: "--font-editorial-local", display: "swap" });
 const sans = localFont({ src: "./fonts/instrument-sans-normal-400-700.woff2", weight: "400 700", variable: "--font-sans-local", display: "swap" });

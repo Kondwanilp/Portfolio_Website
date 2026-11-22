@@ -1,3 +1,10 @@
+/* Respect the existing fixed V3 sidebar and toolbar. */
+.fieldwork .lab-home {
+  width:calc(100% - var(--v3-sidebar-width));
+  margin-left:var(--v3-sidebar-width);
+  padding-top:var(--v3-toolbar-height);
+  min-height:100svh;
+}
 /* Kondwani's World — warm, restrained illustrated lab, integrated with V3. */
 .kw-home {
   position:relative; isolation:isolate;
